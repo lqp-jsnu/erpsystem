@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.yctc.erpsystem.dao.ProductExpiryDateSetDAO">
+    <resultMap id="ProductExpiryDateSetDO" type="edu.yctc.erpsystem.entity.ProductExpiryDateSetDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="original_product_id" property="originalProductId"/>
+        <result column="expiry_date" property="expiryDate"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_product_expiry_date_set`
+    </select>
+
+    <select id="getExpiryDateSet" resultMap="ProductExpiryDateSetDO">
+        SELECT *
+        FROM `t_product_expiry_date_set`
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.ProductExpiryDateSetDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_product_expiry_date_set` (`id`, `original_product_id`, `expiry_date`, `create_time`, `update_time`, `remark`)
+        VALUES(#{id}, #{originalProductId}, #{expiryDate}, now(), now(), #{remark})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `t_product_expiry_date_set`
+        WHERE `id` = #{id};
+    </delete>
+
+    <update id="updateExpiryDateSet" parameterType="edu.yctc.erpsystem.entity.ProductExpiryDateSetDO">
+        UPDATE `t_product_expiry_date_set`
+        SET `original_product_id` = #{originalProductId}, `expiry_date` = #{expiryDate}, `remark` = #{remark}, `update_time` = now()
+        WHERE `id` = #{id};
+    </update>
+
+</mapper>

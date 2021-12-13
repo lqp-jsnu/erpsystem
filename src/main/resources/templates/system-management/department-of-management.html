@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>部门管理</title>
+    <!-- myFontIcon CSS-->
+    <link rel="stylesheet" href="../../static/css/myFontIcon.css" th:href="@{/css/myFontIcon.css}">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- Bootstrap-treeTable CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery.treegrid.min.css" th:href="@{/css/lib/jquery.treegrid.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <!-- treeview stylesheet-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-treeview.min.css" th:href="@{/css/lib/bootstrap-treeview.min.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+<body onload="init();">
+
+    <div class="panel-body" style="padding-bottom:0;">
+        <div id="toolbar" class="btn-group">
+            <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+            </button>
+        </div>
+        <table id="table"></table>
+    </div>
+
+    <!-- 模态框（Modal） 查看 -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="viewModalLabel">
+                        查看机构信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <caption>机构基本信息</caption>
+                        <tbody>
+                        <tr>
+                            <td>编号</td>
+                            <td id="view_id">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>机构名称</td>
+                            <td id="view_name">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>机构编码</td>
+                            <td id="view_code">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>顺序</td>
+                            <td id="view_seq">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>上级机构</td>
+                            <td id="view_sy_organization_id">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>机构图标</td>
+                            <td id="view_icons">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>机构地址</td>
+                            <td id="view_address">xxx</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 编辑 -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="editModalLabel">
+                        编辑机构信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" onsubmit="return false;">
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label" for="edit_id">编号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="edit_id" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label" for="edit_name">机构名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="edit_name" title="机构名称不能为空" onchange="checkInputChange('edit_name');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label" for="edit_code">机构编码</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="edit_code">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label" for="edit_seq">顺序</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="edit_seq">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label" for="edit_sy_organization_id">上级机构</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="edit_sy_organization_id" disabled>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-success view" data-toggle="modal" data-target="#organizationModal" onclick="syOrganizationIdButtonClick(0);">选择机构</button>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label" for="edit_icons">机构图标</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="edit_icons" disabled>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-success view" data-toggle="modal" data-target="#iconsModal">选择图标</button>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label" for="edit_address">机构地址</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="edit_address">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="edit();">修改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 新增 -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-center" id="addModalLabel">
+                        资源基本信息
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" onsubmit="return false;">
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_id">编号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input_id" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="input_name">机构名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input_name" title="机构名称不能为空" onchange="checkInputChange('input_name');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label" for="input_code">机构编码</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input_code">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_seq">顺序</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="input_seq">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_sy_organization">上级机构</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="input_sy_organization" disabled>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-success view" data-toggle="modal" data-target="#organizationModal" onclick="syOrganizationIdButtonClick(1);">选择机构</button>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_icons">机构图标</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="input_icons" disabled>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-success view" data-toggle="modal" data-target="#iconsModal">选择图标</button>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_address">机构地址</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input_address">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="add();">添加</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 机构选择 -->
+    <div class="modal fade" id="organizationModal" tabindex="-1" role="dialog" aria-labelledby="organizationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="organizationModalLabel">
+                        机构资源
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="treeViewScrollbar">
+                        <div id="treeView"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 图标选择 -->
+    <div class="modal fade" id="iconsModal" tabindex="-1" role="dialog" aria-labelledby="iconsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="iconsModalLabel">
+                        机构资源
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div style="height: 500px; overflow: hidden;">
+                        <iframe width="600px" height="500px" frameborder="no" src="../../static/icon/icon.html" th:src="@{/icon/icon.html}"></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- Bootstrap-treeTable js-->
+<script src="../../static/js/lib/bootstrap-table-treegrid.js" th:src="@{/js/lib/bootstrap-table-treegrid.js}"></script>
+<script src="../../static/js/lib/jquery.treegrid.min.js" th:src="@{/js/lib/jquery.treegrid.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- treeview js-->
+<script src="../../static/js/lib/bootstrap-treeview.min.js" th:src="@{/js/lib/bootstrap-treeview.min.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+<script>
+    let $table = $('#table');
+    $table.bootstrapTable({
+        toolbar: '#toolbar',
+        striped: true,
+        cache: false,
+        sortable: true,
+        sortOrder: "asc",
+        showColumns: true,
+        showRefresh: true,
+        minimumCountColumns: 2,
+        clickToSelect: true,
+        searchOnEnterKey: true,
+        strictSearch: false,
+        idField: 'id',
+        columns: [{
+            field: 'name',
+            title: '机构名称',
+            width: "250px",
+            formatter: iconFormatter
+        }, {
+            field: 'icons',
+            title: '图标名称',
+            width: "170px",
+            formatter:stringFormatter
+        }, {
+            field: 'code',
+            title: '机构编码',
+            width: "170px",
+            formatter: stringFormatter
+        },{
+            field: 'address',
+            title: '机构地址',
+            width: "170px",
+            formatter:stringFormatter
+        }, {
+            field: 'operation',
+            title: '操作',
+            width: "200px",
+            formatter: operateFormatter
+        }],
+        // bootstrap-table-treegrid.js 插件配置 -- start
+        treeShowField: 'name',
+        parentIdField: 'syOrganizationId',
+        onResetView: () => {
+            $table.treegrid({
+                initialState: 'expanded',
+                treeColumn: 0
+            });
+        }
+        // bootstrap-table-treetreegrid.js 插件配置 -- end
+    });
+
+    function iconFormatter(value, row) {
+        return [
+            '&nbsp;&nbsp;<i class="' + row.iconCls + '"></i>&nbsp;&nbsp;' +
+            value
+        ].join('');
+    }
+
+    function operateFormatter(value, row, index) {
+        return [
+            '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>&nbsp;&nbsp;' +
+            '<button class="btn btn-primary view" data-toggle="modal" data-target="#editModal" onclick="initEdit('+ index +');">编辑</button>&nbsp;&nbsp;' +
+            '<button class="btn btn-danger view" onclick="deleteOne('+ index +');">删除</button>'
+        ].join('');
+    }
+
+    // 修改提示框样式
+    changeToolTip();
+
+    // 目态狂初始化
+    dragTheModalDialog();
+
+    // 初始化表格信息
+    function init() {
+        noParameterPostRequest("/department-of-management/getAllOrganization", result => {
+            $table.bootstrapTable("load", result.module);
+        });
+    }
+
+</script>
+<script>
+    /** 页面逻辑 */
+    // 机构选择
+    let treeView = $('#treeView');
+    let $nameInput = $('#input_name');
+    let addOrganizationId = null;
+    let editOrganizationId = null;
+    // flag 1：添加 0：修改
+    function syOrganizationIdButtonClick(flag) {
+        noParameterPostRequest("/department-of-management/getTreeView", result => {
+            treeView.treeview({
+                data: result.module,
+                levels: 0,      // 设置初始化展开几级菜单 默认为2
+            }).on('nodeSelected', function(event, data) {
+                if (flag) {
+                    $("#input_sy_organization").val(data.text);
+                    addOrganizationId = data.id;
+                } else {
+                    $("#edit_sy_organization_id").val(data.text);
+                    editOrganizationId = data.id;
+                }
+                $('#organizationModal').modal('hide');
+            });
+        }, "GET");
+    }
+
+    // 图标选择
+    function chooseIcon(text) {
+        if ($('#addModal').hasClass('in')) {
+            $("#input_icons").val(text);
+        } else {
+            $("#edit_icons").val(text);
+        }
+
+        $('#iconsModal').modal('hide');
+    }
+</script>
+<script>
+    /** 功能 */
+    // 添加
+    function add() {
+        if ("" === $nameInput){
+            swal("操作提示", "请输入必输入项", "info");
+        } else {
+            let data = {
+                syOrganizationId: addOrganizationId,
+                address: $("#input_address").val(),
+                code: $("#input_code").val(),
+                icons: $("#input_icons").val(),
+                name: $nameInput.val(),
+                seq: $("#input_seq").val()
+            };
+            parameterPostRequest("/department-of-management/insert", data, () => {
+                $('#addModal').modal('hide');
+                swal("正确", "添加成功", "success");
+                init();
+            })
+        }
+    }
+
+    // 查看
+    function view(index) {
+        let rows = $table.bootstrapTable('getData');
+        let pIndex = rows.findIndex(item => item.id === rows[index].syOrganizationId);
+        $("#view_id").text(rows[index].id);
+        $("#view_name").text(rows[index].name);
+        $("#view_code").text(rows[index].code);
+        $("#view_sy_organization_id").text(-1 === pIndex ? "" : rows[pIndex].name);
+        $("#view_icons").html('&nbsp;&nbsp;<i class="' + rows[index].icons + '"></i>&nbsp;&nbsp;' + rows[index].icons);
+        $("#view_seq").text(rows[index].seq);
+        $("#view_address").text(rows[index].address);
+    }
+
+    // 编辑
+    let $edit_name = $("#edit_name");
+    function initEdit(index) {
+        let rows = $table.bootstrapTable('getData');
+        let pIndex = rows.findIndex(item => item.id === rows[index].syOrganizationId);
+        editOrganizationId = -1 === pIndex ? null : rows[pIndex].id;
+        $("#edit_id").val(rows[index].id);
+        $edit_name.val(rows[index].name);
+        $("#edit_code").val(rows[index].code);
+        $("#edit_seq").val(rows[index].seq);
+        $("#edit_sy_organization_id").val(-1 === pIndex ? "" : rows[pIndex].name);
+        $("#edit_icons").val(rows[index].icons);
+        $("#edit_address").val(rows[index].address);
+    }
+    function edit() {
+        if ("" === $edit_name.val()) {
+            swal("操作提示", "请输入必输入项", "info");
+        } else {
+            let data = {
+                id: $("#edit_id").val(),
+                name: $edit_name.val(),
+                code: $("#edit_code").val(),
+                seq: $("#edit_seq").val(),
+                syOrganizationId: editOrganizationId,
+                icons: $("#edit_icons").val(),
+                address: $("#edit_address").val()
+            };
+            parameterPostRequest("/department-of-management/updateOrganization", data, () => {
+                $('#editModal').modal('hide');
+                swal("正确", "编辑成功", "success");
+                parent.init();
+                init();
+            });
+        }
+    }
+
+    // 删除
+    function deleteOne(index) {
+        dialog("确定删除吗？", () => {
+            let data = { id: $table.bootstrapTable('getData')[index].id };
+            parameterPostRequest("/department-of-management/delete", data, () => {
+                swal("正确", "删除成功", "success");
+                parent.init();
+                init();
+            });
+        });
+    }
+</script>
+
+</body>
+</html>

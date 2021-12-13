@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.yctc.erpsystem.dao.TemplateDAO">
+    <resultMap id="TemplateDO" type="edu.yctc.erpsystem.entity.TemplateDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="dict_id" property="dictId"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="remark" property="remark"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_template`
+        <where>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="name != null"> AND `name` LIKE CONCAT('%', #{name ,jdbcType=VARCHAR}, '%') </if>
+        </where>
+    </select>
+
+    <select id="getTemplate" resultMap="TemplateDO">
+        SELECT *
+        FROM `t_template`
+        <where>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="name != null"> AND `name` LIKE CONCAT('%', #{name ,jdbcType=VARCHAR}, '%') </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.TemplateDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual;
+        </selectKey>
+        INSERT INTO `t_template` (`id`, `name`, `dict_id`, `url`, `remark`, `create_time`, `update_time`)
+        VALUES (#{id}, #{name}, #{dictId}, #{url}, #{remark}, now(), now())
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `t_template`
+        WHERE `id` = #{id};
+    </delete>
+
+    <update id="updateTemplate" parameterType="edu.yctc.erpsystem.entity.TemplateDO">
+        UPDATE `t_template`
+        SET `dict_id` = #{dictId}, `remark` = #{remark}, `update_time` = now()
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateUrl" parameterType="edu.yctc.erpsystem.entity.TemplateDO">
+        UPDATE `t_template`
+        SET `name` = #{name}, `url` = #{url}, `update_time` = now()
+        WHERE `id` = #{id};
+    </update>
+
+    <select id="getTemplateById" resultMap="TemplateDO">
+        SELECT *
+        FROM `t_template`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getTemplateByIds" resultMap="TemplateDO">
+        SELECT *
+        FROM `t_template`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

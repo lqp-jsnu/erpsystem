@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>用户登录历史监控</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <link href="../../static/css/file.css" rel="stylesheet" th:href="@{/css/file.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+<body onload="init();">
+<div class="panel-body" style="padding-bottom:0;">
+    <div class="panel panel-default">
+        <div class="panel-heading">查询条件</div>
+        <div class="panel-body">
+            <div class="form-group" style="margin-top:15px">
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_start_time">开始时间</label>
+                    <div class="col-sm-4">
+                        <input type="datetime-local" class="form-control" id="txt_search_start_time">
+                    </div>
+                    <label class="control-label col-sm-2 label-font" for="txt_search_end_time">结束时间</label>
+                    <div class="col-sm-4">
+                        <input type="datetime-local" class="form-control" id="txt_search_end_time">
+                    </div>
+                </div>
+                <br>
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_login_name">登录名</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_login_name">
+                    </div>
+
+                    <label class="control-label col-sm-2 label-font" for="txt_search_ip">IP地址</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_ip">
+                    </div>
+                </div>
+                <br>
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_type">类别</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="txt_search_type">
+                            <option value="--请选择--">--请选择--</option>
+                            <option value="1">登录系统</option>
+                            <option value="0">注销系统</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row row-gap">
+                    <div class="col-sm-offset-4" style="text-align:left;">
+                        <button type="button" style="margin-left:50px" id="btn_filter" class="btn btn-primary" onclick="filter();">过滤</button>
+                        <button type="button" style="margin-left:50px" id="btn_reset_filter" class="btn btn-primary" onclick="init();">重置过滤</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table id="table"></table>
+</div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+    // 服务器分页获取数据
+    function getServerPaging(node, url, queryParams) {
+        initTable(node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'loginName',
+            title: '登录名',
+            width: "170px",
+            formatter: stringFormatter
+        }, {
+            field: 'ip',
+            title: 'IP地址',
+            width: "170px",
+            formatter: stringFormatter
+        }, {
+            field: 'createTime',
+            title: '创建时间',
+            width: "154px",
+            formatter: dateFormatter
+        }, {
+            field: 'type',
+            title: '类别',
+            width: "80px",
+            align: "center",
+            formatter: value => null === value ? "" : "1" === value ? '<span title="登录系统" class="label label-success">登录系统</span>' : '<span title="注销系统" class="label label-default">注销系统</span>'
+        }]);
+    }
+
+    changeToolTip();
+
+    // 初始化数据信息
+    function init() {
+        getServerPaging($table, "/user-login-history-monitoring/getOnline", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+    }
+
+    // 过滤
+    function filter(){
+        let time = [$("#txt_search_start_time"), $("#txt_search_end_time")];
+        if ("" !== time[0][0].validationMessage || "" !== time[1][0].validationMessage) {
+            swal("操作提示", "请填写完整的时间", "info");
+            return;
+        }
+
+        let data = {
+            loginName : $("#txt_search_login_name").val(),
+            ip : $("#txt_search_ip").val(),
+            type : $("#txt_search_type").val(),
+            startTime: time[0].val(),
+            endTime: time[1].val()
+        };
+
+        if ("" === data["loginName"] && "" === data["ip"] && "--请选择--" === data["type"] && "" === data["startTime"] && "" === data["endTime"]) {
+            swal("操作提示", "请填写过滤参数", "info");
+            return;
+        }
+
+        getServerPaging($table, "/user-login-history-monitoring/getOnline", params => {
+            let result = { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC", loginName: data["loginName"],
+                ip: data["ip"], type: data["type"], startTime: data["startTime"], endTime: data["endTime"] };
+
+            removeEmptyField(result);
+            if ("--请选择--" === result["type"]) {
+                delete result["type"];
+            }
+
+            return result;
+        });
+
+    }
+</script>
+
+</body>
+
+</html>

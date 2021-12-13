@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.UserOrganizationDAO">
+    <resultMap id="UserOrganizationDO" type="edu.yctc.erpsystem.entity.UserOrganizationDO">
+        <result column="sy_user_id" property="syUserId"/>
+        <result column="sy_organization_id" property="syOrganizationId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="getOrganizationIdByUserId" resultMap="UserOrganizationDO">
+        SELECT *
+        FROM `sy_user_organization`
+        WHERE `sy_user_id` = #{syUserId}
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.UserOrganizationDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT IGNORE INTO `sy_user_organization` (`id`, `sy_user_id`, `sy_organization_id`, `create_time`, `update_time`)
+        VALUES (#{id}, #{syUserId}, #{syOrganizationId}, now(), now())
+    </insert>
+
+    <insert id="insertAll" parameterType="edu.yctc.erpsystem.entity.UserOrganizationDO">
+        INSERT IGNORE INTO `sy_user_organization` (`id`, `sy_user_id`, `sy_organization_id`, `create_time`, `update_time`)
+        VALUES
+        <foreach collection="userOrganizationDO" item="item"  separator=",">
+            ((SELECT replace(uuid(),'-','') FROM dual),
+            #{item.syUserId}, #{item.syOrganizationId}, now(), now())
+        </foreach>
+    </insert>
+
+    <delete id="deleteUserOrganizationByOrganizationId">
+        DELETE FROM `sy_user_organization`
+        WHERE `sy_organization_id` = #{syOrganizationId}
+    </delete>
+
+    <delete id="deleteUserOrganizationByUserId">
+        DELETE FROM `sy_user_organization`
+        WHERE `sy_user_id` = #{syUserId}
+    </delete>
+
+</mapper>

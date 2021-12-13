@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>原材料报废</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <!-- select2 CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/select2.min.css" th:href="@{/css/lib/select2.min.css}">
+    <link rel="stylesheet" href="../../static/css/lib/select2-bootstrap.min.css" th:href="@{/css/lib/select2-bootstrap.min.css}">
+    <link href="../../static/css/file.css" rel="stylesheet" th:href="@{/css/file.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+
+<body onload="init();">
+    <div class="panel-body" style="padding-bottom:0;">
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <div class="form-group" style="margin-top:15px">
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_code" title="供应商代号">供应商代号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_code">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_item_name" title="品名／磁棒／尺寸(材质)">品名／磁棒／尺寸(材质)</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_item_name">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_check_flag" title="审核状态">审核状态</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_search_check_flag">
+                                <option value="--请选择--">--请选择--</option>
+                                <option value="未审核">未审核</option>
+                                <option value="未通过">未通过</option>
+                                <option value="已通过">已通过</option>
+                            </select>
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_spec" title="规格/初R值/电阻线(线径)">规格/初R值/电阻线(线径)</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_spec">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_start_time" title="开始时间">开始时间</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_start_time">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_end_time" title="结束时间">结束时间</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_end_time">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <div class="col-sm-offset-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_filter" class="btn btn-primary" onclick="filter();">过滤</button>
+                            <button type="button" style="margin-left:50px" id="btn_reset_filter" class="btn btn-primary" onclick="init();">重置过滤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toolbar" class="btn-group">
+            <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增原材料报废
+            </button>
+            <button id="btn_export" type="button" class="btn btn-default" onclick="exportExcel();">
+                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>批量导出
+            </button>
+        </div>
+        <table id="table"></table>
+
+        <!-- 模态框（Modal） 查看 -->
+        <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="viewModalLabel">
+                            查看原材料报废信息
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <caption>原材料报废信息</caption>
+                            <tbody>
+                            <tr>
+                                <td>供应商编号</td>
+                                <td id="view_code">xxx</td>
+                            </tr>
+                            <tr>
+                                <td>品名／磁棒／尺寸(材质)</td>
+                                <td id="view_item_name">xxx</td>
+                            </tr>
+                            <tr>
+                                <td>规格/初R值/电阻线(线径)</td>
+                                <td id="view_spec">xxx</td>
+                            </tr>
+                            <tr>
+                                <td>报废数量</td>
+                                <td id="view_amount">xxx</td>
+                            </tr>
+                            <tr>
+                                <td>报废日期</td>
+                                <td id="view_date">xxx</td>
+                            </tr>
+                            <tr>
+                                <td>报废原因</td>
+                                <td id="view_reason">xxx</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+        <!-- 模态框（Modal） 编辑 -->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="editModalLabel">
+                            编辑原材料报废信息
+                        </h4>
+                        <h5 style="color: red">注意：修改报废信息，将不允许修改报废的原材料，如果要修改报废的原材料，您需要删除，重新进行新增</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group has-success">
+                                <label class="col-sm-4 control-label label-font" for="edit_code">供应商编号</label>
+                                <div class="col-sm-8">
+                                    <input disabled class="form-control" type="text" id="edit_code">
+                                </div>
+                            </div>
+                            <div class="form-group has-success">
+                                <label class="col-sm-4 control-label label-font" for="edit_item_name">品名／磁棒／尺寸(材质)</label>
+                                <div class="col-sm-8">
+                                    <input disabled class="form-control" type="text" id="edit_item_name">
+                                </div>
+                            </div>
+                            <div class="form-group has-success">
+                                <label class="col-sm-4 control-label label-font" for="edit_spec">规格/初R值/电阻线(线径)</label>
+                                <div class="col-sm-8">
+                                    <input disabled class="form-control" type="text" id="edit_spec">
+                                </div>
+                            </div>
+                            <div class="form-group has-success">
+                                <label class="col-sm-4 control-label label-font" for="edit_amount">报废数量</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="number" id="edit_amount" title="报废数量需为正数且不能大于库存数量" onchange="editDumpAmountInputChange();">
+                                </div>
+                            </div>
+                            <div class="form-group has-success">
+                                <label class="col-sm-4 control-label label-font" for="edit_date">报废日期</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="date" id="edit_date" onchange="checkInputChange('edit_date');">
+                                </div>
+                            </div>
+                            <div class="form-group has-success">
+                                <label class="col-sm-4 control-label label-font" for="edit_reason">报废原因</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" rows="6" id="edit_reason"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="edit();">修改</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+        <!-- 模态框（Modal） 审核 -->
+        <div class="modal fade" id="auditModal" tabindex="-1" role="dialog" aria-labelledby="auditModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="auditModalLabel">
+                            审核原材料报废信息
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group has-success">
+                                <label class="col-sm-2 control-label label-font" for="audit_check_flag">审核</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" data-style="btn-success" id="audit_check_flag">
+                                        <option value="未审核">未审核</option>
+                                        <option value="未通过">未通过</option>
+                                        <option value="已通过">已通过</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group has-success">
+                                <label class="col-sm-2 control-label label-font" for="audit_dump_reason">报废原因</label>
+                                <div class="col-sm-10">
+                                    <textarea disabled class="form-control" rows="6" id="audit_dump_reason"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="audit();">审核</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+        <!-- 模态框（Modal） 新增 -->
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="min-width: 800px">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-center" id="addModalLabel">
+                            原材料报废信息
+                        </h2>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" onsubmit="return false;">
+                            <div class="form-group has-error">
+                                <label class="col-sm-2 control-label label-font" for="code_select">供应商</label>
+                                <div class="col-sm-10">
+                                    <select class="js-data-example-ajax form-control" id="code_select" onchange="supCodeSelectChange();">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group has-error">
+                                <label class="col-sm-2 control-label label-font" for="material_select">报废原材料</label>
+                                <div class="col-sm-10">
+                                    <select class="js-data-example-ajax form-control" id="material_select" onchange="materialSelectChange();">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group has-error">
+                                <label class="col-sm-2 control-label label-font" for="input_amount">报废数量</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="input_amount" title="报废数量需为正数且不能大于库存数量" onchange="addDumpAmountInputChange();">
+                                </div>
+                            </div>
+                            <div class="form-group has-error">
+                                <label class="col-sm-2 control-label label-font" for="input_date">报废日期</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" id="input_date" onchange="checkInputChange('input_date');">
+                                </div>
+                            </div>
+                            <div class="form-group has-success">
+                                <label class="col-sm-2 control-label label-font" for="input_reason">报废原因</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="6" id="input_reason"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="add();">添加</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- select2.js -->
+<script src="../../static/js/lib/select2.min.js" th:src="@{/js/lib/select2.min.js}"></script>
+<script src="../../static/js/lib/Select2-zh-CN.js" th:src="@{/js/lib/Select2-zh-CN.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+    let $codeSelect = $("#code_select");
+    let $materialSelect = $("#material_select");
+    let $addAmountInput = $("#input_amount");
+    let $editAmountInput = $("#edit_amount");
+
+    // 服务器分页获取数据
+    function getServerPaging(node, url, queryParams) {
+        initTable(node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'code',
+            title: '供应商代号',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'name',
+            title: '供应商名称',
+            width: '250px',
+            formatter: stringFormatter
+        }, {
+            field: 'itemName',
+            title: '品名／磁棒／尺寸(材质)',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'spec',
+            title: '规格/初R值/电阻线(线径)',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'date',
+            title: '报废日期',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'amount',
+            title: '报废数量',
+            width: '72px',
+            formatter: stringFormatter
+        }, {
+            field: 'reason',
+            title: '报废原因',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'enter',
+            title: '录入者',
+            width: '100px',
+            formatter: stringFormatter
+        }, {
+            field: 'checker',
+            title: '审核者',
+            width: '100px',
+            formatter: stringFormatter
+        }, {
+            field: 'createTime',
+            title: '录入时间',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'operation',
+            title: '操作',
+            width: '274px',
+            formatter: operateFormatter // 自定义方法，添加操作按钮
+        }]);
+    }
+
+    function operateFormatter(value, row, index) {  // 赋予的参数
+        if ("已通过" === row.checkFlag) {
+            return [ '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>' ].join('');
+        } else {
+            return [
+                '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-primary view" data-toggle="modal" data-target="#editModal" onclick="initEdit('+ index +');">编辑</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-danger view" onclick="deleteOne('+ index +');">删除</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-warning view" data-toggle="modal" data-target="#auditModal" onclick="initAudit('+ index +');">审核</button>'
+            ].join('');
+        }
+    }
+
+    // 修改提示框样式
+    changeToolTip();
+
+    // 模态框初始化
+    dragTheModalDialog();
+
+    // 初始化下拉框
+    initSelect($codeSelect, "请输入供应商代号", supCodeFormatter, "/supplier-management/getSuppliers", 1000, params => {
+        return { offset: params.page ? 10 * (params.page - 1) : 0, limit: 10, code: params.term };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.code, name: item.name};
+    }), 10);
+    function supCodeFormatter(result) {
+        return '<span title="'+ result.name +'">' + result.text +'</span>';
+    }
+
+    initSelect($materialSelect, "请输入规格/初R值/电阻线(线径)", materialFormatter, "/material-inventory/getMaterialInventoryBySearchSuppId", 1000, params => {
+        return { supplierId: $codeSelect.select2('data')[0].id, spec: params.term, offset: params.page ? 10 * (params.page - 1) : 0, limit: 10 };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.spec, itemName: item.itemName, leftAmount: item.leftAmount,
+            orderNumber: item.orderNumber, houseName: item.houseName, inStorageDate: item.inStorageDate };
+    }), 10);
+    function materialFormatter(result) {
+        return '<span title="' + "库存数量：" + result.leftAmount + " | " + "采购单号：" + result.orderNumber + " | " + "存放仓库：" + result.houseName + " | " +
+            "入库日期：" + formatDateTime(result.inStorageDate) +'">' +  '<strong>' + result.text + '</strong>' + " | " + "品名／磁棒／尺寸(材质)：" + result.itemName + '</span>';
+    }
+    $materialSelect.prop("disabled", true);
+
+    // 初始化表格数据
+    function init() {
+        getServerPaging($table, "/scrap-of-raw-materials/getMaterialDump", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+    }
+</script>
+<script>
+    /** 页面逻辑 */
+    // 供应商下拉框改变(初始化原材料下拉框)
+    function supCodeSelectChange() {
+        setInputSuccess($codeSelect);
+        // 材料下拉框置空
+        $materialSelect.prop("disabled", false);
+        $materialSelect.val(null).trigger("change");
+    }
+    // 材料下拉框改变
+    function materialSelectChange() {
+        1 === $materialSelect.select2('data').length ? setInputSuccess($materialSelect) : setInputError($materialSelect);
+        // add报废数量输入框置空
+        setInputError($addAmountInput);
+        $addAmountInput.val("");
+    }
+    // add报废数量输入框改变
+    function addDumpAmountInputChange() {
+        if (0 === $materialSelect.select2('data').length) {
+            swal("操作提示", "请先输入报废原材料", "info");
+            $addAmountInput.val("");
+            return;
+        }
+        if ($addAmountInput.val() < 0) {
+            swal("操作提示", "报废数量需为正数", "info");
+            setInputError($addAmountInput);
+            return;
+        }
+        if (parseFloat($addAmountInput.val()) > parseFloat($materialSelect.select2('data')[0].leftAmount)) {
+            swal("操作提示", "报废数量需不能大于库存数量", "info");
+            setInputError($addAmountInput);
+            return;
+        }
+        "" === $addAmountInput.val() ? setInputError($addAmountInput) : setInputSuccess($addAmountInput);
+    }
+    // edit报废数量输入框改变
+    function editDumpAmountInputChange() {
+        if ($editAmountInput.val() < 0) {
+            swal("操作提示", "报废数量需为正数", "info");
+            setInputError($editAmountInput);
+            return;
+        }
+        if (parseFloat($editAmountInput.val()) > parseFloat(editLeftAmount)) {
+            swal("操作提示", "报废数量需不能大于库存数量", "info");
+            setInputError($editAmountInput);
+            return;
+        }
+        "" === $editAmountInput.val() ? setInputError($editAmountInput) : setInputSuccess($editAmountInput);
+    }
+</script>
+<script>
+    /** 功能 */
+    // 过滤
+    function filter() {
+        let time = [$("#txt_search_start_time"), $("#txt_search_end_time")];
+        if ("" !== time[0][0].validationMessage || "" !== time[1][0].validationMessage) {
+            swal("操作提示", "请填写完整的时间", "info");
+            return;
+        }
+
+        let data = { code: $("#txt_search_code").val(), itemName: $("#txt_search_item_name").val(), checkFlag: $("#txt_search_check_flag").val(),
+            spec: $("#txt_search_spec").val(), startTime: time[0].val(), endTime: time[1].val() };
+
+        if ("" === data["code"] && "" === data["itemName"] && "--请选择--" === data["checkFlag"] && "" === data["spec"]
+            && "" === data["startTime"] && "" === data["endTime"]) {
+            swal("操作提示", "请填写过滤参数", "info");
+            return;
+        }
+
+        getServerPaging($table, "/scrap-of-raw-materials/getMaterialDumpByConditions", params => {
+            let result = { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC", code: data["code"],
+                itemName: data["itemName"], checkFlag: data["checkFlag"], spec: data["spec"], startTime: data["startTime"], endTime: data["endTime"] };
+
+            removeEmptyField(result);
+            if ("--请选择--" === result["checkFlag"]) {
+                delete result["checkFlag"];
+            }
+
+            return result;
+        });
+    }
+
+    // 导出excel
+    function exportExcel() {
+        let selections = $table.bootstrapTable('getSelections');
+        if (selections.length === 0) {
+            swal("操作提示", "请选择记录", "info");
+        } else {
+            parameterPostRequest("/scrap-of-raw-materials/exportExcel", selections, () => loadFile("原材料报废信息.xlsx"));
+        }
+    }
+
+    // 添加原材料报废记录
+    function add() {
+        if (0 !== $codeSelect.select2('data').length && 0 !== $materialSelect.select2('data').length) {
+            let data = {
+                materialInventoryId: $materialSelect.select2('data')[0].id,
+                date: $("#input_date").val(),
+                amount: $("#input_amount").val(),
+                reason: $("#input_reason").val()
+            };
+            if (data.amount <= 0 || parseFloat(data.amount) > parseFloat($materialSelect.select2('data')[0].leftAmount) || "" === data.date) {
+                swal("操作提示", "请输入必输入项", "info");
+            } else {
+                parameterPostRequest("/scrap-of-raw-materials/insert", data, () => {
+                    $('#addModal').modal('hide');
+                    swal("正确", "添加成功", "success");
+                    init();
+                });
+            }
+        } else {
+            swal("操作提示", "请输入必输入项", "info");
+        }
+    }
+
+    // 查看
+    function view(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#view_code").text(rows[index].code);
+        $("#view_item_name").text(rows[index].itemName);
+        $("#view_spec").text(rows[index].spec);
+        $("#view_amount").text(rows[index].amount);
+        $("#view_date").text(formatDateTime(rows[index].date));
+        $("#view_reason").text(rows[index].reason);
+    }
+
+    // 编辑
+    // edit记录id
+    let editId;
+    // edit库存数量
+    let editLeftAmount;
+    function initEdit(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#edit_code").val(rows[index].code);
+        $("#edit_item_name").val(rows[index].itemName);
+        $("#edit_spec").val(rows[index].spec);
+        $("#edit_date").val(dateInputFormat(rows[index].date)).trigger("change");
+        $("#edit_amount").val(rows[index].amount).trigger("change");
+        $("#edit_reason").val(rows[index].reason);
+        editId = rows[index].id;
+        editLeftAmount = rows[index].leftAmount;
+    }
+    function edit() {
+        let data = {
+            id: editId,
+            date: $("#edit_date").val(),
+            amount: $("#edit_amount").val(),
+            reason: $("#edit_reason").val()
+        };
+        if (null === data.id || "" === data.date
+            || data.amount <= 0 || parseFloat(data.amount) > parseFloat(editLeftAmount)) {
+            swal("操作提示", "请输入必输入项", "info");
+        } else {
+            parameterPostRequest("/scrap-of-raw-materials/updateMaterialDump", data, () => {
+                $('#editModal').modal('hide');
+                swal("正确", "编辑成功", "success");
+                init();
+            });
+        }
+    }
+
+    // 删除
+    function deleteOne(index) {
+        dialog("确定删除吗？", () => {
+            let data = { "id": $table.bootstrapTable('getData')[index].id };
+            parameterPostRequest("/scrap-of-raw-materials/delete", data, () => {
+                swal("正确", "删除成功", "success");
+                init();
+            });
+        });
+    }
+
+    // 审核
+    // audit记录id
+    let auditId;
+    // materialInventoryId
+    let materialInventoryId;
+    function initAudit(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#audit_check_flag").val(rows[index].checkFlag);
+        $("#audit_dump_reason").val(rows[index].reason);
+        auditId = rows[index].id;
+        materialInventoryId = rows[index].materialInventoryId;
+    }
+    function audit() {
+        let data = {
+            id: auditId,
+            materialInventoryId: materialInventoryId,
+            checkFlag: $("#audit_check_flag").val()
+        };
+        parameterPostRequest("/scrap-of-raw-materials/updateCheckerById", data, () => {
+            $('#auditModal').modal('hide');
+            swal("正确", "审核成功", "success");
+            init();
+        });
+    }
+</script>
+
+</body>
+
+</html>

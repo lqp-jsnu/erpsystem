@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.MaterialExportDetailDAO">
+    <resultMap id="MaterialExportDetailDO" type="edu.yctc.erpsystem.entity.MaterialExportDetailDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="material_export_id" property="materialExportId"/>
+        <result column="material_inventory_id" property="materialInventoryId"/>
+        <result column="amount" property="amount"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_material_export_detail`
+        <where>
+            <if test="materialExportId != null"> AND `material_export_id` = #{materialExportId} </if>
+        </where>
+    </select>
+
+    <select id="getMaterialExportDetail" resultMap="MaterialExportDetailDO">
+        SELECT *
+        FROM `t_material_export_detail`
+        <where>
+            <if test="materialExportId != null"> AND `material_export_id` = #{materialExportId} </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.MaterialExportDetailDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_material_export_detail`(`id`, `material_export_id`, `material_inventory_id`, `amount`, `create_time`)
+        VALUES (#{id}, #{materialExportId}, #{materialInventoryId}, #{amount}, now())
+    </insert>
+
+    <insert id="insertAll" parameterType="edu.yctc.erpsystem.entity.MaterialExportDetailDO">
+        INSERT INTO `t_material_export_detail`(`id`, `material_export_id`, `material_inventory_id`, `amount`, `create_time`)
+        VALUES
+        <foreach collection="materialExportDetailDO" item="item"  separator=",">
+            ((SELECT replace(uuid(),'-','') FROM dual),
+            #{item.materialExportId}, #{item.materialInventoryId} #{item.amount}, now())
+        </foreach>
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `t_material_export_detail`
+        WHERE `id` = #{id};
+    </delete>
+
+    <delete id="deleteAll" parameterType="java.util.List">
+        DELETE FROM `t_material_export_detail`
+        WHERE `id` IN
+        <foreach collection="ids" item="item" index="index" open="(" close= ")"  separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="getMaterialExportDetailByMaterialExportId" resultMap="MaterialExportDetailDO">
+        SELECT *
+        FROM `t_material_export_detail`
+        WHERE `material_export_id` = #{materialExportId}
+    </select>
+
+    <select id="getMaterialExportDetailByMaterialExportIds" resultMap="MaterialExportDetailDO">
+        SELECT *
+        FROM `t_material_export_detail`
+        WHERE `material_export_id`
+        IN
+        <foreach collection="materialExportIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

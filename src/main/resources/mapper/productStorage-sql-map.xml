@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.ProductStorageDAO">
+    <resultMap id="ProductStorageDO" type="edu.yctc.erpsystem.entity.ProductStorageDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="manufacture_process_slave_id" property="manufactureProcessSlaveId"/>
+        <result column="warehouse_id" property="wareHouseId"/>
+        <result column="user" property="user"/>
+        <result column="checker" property="checker"/>
+        <result column="storage_amount" property="storageAmount"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="storage_date" property="storageDate"/>
+        <result column="product_quantity" property="productQuantity"/>
+        <result column="is_zero_product_storage" property="isZeroProductStorage"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_product_storage`
+        <where>
+            <if test="startTime != null"> AND `storage_date` >= #{startTime} </if>
+            <if test="endTime != null"> AND `storage_date` &lt;= #{endTime} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+            AND `check_flag` != "已通过"
+        </where>
+    </select>
+
+    <select id="getProductStorage" resultMap="ProductStorageDO">
+        SELECT *
+        FROM `t_product_storage`
+        <where>
+            <if test="startTime != null"> AND `storage_date` >= #{startTime} </if>
+            <if test="endTime != null"> AND `storage_date` &lt;= #{endTime} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+            AND `check_flag` != "已通过"
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countDetail" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_product_storage`
+        <where>
+            <if test="startTime != null"> AND `storage_date` >= #{startTime} </if>
+            <if test="endTime != null"> AND `storage_date` &lt;= #{endTime} </if>
+            AND `check_flag` = "已通过"
+        </where>
+    </select>
+
+    <select id="getProductStorageDetail" resultMap="ProductStorageDO">
+        SELECT *
+        FROM `t_product_storage`
+        <where>
+            <if test="startTime != null"> AND `storage_date` >= #{startTime} </if>
+            <if test="endTime != null"> AND `storage_date` &lt;= #{endTime} </if>
+            AND `check_flag` = "已通过"
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.ProductStorageDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO  `t_product_storage` (`id`, `manufacture_process_slave_id`, `storage_amount`, `warehouse_id`, `user`, `checker`, `check_flag`, `remark`, `storage_date`, `create_time`, `product_quantity`, `is_zero_product_storage`)
+        VALUES (#{id}, #{manufactureProcessSlaveId}, #{storageAmount}, #{wareHouseId}, #{user}, #{checker}, "未审核", #{remark}, #{storageDate}, now(), #{productQuantity}, #{isZeroProductStorage});
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `t_product_storage`
+        WHERE `id` = #{id};
+    </delete>
+
+    <update id="updateProductStorage" parameterType="edu.yctc.erpsystem.entity.ProductStorageDO">
+        UPDATE `t_product_storage`
+        SET `storage_date` = #{storageDate},
+            `remark`= #{remark},
+            `product_quantity` = #{productQuantity},
+            `storage_amount` = #{storageAmount},
+            `warehouse_id` = #{wareHouseId}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateStorageAmount" parameterType="edu.yctc.erpsystem.entity.ProductStorageDO">
+        UPDATE `t_product_storage`
+        SET `storage_amount` = #{storageAmount}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateCheckerById" parameterType="edu.yctc.erpsystem.entity.ProductStorageDO">
+        UPDATE `t_product_storage`
+        SET `checker` = #{checker},
+            `check_flag` = #{checkFlag},
+            `remark`= #{remark}
+        WHERE `id`= #{id};
+    </update>
+
+    <select id="getProductStorageById" resultMap="ProductStorageDO">
+        SELECT *
+        FROM `t_product_storage`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getProductStorageByIds" resultMap="ProductStorageDO">
+        SELECT *
+        FROM `t_product_storage`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

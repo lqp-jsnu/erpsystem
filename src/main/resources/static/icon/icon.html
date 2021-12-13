@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>图标</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- font CSS-->
+    <link rel="stylesheet" href="../css/myFontIcon.css" th:href="@{/css/myFontIcon.css}">
+</head>
+<body>
+    <table class="table" style="width: 580px">
+        <tbody>
+            <tr>
+                <td><span class="ext-icon-blue" onclick="parent.chooseIcon('ext-icon-blue')"></span></td>
+                <td><span class="ext-icon-green" onclick="parent.chooseIcon('ext-icon-green')"></span></td>
+                <td><span class="ext-icon-pink" onclick="parent.chooseIcon('ext-icon-pink')"></span></td>
+                <td><span class="ext-icon-red" onclick="parent.chooseIcon('ext-icon-red')"></span></td>
+                <td><span class="ext-icon-seagreen" onclick="parent.chooseIcon('ext-icon-seagreen')"></span></td>
+                <td><span class="ext-icon-violet" onclick="parent.chooseIcon('ext-icon-violet')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-anchor" onclick="parent.chooseIcon('ext-icon-anchor')"></span></td>
+                <td><span class="ext-icon-arrow-green" onclick="parent.chooseIcon('ext-icon-arrow-green')"></span></td>
+                <td><span class="ext-icon-asterisk-orange" onclick="parent.chooseIcon('ext-icon-asterisk-orange')"></span></td>
+                <td><span class="ext-icon-asterisk-yellow" onclick="parent.chooseIcon('ext-icon-asterisk-yellow')"></span></td>
+                <td><span class="ext-icon-attach" onclick="parent.chooseIcon('ext-icon-attach')"></span></td>
+                <td><span class="ext-icon-bell" onclick="parent.chooseIcon('ext-icon-bell')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-bell-add" onclick="parent.chooseIcon('ext-icon-bell-add')"></span></td>
+                <td><span class="ext-icon-bell-delete" onclick="parent.chooseIcon('ext-icon-bell-delete')"></span></td>
+                <td><span class="ext-icon-bell-error" onclick="parent.chooseIcon('ext-icon-bell-error')"></span></td>
+                <td><span class="ext-icon-bell-go" onclick="parent.chooseIcon('ext-icon-bell-go')"></span></td>
+                <td><span class="ext-icon-bell-link" onclick="parent.chooseIcon('ext-icon-bell-link')"></span></td>
+                <td><span class="ext-icon-bin" onclick="parent.chooseIcon('ext-icon-bin')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-bin-closed" onclick="parent.chooseIcon('ext-icon-bin-closed')"></span></td>
+                <td><span class="ext-icon-bin-empty" onclick="parent.chooseIcon('ext-icon-bin-empty')"></span></td>
+                <td><span class="ext-icon-bomb" onclick="parent.chooseIcon('ext-icon-bomb')"></span></td>
+                <td><span class="ext-icon-book" onclick="parent.chooseIcon('ext-icon-book')"></span></td>
+                <td><span class="ext-icon-book-add" onclick="parent.chooseIcon('ext-icon-book-add')"></span></td>
+                <td><span class="ext-icon-book-addresses" onclick="parent.chooseIcon('ext-icon-book-addresses')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-book-delete" onclick="parent.chooseIcon('ext-icon-book-delete')"></span></td>
+                <td><span class="ext-icon-book-edit" onclick="parent.chooseIcon('ext-icon-book-edit')"></span></td>
+                <td><span class="ext-icon-book-error" onclick="parent.chooseIcon('ext-icon-book-error')"></span></td>
+                <td><span class="ext-icon-book-go" onclick="parent.chooseIcon('ext-icon-book-go')"></span></td>
+                <td><span class="ext-icon-book-key" onclick="parent.chooseIcon('ext-icon-book-key')"></span></td>
+                <td><span class="ext-icon-book-link" onclick="parent.chooseIcon('ext-icon-book-link')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-book-next" onclick="parent.chooseIcon('ext-icon-book-next')"></span></td>
+                <td><span class="ext-icon-book-open" onclick="parent.chooseIcon('ext-icon-book-open')"></span></td>
+                <td><span class="ext-icon-book-previous" onclick="parent.chooseIcon('ext-icon-book-previous')"></span></td>
+                <td><span class="ext-icon-box" onclick="parent.chooseIcon('ext-icon-box')"></span></td>
+                <td><span class="ext-icon-brick" onclick="parent.chooseIcon('ext-icon-brick')"></span></td>
+                <td><span class="ext-icon-bricks" onclick="parent.chooseIcon('ext-icon-bricks')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-brick-add" onclick="parent.chooseIcon('ext-icon-brick-add')"></span></td>
+                <td><span class="ext-icon-brick-delete" onclick="parent.chooseIcon('ext-icon-brick-delete')"></span></td>
+                <td><span class="ext-icon-brick-edit" onclick="parent.chooseIcon('ext-icon-brick-edit')"></span></td>
+                <td><span class="ext-icon-brick-error" onclick="parent.chooseIcon('ext-icon-brick-error')"></span></td>
+                <td><span class="ext-icon-brick-go" onclick="parent.chooseIcon('ext-icon-brick-go')"></span></td>
+                <td><span class="ext-icon-brick-link" onclick="parent.chooseIcon('ext-icon-brick-link')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-briefcase" onclick="parent.chooseIcon('ext-icon-briefcase')"></span></td>
+                <td><span class="ext-icon-building" onclick="parent.chooseIcon('ext-icon-building')"></span></td>
+                <td><span class="ext-icon-building-add" onclick="parent.chooseIcon('ext-icon-building-add')"></span></td>
+                <td><span class="ext-icon-building-delete" onclick="parent.chooseIcon('ext-icon-building-delete')"></span></td>
+                <td><span class="ext-icon-building-edit" onclick="parent.chooseIcon('ext-icon-building-edit')"></span></td>
+                <td><span class="ext-icon-building-error" onclick="parent.chooseIcon('ext-icon-building-error')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-building-go" onclick="parent.chooseIcon('ext-icon-building-go')"></span></td>
+                <td><span class="ext-icon-building-key" onclick="parent.chooseIcon('ext-icon-building-key')"></span></td>
+                <td><span class="ext-icon-building-link" onclick="parent.chooseIcon('ext-icon-building-link')"></span></td>
+                <td><span class="ext-icon-bullet-add" onclick="parent.chooseIcon('ext-icon-bullet-add')"></span></td>
+                <td><span class="ext-icon-bullet-arrow-bottom" onclick="parent.chooseIcon('ext-icon-bullet-arrow-bottom')"></span></td>
+                <td><span class="ext-icon-bullet-arrow-down" onclick="parent.chooseIcon('ext-icon-bullet-arrow-down')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-bullet-arrow-top" onclick="parent.chooseIcon('ext-icon-bullet-arrow-top')"></span></td>
+                <td><span class="ext-icon-bullet-arrow-up" onclick="parent.chooseIcon('ext-icon-bullet-arrow-up')"></span></td>
+                <td><span class="ext-icon-bullet-black" onclick="parent.chooseIcon('ext-icon-bullet-black')"></span></td>
+                <td><span class="ext-icon-bullet-blue" onclick="parent.chooseIcon('ext-icon-bullet-blue')"></span></td>
+                <td><span class="ext-icon-bullet-delete" onclick="parent.chooseIcon('ext-icon-bullet-delete')"></span></td>
+                <td><span class="ext-icon-bullet-disk" onclick="parent.chooseIcon('ext-icon-bullet-disk')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-bullet-error" onclick="parent.chooseIcon('ext-icon-bullet-error')"></span></td>
+                <td><span class="ext-icon-bullet-feed" onclick="parent.chooseIcon('ext-icon-bullet-feed')"></span></td>
+                <td><span class="ext-icon-bullet-go" onclick="parent.chooseIcon('ext-icon-bullet-go')"></span></td>
+                <td><span class="ext-icon-bullet-green" onclick="parent.chooseIcon('ext-icon-bullet-green')"></span></td>
+                <td><span class="ext-icon-bullet-key" onclick="parent.chooseIcon('ext-icon-bullet-key')"></span></td>
+                <td><span class="ext-icon-bullet-orange" onclick="parent.chooseIcon('ext-icon-bullet-orange')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-bullet-picture" onclick="parent.chooseIcon('ext-icon-bullet-picture')"></span></td>
+                <td><span class="ext-icon-bullet-pink" onclick="parent.chooseIcon('ext-icon-bullet-pink')"></span></td>
+                <td><span class="ext-icon-bullet-purple" onclick="parent.chooseIcon('ext-icon-bullet-purple')"></span></td>
+                <td><span class="ext-icon-bullet-red" onclick="parent.chooseIcon('ext-icon-bullet-red')"></span></td>
+                <td><span class="ext-icon-bullet-star" onclick="parent.chooseIcon('ext-icon-bullet-star')"></span></td>
+                <td><span class="ext-icon-bullet-toggle-minus" onclick="parent.chooseIcon('ext-icon-bullet-toggle-minus')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-bullet-toggle-plus" onclick="parent.chooseIcon('ext-icon-bullet-toggle-plus')"></span></td>
+                <td><span class="ext-icon-bullet-white" onclick="parent.chooseIcon('ext-icon-bullet-white')"></span></td>
+                <td><span class="ext-icon-bullet-wrench" onclick="parent.chooseIcon('ext-icon-bullet-wrench')"></span></td>
+                <td><span class="ext-icon-bullet-yellow" onclick="parent.chooseIcon('ext-icon-bullet-yellow')"></span></td>
+                <td><span class="ext-icon-cake" onclick="parent.chooseIcon('ext-icon-cake')"></span></td>
+                <td><span class="ext-icon-cancel" onclick="parent.chooseIcon('ext-icon-cancel')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-clock" onclick="parent.chooseIcon('ext-icon-clock')"></span></td>
+                <td><span class="ext-icon-clock-add" onclick="parent.chooseIcon('ext-icon-clock-add')"></span></td>
+                <td><span class="ext-icon-clock-delete" onclick="parent.chooseIcon('ext-icon-clock-delete')"></span></td>
+                <td><span class="ext-icon-clock-edit" onclick="parent.chooseIcon('ext-icon-clock-edit')"></span></td>
+                <td><span class="ext-icon-clock-error" onclick="parent.chooseIcon('ext-icon-clock-error')"></span></td>
+                <td><span class="ext-icon-clock-go" onclick="parent.chooseIcon('ext-icon-clock-go')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-clock-link" onclick="parent.chooseIcon('ext-icon-clock-link')"></span></td>
+                <td><span class="ext-icon-clock-pause" onclick="parent.chooseIcon('ext-icon-clock-pause')"></span></td>
+                <td><span class="ext-icon-clock-play" onclick="parent.chooseIcon('ext-icon-clock-play')"></span></td>
+                <td><span class="ext-icon-clock-red" onclick="parent.chooseIcon('ext-icon-clock-red')"></span></td>
+                <td><span class="ext-icon-clock-stop" onclick="parent.chooseIcon('ext-icon-clock-stop')"></span></td>
+                <td><span class="ext-icon-cog" onclick="parent.chooseIcon('ext-icon-cog')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-cog-add" onclick="parent.chooseIcon('ext-icon-cog-add')"></span></td>
+                <td><span class="ext-icon-cog-delete" onclick="parent.chooseIcon('ext-icon-cog-delete')"></span></td>
+                <td><span class="ext-icon-cog-edit" onclick="parent.chooseIcon('ext-icon-cog-edit')"></span></td>
+                <td><span class="ext-icon-cog-error" onclick="parent.chooseIcon('ext-icon-cog-error')"></span></td>
+                <td><span class="ext-icon-cog-go" onclick="parent.chooseIcon('ext-icon-cog-go')"></span></td>
+                <td><span class="ext-icon-coins" onclick="parent.chooseIcon('ext-icon-coins')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-coins-add" onclick="parent.chooseIcon('ext-icon-coins-add')"></span></td>
+                <td><span class="ext-icon-coins-delete" onclick="parent.chooseIcon('ext-icon-coins-delete')"></span></td>
+                <td><span class="ext-icon-color-swatch" onclick="parent.chooseIcon('ext-icon-color-swatch')"></span></td>
+                <td><span class="ext-icon-color-wheel" onclick="parent.chooseIcon('ext-icon-color-wheel')"></span></td>
+                <td><span class="ext-icon-comment" onclick="parent.chooseIcon('ext-icon-comment')"></span></td>
+                <td><span class="ext-icon-comments" onclick="parent.chooseIcon('ext-icon-comments')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-comments-add" onclick="parent.chooseIcon('ext-icon-comments-add')"></span></td>
+                <td><span class="ext-icon-comments-delete" onclick="parent.chooseIcon('ext-icon-comments-delete')"></span></td>
+                <td><span class="ext-icon-comment-add" onclick="parent.chooseIcon('ext-icon-comment-add')"></span></td>
+                <td><span class="ext-icon-comment-delete" onclick="parent.chooseIcon('ext-icon-comment-delete')"></span></td>
+                <td><span class="ext-icon-comment-edit" onclick="parent.chooseIcon('ext-icon-comment-edit')"></span></td>
+                <td><span class="ext-icon-compress" onclick="parent.chooseIcon('ext-icon-compress')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-computer" onclick="parent.chooseIcon('ext-icon-computer')"></span></td>
+                <td><span class="ext-icon-computer-add" onclick="parent.chooseIcon('ext-icon-computer-add')"></span></td>
+                <td><span class="ext-icon-computer-delete" onclick="parent.chooseIcon('ext-icon-computer-delete')"></span></td>
+                <td><span class="ext-icon-computer-edit" onclick="parent.chooseIcon('ext-icon-computer-edit')"></span></td>
+                <td><span class="ext-icon-computer-error" onclick="parent.chooseIcon('ext-icon-computer-error')"></span></td>
+                <td><span class="ext-icon-computer-go" onclick="parent.chooseIcon('ext-icon-computer-go')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-computer-key" onclick="parent.chooseIcon('ext-icon-computer-key')"></span></td>
+                <td><span class="ext-icon-computer-link" onclick="parent.chooseIcon('ext-icon-computer-link')"></span></td>
+                <td><span class="ext-icon-connect" onclick="parent.chooseIcon('ext-icon-connect')"></span></td>
+                <td><span class="ext-icon-contrast" onclick="parent.chooseIcon('ext-icon-contrast')"></span></td>
+                <td><span class="ext-icon-contrast-decrease" onclick="parent.chooseIcon('ext-icon-contrast-decrease')"></span></td>
+                <td><span class="ext-icon-contrast-high" onclick="parent.chooseIcon('ext-icon-contrast-high')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-contrast-increase" onclick="parent.chooseIcon('ext-icon-contrast-increase')"></span></td>
+                <td><span class="ext-icon-contrast-low" onclick="parent.chooseIcon('ext-icon-contrast-low')"></span></td>
+                <td><span class="ext-icon-controller" onclick="parent.chooseIcon('ext-icon-controller')"></span></td>
+                <td><span class="ext-icon-controller-add" onclick="parent.chooseIcon('ext-icon-controller-add')"></span></td>
+                <td><span class="ext-icon-controller-delete" onclick="parent.chooseIcon('ext-icon-controller-delete')"></span></td>
+                <td><span class="ext-icon-controller-error" onclick="parent.chooseIcon('ext-icon-controller-error')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-creditcards" onclick="parent.chooseIcon('ext-icon-creditcards')"></span></td>
+                <td><span class="ext-icon-cup" onclick="parent.chooseIcon('ext-icon-cup')"></span></td>
+                <td><span class="ext-icon-cup-add" onclick="parent.chooseIcon('ext-icon-cup-add')"></span></td>
+                <td><span class="ext-icon-cup-delete" onclick="parent.chooseIcon('ext-icon-cup-delete')"></span></td>
+                <td><span class="ext-icon-cup-edit" onclick="parent.chooseIcon('ext-icon-cup-edit')"></span></td>
+                <td><span class="ext-icon-cup-error" onclick="parent.chooseIcon('ext-icon-cup-error')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-cup-go" onclick="parent.chooseIcon('ext-icon-cup-go')"></span></td>
+                <td><span class="ext-icon-cup-key" onclick="parent.chooseIcon('ext-icon-cup-key')"></span></td>
+                <td><span class="ext-icon-cup-link" onclick="parent.chooseIcon('ext-icon-cup-link')"></span></td>
+                <td><span class="ext-icon-cursor" onclick="parent.chooseIcon('ext-icon-cursor')"></span></td>
+                <td><span class="ext-icon-cut" onclick="parent.chooseIcon('ext-icon-cut')"></span></td>
+                <td><span class="ext-icon-cut-red" onclick="parent.chooseIcon('ext-icon-cut-red')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-database" onclick="parent.chooseIcon('ext-icon-database')"></span></td>
+                <td><span class="ext-icon-database-add" onclick="parent.chooseIcon('ext-icon-database-add')"></span></td>
+                <td><span class="ext-icon-database-connect" onclick="parent.chooseIcon('ext-icon-database-connect')"></span></td>
+                <td><span class="ext-icon-database-delete" onclick="parent.chooseIcon('ext-icon-database-delete')"></span></td>
+                <td><span class="ext-icon-database-edit" onclick="parent.chooseIcon('ext-icon-database-edit')"></span></td>
+                <td><span class="ext-icon-database-error" onclick="parent.chooseIcon('ext-icon-database-error')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-database-gear" onclick="parent.chooseIcon('ext-icon-database-gear')"></span></td>
+                <td><span class="ext-icon-database-go" onclick="parent.chooseIcon('ext-icon-database-go')"></span></td>
+                <td><span class="ext-icon-database-key" onclick="parent.chooseIcon('ext-icon-database-key')"></span></td>
+                <td><span class="ext-icon-database-lightning" onclick="parent.chooseIcon('ext-icon-database-lightning')"></span></td>
+                <td><span class="ext-icon-database-link" onclick="parent.chooseIcon('ext-icon-database-link')"></span></td>
+                <td><span class="ext-icon-database-refresh" onclick="parent.chooseIcon('ext-icon-database-refresh')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-database-save" onclick="parent.chooseIcon('ext-icon-database-save')"></span></td>
+                <td><span class="ext-icon-database-table" onclick="parent.chooseIcon('ext-icon-database-table')"></span></td>
+                <td><span class="ext-icon-delete" onclick="parent.chooseIcon('ext-icon-delete')"></span></td>
+                <td><span class="ext-icon-disconnect" onclick="parent.chooseIcon('ext-icon-disconnect')"></span></td>
+                <td><span class="ext-icon-disk" onclick="parent.chooseIcon('ext-icon-disk')"></span></td>
+                <td><span class="ext-icon-disk-multiple" onclick="parent.chooseIcon('ext-icon-disk-multiple')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-door" onclick="parent.chooseIcon('ext-icon-door')"></span></td>
+                <td><span class="ext-icon-door-in" onclick="parent.chooseIcon('ext-icon-door-in')"></span></td>
+                <td><span class="ext-icon-door-open" onclick="parent.chooseIcon('ext-icon-door-open')"></span></td>
+                <td><span class="ext-icon-door-out" onclick="parent.chooseIcon('ext-icon-door-out')"></span></td>
+                <td><span class="ext-icon-drink" onclick="parent.chooseIcon('ext-icon-drink')"></span></td>
+                <td><span class="ext-icon-drink-empty" onclick="parent.chooseIcon('ext-icon-drink-empty')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-dvd" onclick="parent.chooseIcon('ext-icon-dvd')"></span></td>
+                <td><span class="ext-icon-dvd-add" onclick="parent.chooseIcon('ext-icon-dvd-add')"></span></td>
+                <td><span class="ext-icon-dvd-delete" onclick="parent.chooseIcon('ext-icon-dvd-delete')"></span></td>
+                <td><span class="ext-icon-dvd-edit" onclick="parent.chooseIcon('ext-icon-dvd-edit')"></span></td>
+                <td><span class="ext-icon-dvd-error" onclick="parent.chooseIcon('ext-icon-dvd-error')"></span></td>
+                <td><span class="ext-icon-dvd-go" onclick="parent.chooseIcon('ext-icon-dvd-go')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-dvd-key" onclick="parent.chooseIcon('ext-icon-dvd-key')"></span></td>
+                <td><span class="ext-icon-dvd-link" onclick="parent.chooseIcon('ext-icon-dvd-link')"></span></td>
+                <td><span class="ext-icon-emoticon-evilgrin" onclick="parent.chooseIcon('ext-icon-emoticon-evilgrin')"></span></td>
+                <td><span class="ext-icon-emoticon-grin" onclick="parent.chooseIcon('ext-icon-emoticon-grin')"></span></td>
+                <td><span class="ext-icon-emoticon-happy" onclick="parent.chooseIcon('ext-icon-emoticon-happy')"></span></td>
+                <td><span class="ext-icon-emoticon-smile" onclick="parent.chooseIcon('ext-icon-emoticon-smile')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-emoticon-surprised" onclick="parent.chooseIcon('ext-icon-emoticon-surprised')"></span></td>
+                <td><span class="ext-icon-emoticon-tongue" onclick="parent.chooseIcon('ext-icon-emoticon-tongue')"></span></td>
+                <td><span class="ext-icon-emoticon-unhappy" onclick="parent.chooseIcon('ext-icon-emoticon-unhappy')"></span></td>
+                <td><span class="ext-icon-emoticon-waii" onclick="parent.chooseIcon('ext-icon-emoticon-waii')"></span></td>
+                <td><span class="ext-icon-emoticon-wink" onclick="parent.chooseIcon('ext-icon-emoticon-wink')"></span></td>
+                <td><span class="ext-icon-error" onclick="parent.chooseIcon('ext-icon-error')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-error-add" onclick="parent.chooseIcon('ext-icon-error-add')"></span></td>
+                <td><span class="ext-icon-error-delete" onclick="parent.chooseIcon('ext-icon-error-delete')"></span></td>
+                <td><span class="ext-icon-error-go" onclick="parent.chooseIcon('ext-icon-error-go')"></span></td>
+                <td><span class="ext-icon-exclamation" onclick="parent.chooseIcon('ext-icon-exclamation')"></span></td>
+                <td><span class="ext-icon-eye" onclick="parent.chooseIcon('ext-icon-eye')"></span></td>
+                <td><span class="ext-icon-female" onclick="parent.chooseIcon('ext-icon-female')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-find" onclick="parent.chooseIcon('ext-icon-find')"></span></td>
+                <td><span class="ext-icon-font" onclick="parent.chooseIcon('ext-icon-font')"></span></td>
+                <td><span class="ext-icon-font-add" onclick="parent.chooseIcon('ext-icon-font-add')"></span></td>
+                <td><span class="ext-icon-font-delete" onclick="parent.chooseIcon('ext-icon-font-delete')"></span></td>
+                <td><span class="ext-icon-font-go" onclick="parent.chooseIcon('ext-icon-font-go')"></span></td>
+                <td><span class="ext-icon-heart" onclick="parent.chooseIcon('ext-icon-heart')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-heart-add" onclick="parent.chooseIcon('ext-icon-heart-add')"></span></td>
+                <td><span class="ext-icon-heart-delete" onclick="parent.chooseIcon('ext-icon-heart-delete')"></span></td>
+                <td><span class="ext-icon-help" onclick="parent.chooseIcon('ext-icon-help')"></span></td>
+                <td><span class="ext-icon-hourglass" onclick="parent.chooseIcon('ext-icon-hourglass')"></span></td>
+                <td><span class="ext-icon-hourglass-add" onclick="parent.chooseIcon('ext-icon-hourglass-add')"></span></td>
+                <td><span class="ext-icon-hourglass-delete" onclick="parent.chooseIcon('ext-icon-hourglass-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-hourglass-go" onclick="parent.chooseIcon('ext-icon-hourglass-go')"></span></td>
+                <td><span class="ext-icon-hourglass-link" onclick="parent.chooseIcon('ext-icon-hourglass-link')"></span></td>
+                <td><span class="ext-icon-house" onclick="parent.chooseIcon('ext-icon-house')"></span></td>
+                <td><span class="ext-icon-house-go" onclick="parent.chooseIcon('ext-icon-house-go')"></span></td>
+                <td><span class="ext-icon-house-link" onclick="parent.chooseIcon('ext-icon-house-link')"></span></td>
+                <td><span class="ext-icon-html" onclick="parent.chooseIcon('ext-icon-html')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-html-add" onclick="parent.chooseIcon('ext-icon-html-add')"></span></td>
+                <td><span class="ext-icon-html-delete" onclick="parent.chooseIcon('ext-icon-html-delete')"></span></td>
+                <td><span class="ext-icon-html-go" onclick="parent.chooseIcon('ext-icon-html-go')"></span></td>
+                <td><span class="ext-icon-html-valid" onclick="parent.chooseIcon('ext-icon-html-valid')"></span></td>
+                <td><span class="ext-icon-image" onclick="parent.chooseIcon('ext-icon-image')"></span></td>
+                <td><span class="ext-icon-images" onclick="parent.chooseIcon('ext-icon-images')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-images-send" onclick="parent.chooseIcon('ext-icon-images-send')"></span></td>
+                <td><span class="ext-icon-image-add" onclick="parent.chooseIcon('ext-icon-image-add')"></span></td>
+                <td><span class="ext-icon-image-delete" onclick="parent.chooseIcon('ext-icon-image-delete')"></span></td>
+                <td><span class="ext-icon-image-edit" onclick="parent.chooseIcon('ext-icon-image-edit')"></span></td>
+                <td><span class="ext-icon-image-link" onclick="parent.chooseIcon('ext-icon-image-link')"></span></td>
+                <td><span class="ext-icon-information" onclick="parent.chooseIcon('ext-icon-information')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-joystick" onclick="parent.chooseIcon('ext-icon-joystick')"></span></td>
+                <td><span class="ext-icon-joystick-add" onclick="parent.chooseIcon('ext-icon-joystick-add')"></span></td>
+                <td><span class="ext-icon-joystick-delete" onclick="parent.chooseIcon('ext-icon-joystick-delete')"></span></td>
+                <td><span class="ext-icon-joystick-error" onclick="parent.chooseIcon('ext-icon-joystick-error')"></span></td>
+                <td><span class="ext-icon-key" onclick="parent.chooseIcon('ext-icon-key')"></span></td>
+                <td><span class="ext-icon-key-add" onclick="parent.chooseIcon('ext-icon-key-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-key-delete" onclick="parent.chooseIcon('ext-icon-key-delete')"></span></td>
+                <td><span class="ext-icon-key-go" onclick="parent.chooseIcon('ext-icon-key-go')"></span></td>
+                <td><span class="ext-icon-layers" onclick="parent.chooseIcon('ext-icon-layers')"></span></td>
+                <td><span class="ext-icon-lightbulb" onclick="parent.chooseIcon('ext-icon-lightbulb')"></span></td>
+                <td><span class="ext-icon-lightbulb-add" onclick="parent.chooseIcon('ext-icon-lightbulb-add')"></span></td>
+                <td><span class="ext-icon-lightbulb-delete" onclick="parent.chooseIcon('ext-icon-lightbulb-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-lightbulb-off" onclick="parent.chooseIcon('ext-icon-lightbulb-off')"></span></td>
+                <td><span class="ext-icon-lightning" onclick="parent.chooseIcon('ext-icon-lightning')"></span></td>
+                <td><span class="ext-icon-lightning-add" onclick="parent.chooseIcon('ext-icon-lightning-add')"></span></td>
+                <td><span class="ext-icon-lightning-delete" onclick="parent.chooseIcon('ext-icon-lightning-delete')"></span></td>
+                <td><span class="ext-icon-lightning-go" onclick="parent.chooseIcon('ext-icon-lightning-go')"></span></td>
+                <td><span class="ext-icon-link" onclick="parent.chooseIcon('ext-icon-link')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-link-add" onclick="parent.chooseIcon('ext-icon-link-add')"></span></td>
+                <td><span class="ext-icon-link-break" onclick="parent.chooseIcon('ext-icon-link-break')"></span></td>
+                <td><span class="ext-icon-link-delete" onclick="parent.chooseIcon('ext-icon-link-delete')"></span></td>
+                <td><span class="ext-icon-link-edit" onclick="parent.chooseIcon('ext-icon-link-edit')"></span></td>
+                <td><span class="ext-icon-link-error" onclick="parent.chooseIcon('ext-icon-link-error')"></span></td>
+                <td><span class="ext-icon-link-go" onclick="parent.chooseIcon('ext-icon-link-go')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-lorry" onclick="parent.chooseIcon('ext-icon-lorry')"></span></td>
+                <td><span class="ext-icon-lorry-add" onclick="parent.chooseIcon('ext-icon-lorry-add')"></span></td>
+                <td><span class="ext-icon-lorry-delete" onclick="parent.chooseIcon('ext-icon-lorry-delete')"></span></td>
+                <td><span class="ext-icon-lorry-error" onclick="parent.chooseIcon('ext-icon-lorry-error')"></span></td>
+                <td><span class="ext-icon-lorry-flatbed" onclick="parent.chooseIcon('ext-icon-lorry-flatbed')"></span></td>
+                <td><span class="ext-icon-lorry-go" onclick="parent.chooseIcon('ext-icon-lorry-go')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-lorry-link" onclick="parent.chooseIcon('ext-icon-lorry-link')"></span></td>
+                <td><span class="ext-icon-male" onclick="parent.chooseIcon('ext-icon-male')"></span></td>
+                <td><span class="ext-icon-medal-bronze-1" onclick="parent.chooseIcon('ext-icon-medal-bronze-1')"></span></td>
+                <td><span class="ext-icon-medal-bronze-2" onclick="parent.chooseIcon('ext-icon-medal-bronze-2')"></span></td>
+                <td><span class="ext-icon-medal-bronze-3" onclick="parent.chooseIcon('ext-icon-medal-bronze-3')"></span></td>
+                <td><span class="ext-icon-medal-bronze-add" onclick="parent.chooseIcon('ext-icon-medal-bronze-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-medal-bronze-delete" onclick="parent.chooseIcon('ext-icon-medal-bronze-delete')"></span></td>
+                <td><span class="ext-icon-medal-gold-1" onclick="parent.chooseIcon('ext-icon-medal-gold-1')"></span></td>
+                <td><span class="ext-icon-medal-gold-2" onclick="parent.chooseIcon('ext-icon-medal-gold-2')"></span></td>
+                <td><span class="ext-icon-medal-gold-3" onclick="parent.chooseIcon('ext-icon-medal-gold-3')"></span></td>
+                <td><span class="ext-icon-medal-gold-add" onclick="parent.chooseIcon('ext-icon-medal-gold-add')"></span></td>
+                <td><span class="ext-icon-medal-gold-delete" onclick="parent.chooseIcon('ext-icon-medal-gold-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-medal-silver-1" onclick="parent.chooseIcon('ext-icon-medal-silver-1')"></span></td>
+                <td><span class="ext-icon-medal-silver-2" onclick="parent.chooseIcon('ext-icon-medal-silver-2')"></span></td>
+                <td><span class="ext-icon-medal-silver-3" onclick="parent.chooseIcon('ext-icon-medal-silver-3')"></span></td>
+                <td><span class="ext-icon-medal-silver-add" onclick="parent.chooseIcon('ext-icon-medal-silver-add')"></span></td>
+                <td><span class="ext-icon-medal-silver-delete" onclick="parent.chooseIcon('ext-icon-medal-silver-delete')"></span></td>
+                <td><span class="ext-icon-money" onclick="parent.chooseIcon('ext-icon-money')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-money-add" onclick="parent.chooseIcon('ext-icon-money-add')"></span></td>
+                <td><span class="ext-icon-money-delete" onclick="parent.chooseIcon('ext-icon-money-delete')"></span></td>
+                <td><span class="ext-icon-money-dollar" onclick="parent.chooseIcon('ext-icon-money-dollar')"></span></td>
+                <td><span class="ext-icon-money-euro" onclick="parent.chooseIcon('ext-icon-money-euro')"></span></td>
+                <td><span class="ext-icon-money-pound" onclick="parent.chooseIcon('ext-icon-money-pound')"></span></td>
+                <td><span class="ext-icon-money-yen" onclick="parent.chooseIcon('ext-icon-money-yen')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-mouse" onclick="parent.chooseIcon('ext-icon-mouse')"></span></td>
+                <td><span class="ext-icon-mouse-add" onclick="parent.chooseIcon('ext-icon-mouse-add')"></span></td>
+                <td><span class="ext-icon-mouse-delete" onclick="parent.chooseIcon('ext-icon-mouse-delete')"></span></td>
+                <td><span class="ext-icon-mouse-error" onclick="parent.chooseIcon('ext-icon-mouse-error')"></span></td>
+                <td><span class="ext-icon-music" onclick="parent.chooseIcon('ext-icon-music')"></span></td>
+                <td><span class="ext-icon-new" onclick="parent.chooseIcon('ext-icon-new')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-package" onclick="parent.chooseIcon('ext-icon-package')"></span></td>
+                <td><span class="ext-icon-package-add" onclick="parent.chooseIcon('ext-icon-package-add')"></span></td>
+                <td><span class="ext-icon-package-delete" onclick="parent.chooseIcon('ext-icon-package-delete')"></span></td>
+                <td><span class="ext-icon-package-go" onclick="parent.chooseIcon('ext-icon-package-go')"></span></td>
+                <td><span class="ext-icon-package-green" onclick="parent.chooseIcon('ext-icon-package-green')"></span></td>
+                <td><span class="ext-icon-package-link" onclick="parent.chooseIcon('ext-icon-package-link')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-paintbrush" onclick="parent.chooseIcon('ext-icon-paintbrush')"></span></td>
+                <td><span class="ext-icon-paintcan" onclick="parent.chooseIcon('ext-icon-paintcan')"></span></td>
+                <td><span class="ext-icon-palette" onclick="parent.chooseIcon('ext-icon-palette')"></span></td>
+                <td><span class="ext-icon-pencil" onclick="parent.chooseIcon('ext-icon-pencil')"></span></td>
+                <td><span class="ext-icon-pencil-add" onclick="parent.chooseIcon('ext-icon-pencil-add')"></span></td>
+                <td><span class="ext-icon-pencil-delete" onclick="parent.chooseIcon('ext-icon-pencil-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-pencil-go" onclick="parent.chooseIcon('ext-icon-pencil-go')"></span></td>
+                <td><span class="ext-icon-phone" onclick="parent.chooseIcon('ext-icon-phone')"></span></td>
+                <td><span class="ext-icon-phone-add" onclick="parent.chooseIcon('ext-icon-phone-add')"></span></td>
+                <td><span class="ext-icon-phone-delete" onclick="parent.chooseIcon('ext-icon-phone-delete')"></span></td>
+                <td><span class="ext-icon-phone-sound" onclick="parent.chooseIcon('ext-icon-phone-sound')"></span></td>
+                <td><span class="ext-icon-pilcrow" onclick="parent.chooseIcon('ext-icon-pilcrow')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-pill" onclick="parent.chooseIcon('ext-icon-pill')"></span></td>
+                <td><span class="ext-icon-pill-add" onclick="parent.chooseIcon('ext-icon-pill-add')"></span></td>
+                <td><span class="ext-icon-pill-delete" onclick="parent.chooseIcon('ext-icon-pill-delete')"></span></td>
+                <td><span class="ext-icon-pill-go" onclick="parent.chooseIcon('ext-icon-pill-go')"></span></td>
+                <td><span class="ext-icon-plugin" onclick="parent.chooseIcon('ext-icon-plugin')"></span></td>
+                <td><span class="ext-icon-plugin-add" onclick="parent.chooseIcon('ext-icon-plugin-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-plugin-delete" onclick="parent.chooseIcon('ext-icon-plugin-delete')"></span></td>
+                <td><span class="ext-icon-plugin-disabled" onclick="parent.chooseIcon('ext-icon-plugin-disabled')"></span></td>
+                <td><span class="ext-icon-plugin-edit" onclick="parent.chooseIcon('ext-icon-plugin-edit')"></span></td>
+                <td><span class="ext-icon-plugin-error" onclick="parent.chooseIcon('ext-icon-plugin-error')"></span></td>
+                <td><span class="ext-icon-plugin-go" onclick="parent.chooseIcon('ext-icon-plugin-go')"></span></td>
+                <td><span class="ext-icon-plugin-link" onclick="parent.chooseIcon('ext-icon-plugin-link')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-rainbow" onclick="parent.chooseIcon('ext-icon-rainbow')"></span></td>
+                <td><span class="ext-icon-resultset-first" onclick="parent.chooseIcon('ext-icon-resultset-first')"></span></td>
+                <td><span class="ext-icon-resultset-last" onclick="parent.chooseIcon('ext-icon-resultset-last')"></span></td>
+                <td><span class="ext-icon-resultset-next" onclick="parent.chooseIcon('ext-icon-resultset-next')"></span></td>
+                <td><span class="ext-icon-resultset-previous" onclick="parent.chooseIcon('ext-icon-resultset-previous')"></span></td>
+                <td><span class="ext-icon-rosette" onclick="parent.chooseIcon('ext-icon-rosette')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-rss" onclick="parent.chooseIcon('ext-icon-rss')"></span></td>
+                <td><span class="ext-icon-rss-add" onclick="parent.chooseIcon('ext-icon-rss-add')"></span></td>
+                <td><span class="ext-icon-rss-delete" onclick="parent.chooseIcon('ext-icon-rss-delete')"></span></td>
+                <td><span class="ext-icon-rss-go" onclick="parent.chooseIcon('ext-icon-rss-go')"></span></td>
+                <td><span class="ext-icon-rss-valid" onclick="parent.chooseIcon('ext-icon-rss-valid')"></span></td>
+                <td><span class="ext-icon-ruby" onclick="parent.chooseIcon('ext-icon-ruby')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-ruby-add" onclick="parent.chooseIcon('ext-icon-ruby-add')"></span></td>
+                <td><span class="ext-icon-ruby-delete" onclick="parent.chooseIcon('ext-icon-ruby-delete')"></span></td>
+                <td><span class="ext-icon-ruby-gear" onclick="parent.chooseIcon('ext-icon-ruby-gear')"></span></td>
+                <td><span class="ext-icon-ruby-get" onclick="parent.chooseIcon('ext-icon-ruby-get')"></span></td>
+                <td><span class="ext-icon-ruby-go" onclick="parent.chooseIcon('ext-icon-ruby-go')"></span></td>
+                <td><span class="ext-icon-ruby-key" onclick="parent.chooseIcon('ext-icon-ruby-key')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-ruby-link" onclick="parent.chooseIcon('ext-icon-ruby-link')"></span></td>
+                <td><span class="ext-icon-ruby-put" onclick="parent.chooseIcon('ext-icon-ruby-put')"></span></td>
+                <td><span class="ext-icon-search" onclick="parent.chooseIcon('ext-icon-search')"></span></td>
+                <td><span class="ext-icon-server" onclick="parent.chooseIcon('ext-icon-server')"></span></td>
+                <td><span class="ext-icon-server-add" onclick="parent.chooseIcon('ext-icon-server-add')"></span></td>
+                <td><span class="ext-icon-server-chart" onclick="parent.chooseIcon('ext-icon-server-chart')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-server-compressed" onclick="parent.chooseIcon('ext-icon-server-compressed')"></span></td>
+                <td><span class="ext-icon-server-connect" onclick="parent.chooseIcon('ext-icon-server-connect')"></span></td>
+                <td><span class="ext-icon-server-database" onclick="parent.chooseIcon('ext-icon-server-database')"></span></td>
+                <td><span class="ext-icon-server-delete" onclick="parent.chooseIcon('ext-icon-server-delete')"></span></td>
+                <td><span class="ext-icon-server-edit" onclick="parent.chooseIcon('ext-icon-server-edit')"></span></td>
+                <td><span class="ext-icon-server-error" onclick="parent.chooseIcon('ext-icon-server-error')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-server-go" onclick="parent.chooseIcon('ext-icon-server-go')"></span></td>
+                <td><span class="ext-icon-server-key" onclick="parent.chooseIcon('ext-icon-server-key')"></span></td>
+                <td><span class="ext-icon-server-lightning" onclick="parent.chooseIcon('ext-icon-server-lightning')"></span></td>
+                <td><span class="ext-icon-server-link" onclick="parent.chooseIcon('ext-icon-server-link')"></span></td>
+                <td><span class="ext-icon-server-uncompressed" onclick="parent.chooseIcon('ext-icon-server-uncompressed')"></span></td>
+                <td><span class="ext-icon-shading" onclick="parent.chooseIcon('ext-icon-shading')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-shape-align-bottom" onclick="parent.chooseIcon('ext-icon-shape-align-bottom')"></span></td>
+                <td><span class="ext-icon-shape-align-center" onclick="parent.chooseIcon('ext-icon-shape-align-center')"></span></td>
+                <td><span class="ext-icon-shape-align-left" onclick="parent.chooseIcon('ext-icon-shape-align-left')"></span></td>
+                <td><span class="ext-icon-shape-align-middle" onclick="parent.chooseIcon('ext-icon-shape-align-middle')"></span></td>
+                <td><span class="ext-icon-shape-align-right" onclick="parent.chooseIcon('ext-icon-shape-align-right')"></span></td>
+                <td><span class="ext-icon-shape-align-top" onclick="parent.chooseIcon('ext-icon-shape-align-top')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-shape-flip-horizontal" onclick="parent.chooseIcon('ext-icon-shape-flip-horizontal')"></span></td>
+                <td><span class="ext-icon-shape-flip-vertical" onclick="parent.chooseIcon('ext-icon-shape-flip-vertical')"></span></td>
+                <td><span class="ext-icon-shape-group" onclick="parent.chooseIcon('ext-icon-shape-group')"></span></td>
+                <td><span class="ext-icon-shape-handles" onclick="parent.chooseIcon('ext-icon-shape-handles')"></span></td>
+                <td><span class="ext-icon-shape-move-back" onclick="parent.chooseIcon('ext-icon-shape-move-back')"></span></td>
+                <td><span class="ext-icon-shape-move-backwards" onclick="parent.chooseIcon('ext-icon-shape-move-backwards')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-shape-move-forwards" onclick="parent.chooseIcon('ext-icon-shape-move-forwards')"></span></td>
+                <td><span class="ext-icon-shape-move-front" onclick="parent.chooseIcon('ext-icon-shape-move-front')"></span></td>
+                <td><span class="ext-icon-shape-rotate-anticlockwise" onclick="parent.chooseIcon('ext-icon-shape-rotate-anticlockwise')"></span></td>
+                <td><span class="ext-icon-shape-rotate-clockwise" onclick="parent.chooseIcon('ext-icon-shape-rotate-clockwise')"></span></td>
+                <td><span class="ext-icon-shape-square" onclick="parent.chooseIcon('ext-icon-shape-square')"></span></td>
+                <td><span class="ext-icon-shape-square-add" onclick="parent.chooseIcon('ext-icon-shape-square-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-shape-square-delete" onclick="parent.chooseIcon('ext-icon-shape-square-delete')"></span></td>
+                <td><span class="ext-icon-shape-square-edit" onclick="parent.chooseIcon('ext-icon-shape-square-edit')"></span></td>
+                <td><span class="ext-icon-shape-square-error" onclick="parent.chooseIcon('ext-icon-shape-square-error')"></span></td>
+                <td><span class="ext-icon-shape-square-go" onclick="parent.chooseIcon('ext-icon-shape-square-go')"></span></td>
+                <td><span class="ext-icon-shape-square-key" onclick="parent.chooseIcon('ext-icon-shape-square-key')"></span></td>
+                <td><span class="ext-icon-shape-square-link" onclick="parent.chooseIcon('ext-icon-shape-square-link')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-shape-ungroup" onclick="parent.chooseIcon('ext-icon-shape-ungroup')"></span></td>
+                <td><span class="ext-icon-shield" onclick="parent.chooseIcon('ext-icon-shield')"></span></td>
+                <td><span class="ext-icon-shield-add" onclick="parent.chooseIcon('ext-icon-shield-add')"></span></td>
+                <td><span class="ext-icon-shield-delete" onclick="parent.chooseIcon('ext-icon-shield-delete')"></span></td>
+                <td><span class="ext-icon-shield-go" onclick="parent.chooseIcon('ext-icon-shield-go')"></span></td>
+                <td><span class="ext-icon-sitemap" onclick="parent.chooseIcon('ext-icon-sitemap')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-sitemap-color" onclick="parent.chooseIcon('ext-icon-sitemap-color')"></span></td>
+                <td><span class="ext-icon-sound" onclick="parent.chooseIcon('ext-icon-sound')"></span></td>
+                <td><span class="ext-icon-sound-add" onclick="parent.chooseIcon('ext-icon-sound-add')"></span></td>
+                <td><span class="ext-icon-sound-delete" onclick="parent.chooseIcon('ext-icon-sound-delete')"></span></td>
+                <td><span class="ext-icon-sound-low" onclick="parent.chooseIcon('ext-icon-sound-low')"></span></td>
+                <td><span class="ext-icon-sound-mute" onclick="parent.chooseIcon('ext-icon-sound-mute')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-sound-none" onclick="parent.chooseIcon('ext-icon-sound-none')"></span></td>
+                <td><span class="ext-icon-spellcheck" onclick="parent.chooseIcon('ext-icon-spellcheck')"></span></td>
+                <td><span class="ext-icon-sport-8ball" onclick="parent.chooseIcon('ext-icon-sport-8ball')"></span></td>
+                <td><span class="ext-icon-sport-basketball" onclick="parent.chooseIcon('ext-icon-sport-basketball')"></span></td>
+                <td><span class="ext-icon-sport-football" onclick="parent.chooseIcon('ext-icon-sport-football')"></span></td>
+                <td><span class="ext-icon-sport-golf" onclick="parent.chooseIcon('ext-icon-sport-golf')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-sport-raquet" onclick="parent.chooseIcon('ext-icon-sport-raquet')"></span></td>
+                <td><span class="ext-icon-sport-shuttlecock" onclick="parent.chooseIcon('ext-icon-sport-shuttlecock')"></span></td>
+                <td><span class="ext-icon-sport-soccer" onclick="parent.chooseIcon('ext-icon-sport-soccer')"></span></td>
+                <td><span class="ext-icon-sport-tennis" onclick="parent.chooseIcon('ext-icon-sport-tennis')"></span></td>
+                <td><span class="ext-icon-star" onclick="parent.chooseIcon('ext-icon-star')"></span></td>
+                <td><span class="ext-icon-status-away" onclick="parent.chooseIcon('ext-icon-status-away')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-status-busy" onclick="parent.chooseIcon('ext-icon-status-busy')"></span></td>
+                <td><span class="ext-icon-status-offline" onclick="parent.chooseIcon('ext-icon-status-offline')"></span></td>
+                <td><span class="ext-icon-status-online" onclick="parent.chooseIcon('ext-icon-status-online')"></span></td>
+                <td><span class="ext-icon-stop" onclick="parent.chooseIcon('ext-icon-stop')"></span></td>
+                <td><span class="ext-icon-style" onclick="parent.chooseIcon('ext-icon-style')"></span></td>
+                <td><span class="ext-icon-style-add" onclick="parent.chooseIcon('ext-icon-style-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-style-delete" onclick="parent.chooseIcon('ext-icon-style-delete')"></span></td>
+                <td><span class="ext-icon-style-edit" onclick="parent.chooseIcon('ext-icon-style-edit')"></span></td>
+                <td><span class="ext-icon-style-go" onclick="parent.chooseIcon('ext-icon-style-go')"></span></td>
+                <td><span class="ext-icon-sum" onclick="parent.chooseIcon('ext-icon-sum')"></span></td>
+                <td><span class="ext-icon-tab" onclick="parent.chooseIcon('ext-icon-tab')"></span></td>
+                <td><span class="ext-icon-tab-add" onclick="parent.chooseIcon('ext-icon-tab-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-tab-delete" onclick="parent.chooseIcon('ext-icon-tab-delete')"></span></td>
+                <td><span class="ext-icon-tab-edit" onclick="parent.chooseIcon('ext-icon-tab-edit')"></span></td>
+                <td><span class="ext-icon-tab-go" onclick="parent.chooseIcon('ext-icon-tab-go')"></span></td>
+                <td><span class="ext-icon-tag" onclick="parent.chooseIcon('ext-icon-tag')"></span></td>
+                <td><span class="ext-icon-telephone" onclick="parent.chooseIcon('ext-icon-telephone')"></span></td>
+                <td><span class="ext-icon-telephone-add" onclick="parent.chooseIcon('ext-icon-telephone-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-telephone-delete" onclick="parent.chooseIcon('ext-icon-telephone-delete')"></span></td>
+                <td><span class="ext-icon-telephone-edit" onclick="parent.chooseIcon('ext-icon-telephone-edit')"></span></td>
+                <td><span class="ext-icon-telephone-error" onclick="parent.chooseIcon('ext-icon-telephone-error')"></span></td>
+                <td><span class="ext-icon-telephone-go" onclick="parent.chooseIcon('ext-icon-telephone-go')"></span></td>
+                <td><span class="ext-icon-telephone-key" onclick="parent.chooseIcon('ext-icon-telephone-key')"></span></td>
+                <td><span class="ext-icon-telephone-link" onclick="parent.chooseIcon('ext-icon-telephone-link')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-textfield" onclick="parent.chooseIcon('ext-icon-textfield')"></span></td>
+                <td><span class="ext-icon-textfield-add" onclick="parent.chooseIcon('ext-icon-textfield-add')"></span></td>
+                <td><span class="ext-icon-textfield-delete" onclick="parent.chooseIcon('ext-icon-textfield-delete')"></span></td>
+                <td><span class="ext-icon-textfield-key" onclick="parent.chooseIcon('ext-icon-textfield-key')"></span></td>
+                <td><span class="ext-icon-textfield-rename" onclick="parent.chooseIcon('ext-icon-textfield-rename')"></span></td>
+                <td><span class="ext-icon-text-align-center" onclick="parent.chooseIcon('ext-icon-text-align-center')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-text-align-justify" onclick="parent.chooseIcon('ext-icon-text-align-justify')"></span></td>
+                <td><span class="ext-icon-text-align-left" onclick="parent.chooseIcon('ext-icon-text-align-left')"></span></td>
+                <td><span class="ext-icon-text-align-right" onclick="parent.chooseIcon('ext-icon-text-align-right')"></span></td>
+                <td><span class="ext-icon-text-allcaps" onclick="parent.chooseIcon('ext-icon-text-allcaps')"></span></td>
+                <td><span class="ext-icon-text-bold" onclick="parent.chooseIcon('ext-icon-text-bold')"></span></td>
+                <td><span class="ext-icon-text-columns" onclick="parent.chooseIcon('ext-icon-text-columns')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-text-dropcaps" onclick="parent.chooseIcon('ext-icon-text-dropcaps')"></span></td>
+                <td><span class="ext-icon-text-heading-1" onclick="parent.chooseIcon('ext-icon-text-heading-1')"></span></td>
+                <td><span class="ext-icon-text-heading-2" onclick="parent.chooseIcon('ext-icon-text-heading-2')"></span></td>
+                <td><span class="ext-icon-text-heading-3" onclick="parent.chooseIcon('ext-icon-text-heading-3')"></span></td>
+                <td><span class="ext-icon-text-heading-4" onclick="parent.chooseIcon('ext-icon-text-heading-4')"></span></td>
+                <td><span class="ext-icon-text-heading-5" onclick="parent.chooseIcon('ext-icon-text-heading-5')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-text-heading-6" onclick="parent.chooseIcon('ext-icon-text-heading-6')"></span></td>
+                <td><span class="ext-icon-text-horizontalrule" onclick="parent.chooseIcon('ext-icon-text-horizontalrule')"></span></td>
+                <td><span class="ext-icon-text-indent" onclick="parent.chooseIcon('ext-icon-text-indent')"></span></td>
+                <td><span class="ext-icon-text-indent-remove" onclick="parent.chooseIcon('ext-icon-text-indent-remove')"></span></td>
+                <td><span class="ext-icon-text-italic" onclick="parent.chooseIcon('ext-icon-text-italic')"></span></td>
+                <td><span class="ext-icon-text-kerning" onclick="parent.chooseIcon('ext-icon-text-kerning')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-text-letterspacing" onclick="parent.chooseIcon('ext-icon-text-letterspacing')"></span></td>
+                <td><span class="ext-icon-text-letter-omega" onclick="parent.chooseIcon('ext-icon-text-letter-omega')"></span></td>
+                <td><span class="ext-icon-text-linespacing" onclick="parent.chooseIcon('ext-icon-text-linespacing')"></span></td>
+                <td><span class="ext-icon-text-list-bullets" onclick="parent.chooseIcon('ext-icon-text-list-bullets')"></span></td>
+                <td><span class="ext-icon-text-list-numbers" onclick="parent.chooseIcon('ext-icon-text-list-numbers')"></span></td>
+                <td><span class="ext-icon-text-lowercase" onclick="parent.chooseIcon('ext-icon-text-lowercase')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-text-padding-bottom" onclick="parent.chooseIcon('ext-icon-text-padding-bottom')"></span></td>
+                <td><span class="ext-icon-text-padding-left" onclick="parent.chooseIcon('ext-icon-text-padding-left')"></span></td>
+                <td><span class="ext-icon-text-padding-right" onclick="parent.chooseIcon('ext-icon-text-padding-right')"></span></td>
+                <td><span class="ext-icon-text-padding-top" onclick="parent.chooseIcon('ext-icon-text-padding-top')"></span></td>
+                <td><span class="ext-icon-text-replace" onclick="parent.chooseIcon('ext-icon-text-replace')"></span></td>
+                <td><span class="ext-icon-text-signature" onclick="parent.chooseIcon('ext-icon-text-signature')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-text-smallcaps" onclick="parent.chooseIcon('ext-icon-text-smallcaps')"></span></td>
+                <td><span class="ext-icon-text-strikethrough" onclick="parent.chooseIcon('ext-icon-text-strikethrough')"></span></td>
+                <td><span class="ext-icon-text-subscript" onclick="parent.chooseIcon('ext-icon-text-subscript')"></span></td>
+                <td><span class="ext-icon-text-superscript" onclick="parent.chooseIcon('ext-icon-text-superscript')"></span></td>
+                <td><span class="ext-icon-text-underline" onclick="parent.chooseIcon('ext-icon-text-underline')"></span></td>
+                <td><span class="ext-icon-text-uppercase" onclick="parent.chooseIcon('ext-icon-text-uppercase')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-thumb-down" onclick="parent.chooseIcon('ext-icon-thumb-down')"></span></td>
+                <td><span class="ext-icon-thumb-up" onclick="parent.chooseIcon('ext-icon-thumb-up')"></span></td>
+                <td><span class="ext-icon-tick" onclick="parent.chooseIcon('ext-icon-tick')"></span></td>
+                <td><span class="ext-icon-time" onclick="parent.chooseIcon('ext-icon-time')"></span></td>
+                <td><span class="ext-icon-timeline-marker" onclick="parent.chooseIcon('ext-icon-timeline-marker')"></span></td>
+                <td><span class="ext-icon-time-add" onclick="parent.chooseIcon('ext-icon-time-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-time-delete" onclick="parent.chooseIcon('ext-icon-time-delete')"></span></td>
+                <td><span class="ext-icon-time-go" onclick="parent.chooseIcon('ext-icon-time-go')"></span></td>
+                <td><span class="ext-icon-transmit" onclick="parent.chooseIcon('ext-icon-transmit')"></span></td>
+                <td><span class="ext-icon-transmit-add" onclick="parent.chooseIcon('ext-icon-transmit-add')"></span></td>
+                <td><span class="ext-icon-transmit-blue" onclick="parent.chooseIcon('ext-icon-transmit-blue')"></span></td>
+                <td><span class="ext-icon-transmit-delete" onclick="parent.chooseIcon('ext-icon-transmit-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-transmit-edit" onclick="parent.chooseIcon('ext-icon-transmit-edit')"></span></td>
+                <td><span class="ext-icon-transmit-error" onclick="parent.chooseIcon('ext-icon-transmit-error')"></span></td>
+                <td><span class="ext-icon-transmit-go" onclick="parent.chooseIcon('ext-icon-transmit-go')"></span></td>
+                <td><span class="ext-icon-tux" onclick="parent.chooseIcon('ext-icon-tux')"></span></td>
+                <td><span class="ext-icon-vector" onclick="parent.chooseIcon('ext-icon-vector')"></span></td>
+                <td><span class="ext-icon-vector-add" onclick="parent.chooseIcon('ext-icon-vector-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-vector-delete" onclick="parent.chooseIcon('ext-icon-vector-delete')"></span></td>
+                <td><span class="ext-icon-wand" onclick="parent.chooseIcon('ext-icon-wand')"></span></td>
+                <td><span class="ext-icon-weather-clouds" onclick="parent.chooseIcon('ext-icon-weather-clouds')"></span></td>
+                <td><span class="ext-icon-weather-cloudy" onclick="parent.chooseIcon('ext-icon-weather-cloudy')"></span></td>
+                <td><span class="ext-icon-weather-lightning" onclick="parent.chooseIcon('ext-icon-weather-lightning')"></span></td>
+                <td><span class="ext-icon-weather-rain" onclick="parent.chooseIcon('ext-icon-weather-rain')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-weather-snow" onclick="parent.chooseIcon('ext-icon-weather-snow')"></span></td>
+                <td><span class="ext-icon-weather-sun" onclick="parent.chooseIcon('ext-icon-weather-sun')"></span></td>
+                <td><span class="ext-icon-webcam" onclick="parent.chooseIcon('ext-icon-webcam')"></span></td>
+                <td><span class="ext-icon-webcam-add" onclick="parent.chooseIcon('ext-icon-webcam-add')"></span></td>
+                <td><span class="ext-icon-webcam-delete" onclick="parent.chooseIcon('ext-icon-webcam-delete')"></span></td>
+                <td><span class="ext-icon-webcam-error" onclick="parent.chooseIcon('ext-icon-webcam-error')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-wrench" onclick="parent.chooseIcon('ext-icon-wrench')"></span></td>
+                <td><span class="ext-icon-wrench-orange" onclick="parent.chooseIcon('ext-icon-wrench-orange')"></span></td>
+                <td><span class="ext-icon-xhtml" onclick="parent.chooseIcon('ext-icon-xhtml')"></span></td>
+                <td><span class="ext-icon-xhtml-add" onclick="parent.chooseIcon('ext-icon-xhtml-add')"></span></td>
+                <td><span class="ext-icon-xhtml-delete" onclick="parent.chooseIcon('ext-icon-xhtml-delete')"></span></td>
+                <td><span class="ext-icon-xhtml-go" onclick="parent.chooseIcon('ext-icon-xhtml-go')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-xhtml-valid" onclick="parent.chooseIcon('ext-icon-xhtml-valid')"></span></td>
+                <td><span class="ext-icon-application" onclick="parent.chooseIcon('ext-icon-application')"></span></td>
+                <td><span class="ext-icon-application-add" onclick="parent.chooseIcon('ext-icon-application-add')"></span></td>
+                <td><span class="ext-icon-application-cascade" onclick="parent.chooseIcon('ext-icon-application-cascade')"></span></td>
+                <td><span class="ext-icon-application-delete" onclick="parent.chooseIcon('ext-icon-application-delete')"></span></td>
+                <td><span class="ext-icon-application-double" onclick="parent.chooseIcon('ext-icon-application-double')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-application-edit" onclick="parent.chooseIcon('ext-icon-application-edit')"></span></td>
+                <td><span class="ext-icon-application-error" onclick="parent.chooseIcon('ext-icon-application-error')"></span></td>
+                <td><span class="ext-icon-application-form" onclick="parent.chooseIcon('ext-icon-application-form')"></span></td>
+                <td><span class="ext-icon-application-form-add" onclick="parent.chooseIcon('ext-icon-application-form-add')"></span></td>
+                <td><span class="ext-icon-application-form-delete" onclick="parent.chooseIcon('ext-icon-application-form-delete')"></span></td>
+                <td><span class="ext-icon-application-form-edit" onclick="parent.chooseIcon('ext-icon-application-form-edit')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-application-form-magnify" onclick="parent.chooseIcon('ext-icon-application-form-magnify')"></span></td>
+                <td><span class="ext-icon-application-get" onclick="parent.chooseIcon('ext-icon-application-get')"></span></td>
+                <td><span class="ext-icon-application-go" onclick="parent.chooseIcon('ext-icon-application-go')"></span></td>
+                <td><span class="ext-icon-application-home" onclick="parent.chooseIcon('ext-icon-application-home')"></span></td>
+                <td><span class="ext-icon-application-key" onclick="parent.chooseIcon('ext-icon-application-key')"></span></td>
+                <td><span class="ext-icon-application-lightning" onclick="parent.chooseIcon('ext-icon-application-lightning')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-application-link" onclick="parent.chooseIcon('ext-icon-application-link')"></span></td>
+                <td><span class="ext-icon-application-osx" onclick="parent.chooseIcon('ext-icon-application-osx')"></span></td>
+                <td><span class="ext-icon-application-osx-terminal" onclick="parent.chooseIcon('ext-icon-application-osx-terminal')"></span></td>
+                <td><span class="ext-icon-application-put" onclick="parent.chooseIcon('ext-icon-application-put')"></span></td>
+                <td><span class="ext-icon-application-side-boxes" onclick="parent.chooseIcon('ext-icon-application-side-boxes')"></span></td>
+                <td><span class="ext-icon-application-side-contract" onclick="parent.chooseIcon('ext-icon-application-side-contract')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-application-side-expand" onclick="parent.chooseIcon('ext-icon-application-side-expand')"></span></td>
+                <td><span class="ext-icon-application-side-list" onclick="parent.chooseIcon('ext-icon-application-side-list')"></span></td>
+                <td><span class="ext-icon-application-side-tree" onclick="parent.chooseIcon('ext-icon-application-side-tree')"></span></td>
+                <td><span class="ext-icon-application-split" onclick="parent.chooseIcon('ext-icon-application-split')"></span></td>
+                <td><span class="ext-icon-application-tile-horizontal" onclick="parent.chooseIcon('ext-icon-application-tile-horizontal')"></span></td>
+                <td><span class="ext-icon-application-tile-vertical" onclick="parent.chooseIcon('ext-icon-application-tile-vertical')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-application-view-columns" onclick="parent.chooseIcon('ext-icon-application-view-columns')"></span></td>
+                <td><span class="ext-icon-application-view-detail" onclick="parent.chooseIcon('ext-icon-application-view-detail')"></span></td>
+                <td><span class="ext-icon-application-view-gallery" onclick="parent.chooseIcon('ext-icon-application-view-gallery')"></span></td>
+                <td><span class="ext-icon-application-view-icons" onclick="parent.chooseIcon('ext-icon-application-view-icons')"></span></td>
+                <td><span class="ext-icon-application-view-list" onclick="parent.chooseIcon('ext-icon-application-view-list')"></span></td>
+                <td><span class="ext-icon-application-view-tile" onclick="parent.chooseIcon('ext-icon-application-view-tile')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-application-xp" onclick="parent.chooseIcon('ext-icon-application-xp')"></span></td>
+                <td><span class="ext-icon-application-xp-terminal" onclick="parent.chooseIcon('ext-icon-application-xp-terminal')"></span></td>
+                <td><span class="ext-icon-accept" onclick="parent.chooseIcon('ext-icon-accept')"></span></td>
+                <td><span class="ext-icon-add" onclick="parent.chooseIcon('ext-icon-add')"></span></td>
+                <td><span class="ext-icon-arrow-branch" onclick="parent.chooseIcon('ext-icon-arrow-branch')"></span></td>
+                <td><span class="ext-icon-arrow-divide" onclick="parent.chooseIcon('ext-icon-arrow-divide')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-arrow-down" onclick="parent.chooseIcon('ext-icon-arrow-down')"></span></td>
+                <td><span class="ext-icon-arrow-in" onclick="parent.chooseIcon('ext-icon-arrow-in')"></span></td>
+                <td><span class="ext-icon-arrow-inout" onclick="parent.chooseIcon('ext-icon-arrow-inout')"></span></td>
+                <td><span class="ext-icon-arrow-join" onclick="parent.chooseIcon('ext-icon-arrow-join')"></span></td>
+                <td><span class="ext-icon-arrow-left" onclick="parent.chooseIcon('ext-icon-arrow-left')"></span></td>
+                <td><span class="ext-icon-arrow-right" onclick="parent.chooseIcon('ext-icon-arrow-right')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-arrow-merge" onclick="parent.chooseIcon('ext-icon-arrow-merge')"></span></td>
+                <td><span class="ext-icon-arrow-out" onclick="parent.chooseIcon('ext-icon-arrow-out')"></span></td>
+                <td><span class="ext-icon-arrow-redo" onclick="parent.chooseIcon('ext-icon-arrow-redo')"></span></td>
+                <td><span class="ext-icon-arrow-refresh" onclick="parent.chooseIcon('ext-icon-arrow-refresh')"></span></td>
+                <td><span class="ext-icon-arrow-refresh-small" onclick="parent.chooseIcon('ext-icon-arrow-refresh-small')"></span></td>
+                <td><span class="ext-icon-arrow-rotate-anticlockwise" onclick="parent.chooseIcon('ext-icon-arrow-rotate-anticlockwise')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-arrow-rotate-clockwise" onclick="parent.chooseIcon('ext-icon-arrow-rotate-clockwise')"></span></td>
+                <td><span class="ext-icon-arrow-switch" onclick="parent.chooseIcon('ext-icon-arrow-switch')"></span></td>
+                <td><span class="ext-icon-arrow-turn-left" onclick="parent.chooseIcon('ext-icon-arrow-turn-left')"></span></td>
+                <td><span class="ext-icon-arrow-turn-right" onclick="parent.chooseIcon('ext-icon-arrow-turn-right')"></span></td>
+                <td><span class="ext-icon-arrow-undo" onclick="parent.chooseIcon('ext-icon-arrow-undo')"></span></td>
+                <td><span class="ext-icon-arrow-up" onclick="parent.chooseIcon('ext-icon-arrow-up')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-cross" onclick="parent.chooseIcon('ext-icon-cross')"></span></td>
+                <td><span class="ext-icon-award-star-add" onclick="parent.chooseIcon('ext-icon-award-star-add')"></span></td>
+                <td><span class="ext-icon-award-star-bronze-1" onclick="parent.chooseIcon('ext-icon-award-star-bronze-1')"></span></td>
+                <td><span class="ext-icon-award-star-bronze-2" onclick="parent.chooseIcon('ext-icon-award-star-bronze-2')"></span></td>
+                <td><span class="ext-icon-award-star-bronze-3" onclick="parent.chooseIcon('ext-icon-award-star-bronze-3')"></span></td>
+                <td><span class="ext-icon-award-star-delete" onclick="parent.chooseIcon('ext-icon-award-star-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-award-star-gold-1" onclick="parent.chooseIcon('ext-icon-award-star-gold-1')"></span></td>
+                <td><span class="ext-icon-award-star-gold-2" onclick="parent.chooseIcon('ext-icon-award-star-gold-2')"></span></td>
+                <td><span class="ext-icon-award-star-gold-3" onclick="parent.chooseIcon('ext-icon-award-star-gold-3')"></span></td>
+                <td><span class="ext-icon-award-star-silver-1" onclick="parent.chooseIcon('ext-icon-award-star-silver-1')"></span></td>
+                <td><span class="ext-icon-award-star-silver-2" onclick="parent.chooseIcon('ext-icon-award-star-silver-2')"></span></td>
+                <td><span class="ext-icon-award-star-silver-3" onclick="parent.chooseIcon('ext-icon-award-star-silver-3')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-bug" onclick="parent.chooseIcon('ext-icon-bug')"></span></td>
+                <td><span class="ext-icon-bug-add" onclick="parent.chooseIcon('ext-icon-bug-add')"></span></td>
+                <td><span class="ext-icon-bug-delete" onclick="parent.chooseIcon('ext-icon-bug-delete')"></span></td>
+                <td><span class="ext-icon-bug-edit" onclick="parent.chooseIcon('ext-icon-bug-edit')"></span></td>
+                <td><span class="ext-icon-bug-error" onclick="parent.chooseIcon('ext-icon-bug-error')"></span></td>
+                <td><span class="ext-icon-bug-go" onclick="parent.chooseIcon('ext-icon-bug-go')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-bug-link" onclick="parent.chooseIcon('ext-icon-bug-link')"></span></td>
+                <td><span class="ext-icon-calculator" onclick="parent.chooseIcon('ext-icon-calculator')"></span></td>
+                <td><span class="ext-icon-calculator-add" onclick="parent.chooseIcon('ext-icon-calculator-add')"></span></td>
+                <td><span class="ext-icon-calculator-delete" onclick="parent.chooseIcon('ext-icon-calculator-delete')"></span></td>
+                <td><span class="ext-icon-calculator-edit" onclick="parent.chooseIcon('ext-icon-calculator-edit')"></span></td>
+                <td><span class="ext-icon-calculator-error" onclick="parent.chooseIcon('ext-icon-calculator-error')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-calculator-link" onclick="parent.chooseIcon('ext-icon-calculator-link')"></span></td>
+                <td><span class="ext-icon-calendar" onclick="parent.chooseIcon('ext-icon-calendar')"></span></td>
+                <td><span class="ext-icon-calendar-add" onclick="parent.chooseIcon('ext-icon-calendar-add')"></span></td>
+                <td><span class="ext-icon-calendar-delete" onclick="parent.chooseIcon('ext-icon-calendar-delete')"></span></td>
+                <td><span class="ext-icon-calendar-edit" onclick="parent.chooseIcon('ext-icon-calendar-edit')"></span></td>
+                <td><span class="ext-icon-calendar-link" onclick="parent.chooseIcon('ext-icon-calendar-link')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-calendar-view-day" onclick="parent.chooseIcon('ext-icon-calendar-view-day')"></span></td>
+                <td><span class="ext-icon-calendar-view-month" onclick="parent.chooseIcon('ext-icon-calendar-view-month')"></span></td>
+                <td><span class="ext-icon-calendar-view-week" onclick="parent.chooseIcon('ext-icon-calendar-view-week')"></span></td>
+                <td><span class="ext-icon-camera" onclick="parent.chooseIcon('ext-icon-camera')"></span></td>
+                <td><span class="ext-icon-camera-add" onclick="parent.chooseIcon('ext-icon-camera-add')"></span></td>
+                <td><span class="ext-icon-camera-delete" onclick="parent.chooseIcon('ext-icon-camera-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-camera-edit" onclick="parent.chooseIcon('ext-icon-camera-edit')"></span></td>
+                <td><span class="ext-icon-camera-error" onclick="parent.chooseIcon('ext-icon-camera-error')"></span></td>
+                <td><span class="ext-icon-camera-go" onclick="parent.chooseIcon('ext-icon-camera-go')"></span></td>
+                <td><span class="ext-icon-camera-link" onclick="parent.chooseIcon('ext-icon-camera-link')"></span></td>
+                <td><span class="ext-icon-camera-small" onclick="parent.chooseIcon('ext-icon-camera-small')"></span></td>
+                <td><span class="ext-icon-basket" onclick="parent.chooseIcon('ext-icon-basket')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-basket-add" onclick="parent.chooseIcon('ext-icon-basket-add')"></span></td>
+                <td><span class="ext-icon-basket-delete" onclick="parent.chooseIcon('ext-icon-basket-delete')"></span></td>
+                <td><span class="ext-icon-basket-edit" onclick="parent.chooseIcon('ext-icon-basket-edit')"></span></td>
+                <td><span class="ext-icon-basket-error" onclick="parent.chooseIcon('ext-icon-basket-error')"></span></td>
+                <td><span class="ext-icon-basket-go" onclick="parent.chooseIcon('ext-icon-basket-go')"></span></td>
+                <td><span class="ext-icon-basket-put" onclick="parent.chooseIcon('ext-icon-basket-put')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-basket-remove" onclick="parent.chooseIcon('ext-icon-basket-remove')"></span></td>
+                <td><span class="ext-icon-car" onclick="parent.chooseIcon('ext-icon-car')"></span></td>
+                <td><span class="ext-icon-cart" onclick="parent.chooseIcon('ext-icon-cart')"></span></td>
+                <td><span class="ext-icon-cart-add" onclick="parent.chooseIcon('ext-icon-cart-add')"></span></td>
+                <td><span class="ext-icon-cart-delete" onclick="parent.chooseIcon('ext-icon-cart-delete')"></span></td>
+                <td><span class="ext-icon-cart-edit" onclick="parent.chooseIcon('ext-icon-cart-edit')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-cart-error" onclick="parent.chooseIcon('ext-icon-cart-error')"></span></td>
+                <td><span class="ext-icon-cart-go" onclick="parent.chooseIcon('ext-icon-cart-go')"></span></td>
+                <td><span class="ext-icon-cart-put" onclick="parent.chooseIcon('ext-icon-cart-put')"></span></td>
+                <td><span class="ext-icon-cart-remove" onclick="parent.chooseIcon('ext-icon-cart-remove')"></span></td>
+                <td><span class="ext-icon-car-add" onclick="parent.chooseIcon('ext-icon-car-add')"></span></td>
+                <td><span class="ext-icon-car-delete" onclick="parent.chooseIcon('ext-icon-car-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-cd" onclick="parent.chooseIcon('ext-icon-cd')"></span></td>
+                <td><span class="ext-icon-cd-add" onclick="parent.chooseIcon('ext-icon-cd-add')"></span></td>
+                <td><span class="ext-icon-cd-burn" onclick="parent.chooseIcon('ext-icon-cd-burn')"></span></td>
+                <td><span class="ext-icon-cd-delete" onclick="parent.chooseIcon('ext-icon-cd-delete')"></span></td>
+                <td><span class="ext-icon-cd-edit" onclick="parent.chooseIcon('ext-icon-cd-edit')"></span></td>
+                <td><span class="ext-icon-cd-eject" onclick="parent.chooseIcon('ext-icon-cd-eject')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-cd-go" onclick="parent.chooseIcon('ext-icon-cd-go')"></span></td>
+                <td><span class="ext-icon-chart-bar" onclick="parent.chooseIcon('ext-icon-chart-bar')"></span></td>
+                <td><span class="ext-icon-chart-bar-add" onclick="parent.chooseIcon('ext-icon-chart-bar-add')"></span></td>
+                <td><span class="ext-icon-chart-bar-delete" onclick="parent.chooseIcon('ext-icon-chart-bar-delete')"></span></td>
+                <td><span class="ext-icon-chart-bar-edit" onclick="parent.chooseIcon('ext-icon-chart-bar-edit')"></span></td>
+                <td><span class="ext-icon-chart-bar-error" onclick="parent.chooseIcon('ext-icon-chart-bar-error')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-chart-bar-link" onclick="parent.chooseIcon('ext-icon-chart-bar-link')"></span></td>
+                <td><span class="ext-icon-chart-curve" onclick="parent.chooseIcon('ext-icon-chart-curve')"></span></td>
+                <td><span class="ext-icon-chart-curve-add" onclick="parent.chooseIcon('ext-icon-chart-curve-add')"></span></td>
+                <td><span class="ext-icon-chart-curve-delete" onclick="parent.chooseIcon('ext-icon-chart-curve-delete')"></span></td>
+                <td><span class="ext-icon-chart-curve-edit" onclick="parent.chooseIcon('ext-icon-chart-curve-edit')"></span></td>
+                <td><span class="ext-icon-chart-curve-error" onclick="parent.chooseIcon('ext-icon-chart-curve-error')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-chart-curve-go" onclick="parent.chooseIcon('ext-icon-chart-curve-go')"></span></td>
+                <td><span class="ext-icon-chart-curve-link" onclick="parent.chooseIcon('ext-icon-chart-curve-link')"></span></td>
+                <td><span class="ext-icon-chart-line" onclick="parent.chooseIcon('ext-icon-chart-line')"></span></td>
+                <td><span class="ext-icon-chart-line-add" onclick="parent.chooseIcon('ext-icon-chart-line-add')"></span></td>
+                <td><span class="ext-icon-chart-line-delete" onclick="parent.chooseIcon('ext-icon-chart-line-delete')"></span></td>
+                <td><span class="ext-icon-chart-line-edit" onclick="parent.chooseIcon('ext-icon-chart-line-edit')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-chart-line-error" onclick="parent.chooseIcon('ext-icon-chart-line-error')"></span></td>
+                <td><span class="ext-icon-chart-line-link" onclick="parent.chooseIcon('ext-icon-chart-line-link')"></span></td>
+                <td><span class="ext-icon-chart-organisation" onclick="parent.chooseIcon('ext-icon-chart-organisation')"></span></td>
+                <td><span class="ext-icon-chart-organisation-add" onclick="parent.chooseIcon('ext-icon-chart-organisation-add')"></span></td>
+                <td><span class="ext-icon-chart-organisation-delete" onclick="parent.chooseIcon('ext-icon-chart-organisation-delete')"></span></td>
+                <td><span class="ext-icon-chart-pie" onclick="parent.chooseIcon('ext-icon-chart-pie')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-chart-pie-add" onclick="parent.chooseIcon('ext-icon-chart-pie-add')"></span></td>
+                <td><span class="ext-icon-chart-pie-delete" onclick="parent.chooseIcon('ext-icon-chart-pie-delete')"></span></td>
+                <td><span class="ext-icon-chart-pie-edit" onclick="parent.chooseIcon('ext-icon-chart-pie-edit')"></span></td>
+                <td><span class="ext-icon-chart-pie-error" onclick="parent.chooseIcon('ext-icon-chart-pie-error')"></span></td>
+                <td><span class="ext-icon-chart-pie-link" onclick="parent.chooseIcon('ext-icon-chart-pie-link')"></span></td>
+                <td><span class="ext-icon-control-eject" onclick="parent.chooseIcon('ext-icon-control-eject')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-control-eject-blue" onclick="parent.chooseIcon('ext-icon-control-eject-blue')"></span></td>
+                <td><span class="ext-icon-control-end" onclick="parent.chooseIcon('ext-icon-control-end')"></span></td>
+                <td><span class="ext-icon-control-end-blue" onclick="parent.chooseIcon('ext-icon-control-end-blue')"></span></td>
+                <td><span class="ext-icon-control-equalizer" onclick="parent.chooseIcon('ext-icon-control-equalizer')"></span></td>
+                <td><span class="ext-icon-control-equalizer-blue" onclick="parent.chooseIcon('ext-icon-control-equalizer-blue')"></span></td>
+                <td><span class="ext-icon-control-fastforward" onclick="parent.chooseIcon('ext-icon-control-fastforward')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-control-fastforward-blue" onclick="parent.chooseIcon('ext-icon-control-fastforward-blue')"></span></td>
+                <td><span class="ext-icon-control-pause" onclick="parent.chooseIcon('ext-icon-control-pause')"></span></td>
+                <td><span class="ext-icon-control-pause-blue" onclick="parent.chooseIcon('ext-icon-control-pause-blue')"></span></td>
+                <td><span class="ext-icon-control-play" onclick="parent.chooseIcon('ext-icon-control-play')"></span></td>
+                <td><span class="ext-icon-control-play-blue" onclick="parent.chooseIcon('ext-icon-control-play-blue')"></span></td>
+                <td><span class="ext-icon-control-repeat" onclick="parent.chooseIcon('ext-icon-control-repeat')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-control-repeat-blue" onclick="parent.chooseIcon('ext-icon-control-repeat-blue')"></span></td>
+                <td><span class="ext-icon-control-rewind" onclick="parent.chooseIcon('ext-icon-control-rewind')"></span></td>
+                <td><span class="ext-icon-control-rewind-blue" onclick="parent.chooseIcon('ext-icon-control-rewind-blue')"></span></td>
+                <td><span class="ext-icon-control-start" onclick="parent.chooseIcon('ext-icon-control-start')"></span></td>
+                <td><span class="ext-icon-control-start-blue" onclick="parent.chooseIcon('ext-icon-control-start-blue')"></span></td>
+                <td><span class="ext-icon-control-stop" onclick="parent.chooseIcon('ext-icon-control-stop')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-control-stop-blue" onclick="parent.chooseIcon('ext-icon-control-stop-blue')"></span></td>
+                <td><span class="ext-icon-css" onclick="parent.chooseIcon('ext-icon-css')"></span></td>
+                <td><span class="ext-icon-css-add" onclick="parent.chooseIcon('ext-icon-css-add')"></span></td>
+                <td><span class="ext-icon-css-delete" onclick="parent.chooseIcon('ext-icon-css-delete')"></span></td>
+                <td><span class="ext-icon-css-go" onclick="parent.chooseIcon('ext-icon-css-go')"></span></td>
+                <td><span class="ext-icon-css-valid" onclick="parent.chooseIcon('ext-icon-css-valid')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-date" onclick="parent.chooseIcon('ext-icon-date')"></span></td>
+                <td><span class="ext-icon-date-add" onclick="parent.chooseIcon('ext-icon-date-add')"></span></td>
+                <td><span class="ext-icon-date-delete" onclick="parent.chooseIcon('ext-icon-date-delete')"></span></td>
+                <td><span class="ext-icon-date-edit" onclick="parent.chooseIcon('ext-icon-date-edit')"></span></td>
+                <td><span class="ext-icon-date-error" onclick="parent.chooseIcon('ext-icon-date-error')"></span></td>
+                <td><span class="ext-icon-date-go" onclick="parent.chooseIcon('ext-icon-date-go')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-date-link" onclick="parent.chooseIcon('ext-icon-date-link')"></span></td>
+                <td><span class="ext-icon-date-magnify" onclick="parent.chooseIcon('ext-icon-date-magnify')"></span></td>
+                <td><span class="ext-icon-date-next" onclick="parent.chooseIcon('ext-icon-date-next')"></span></td>
+                <td><span class="ext-icon-date-previous" onclick="parent.chooseIcon('ext-icon-date-previous')"></span></td>
+                <td><span class="ext-icon-drive" onclick="parent.chooseIcon('ext-icon-drive')"></span></td>
+                <td><span class="ext-icon-drive-add" onclick="parent.chooseIcon('ext-icon-drive-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-drive-burn" onclick="parent.chooseIcon('ext-icon-drive-burn')"></span></td>
+                <td><span class="ext-icon-drive-cd" onclick="parent.chooseIcon('ext-icon-drive-cd')"></span></td>
+                <td><span class="ext-icon-drive-cd-empty" onclick="parent.chooseIcon('ext-icon-drive-cd-empty')"></span></td>
+                <td><span class="ext-icon-drive-delete" onclick="parent.chooseIcon('ext-icon-drive-delete')"></span></td>
+                <td><span class="ext-icon-drive-disk" onclick="parent.chooseIcon('ext-icon-drive-disk')"></span></td>
+                <td><span class="ext-icon-drive-edit" onclick="parent.chooseIcon('ext-icon-drive-edit')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-drive-error" onclick="parent.chooseIcon('ext-icon-drive-error')"></span></td>
+                <td><span class="ext-icon-drive-go" onclick="parent.chooseIcon('ext-icon-drive-go')"></span></td>
+                <td><span class="ext-icon-drive-key" onclick="parent.chooseIcon('ext-icon-drive-key')"></span></td>
+                <td><span class="ext-icon-drive-link" onclick="parent.chooseIcon('ext-icon-drive-link')"></span></td>
+                <td><span class="ext-icon-drive-magnify" onclick="parent.chooseIcon('ext-icon-drive-magnify')"></span></td>
+                <td><span class="ext-icon-drive-network" onclick="parent.chooseIcon('ext-icon-drive-network')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-drive-rename" onclick="parent.chooseIcon('ext-icon-drive-rename')"></span></td>
+                <td><span class="ext-icon-drive-user" onclick="parent.chooseIcon('ext-icon-drive-user')"></span></td>
+                <td><span class="ext-icon-drive-web" onclick="parent.chooseIcon('ext-icon-drive-web')"></span></td>
+                <td><span class="ext-icon-email" onclick="parent.chooseIcon('ext-icon-email')"></span></td>
+                <td><span class="ext-icon-email-add" onclick="parent.chooseIcon('ext-icon-email-add')"></span></td>
+                <td><span class="ext-icon-email-attach" onclick="parent.chooseIcon('ext-icon-email-attach')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-email-delete" onclick="parent.chooseIcon('ext-icon-email-delete')"></span></td>
+                <td><span class="ext-icon-email-edit" onclick="parent.chooseIcon('ext-icon-email-edit')"></span></td>
+                <td><span class="ext-icon-email-error" onclick="parent.chooseIcon('ext-icon-email-error')"></span></td>
+                <td><span class="ext-icon-email-go" onclick="parent.chooseIcon('ext-icon-email-go')"></span></td>
+                <td><span class="ext-icon-email-link" onclick="parent.chooseIcon('ext-icon-email-link')"></span></td>
+                <td><span class="ext-icon-email-open" onclick="parent.chooseIcon('ext-icon-email-open')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-email-open-image" onclick="parent.chooseIcon('ext-icon-email-open-image')"></span></td>
+                <td><span class="ext-icon-feed" onclick="parent.chooseIcon('ext-icon-feed')"></span></td>
+                <td><span class="ext-icon-feed-add" onclick="parent.chooseIcon('ext-icon-feed-add')"></span></td>
+                <td><span class="ext-icon-feed-delete" onclick="parent.chooseIcon('ext-icon-feed-delete')"></span></td>
+                <td><span class="ext-icon-feed-disk" onclick="parent.chooseIcon('ext-icon-feed-disk')"></span></td>
+                <td><span class="ext-icon-feed-edit" onclick="parent.chooseIcon('ext-icon-feed-edit')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-feed-error" onclick="parent.chooseIcon('ext-icon-feed-error')"></span></td>
+                <td><span class="ext-icon-feed-go" onclick="parent.chooseIcon('ext-icon-feed-go')"></span></td>
+                <td><span class="ext-icon-feed-key" onclick="parent.chooseIcon('ext-icon-feed-key')"></span></td>
+                <td><span class="ext-icon-feed-link" onclick="parent.chooseIcon('ext-icon-feed-link')"></span></td>
+                <td><span class="ext-icon-feed-magnify" onclick="parent.chooseIcon('ext-icon-feed-magnify')"></span></td>
+                <td><span class="ext-icon-film" onclick="parent.chooseIcon('ext-icon-film')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-film-add" onclick="parent.chooseIcon('ext-icon-film-add')"></span></td>
+                <td><span class="ext-icon-film-delete" onclick="parent.chooseIcon('ext-icon-film-delete')"></span></td>
+                <td><span class="ext-icon-film-edit" onclick="parent.chooseIcon('ext-icon-film-edit')"></span></td>
+                <td><span class="ext-icon-film-error" onclick="parent.chooseIcon('ext-icon-film-error')"></span></td>
+                <td><span class="ext-icon-film-go" onclick="parent.chooseIcon('ext-icon-film-go')"></span></td>
+                <td><span class="ext-icon-film-key" onclick="parent.chooseIcon('ext-icon-film-key')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-film-link" onclick="parent.chooseIcon('ext-icon-film-link')"></span></td>
+                <td><span class="ext-icon-film-save" onclick="parent.chooseIcon('ext-icon-film-save')"></span></td>
+                <td><span class="ext-icon-flag-blue" onclick="parent.chooseIcon('ext-icon-flag-blue')"></span></td>
+                <td><span class="ext-icon-flag-green" onclick="parent.chooseIcon('ext-icon-flag-green')"></span></td>
+                <td><span class="ext-icon-flag-orange" onclick="parent.chooseIcon('ext-icon-flag-orange')"></span></td>
+                <td><span class="ext-icon-flag-pink" onclick="parent.chooseIcon('ext-icon-flag-pink')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-flag-purple" onclick="parent.chooseIcon('ext-icon-flag-purple')"></span></td>
+                <td><span class="ext-icon-flag-red" onclick="parent.chooseIcon('ext-icon-flag-red')"></span></td>
+                <td><span class="ext-icon-flag-yellow" onclick="parent.chooseIcon('ext-icon-flag-yellow')"></span></td>
+                <td><span class="ext-icon-folder" onclick="parent.chooseIcon('ext-icon-folder')"></span></td>
+                <td><span class="ext-icon-folder-add" onclick="parent.chooseIcon('ext-icon-folder-add')"></span></td>
+                <td><span class="ext-icon-folder-bell" onclick="parent.chooseIcon('ext-icon-folder-bell')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-folder-brick" onclick="parent.chooseIcon('ext-icon-folder-brick')"></span></td>
+                <td><span class="ext-icon-folder-bug" onclick="parent.chooseIcon('ext-icon-folder-bug')"></span></td>
+                <td><span class="ext-icon-folder-camera" onclick="parent.chooseIcon('ext-icon-folder-camera')"></span></td>
+                <td><span class="ext-icon-folder-database" onclick="parent.chooseIcon('ext-icon-folder-database')"></span></td>
+                <td><span class="ext-icon-folder-delete" onclick="parent.chooseIcon('ext-icon-folder-delete')"></span></td>
+                <td><span class="ext-icon-folder-edit" onclick="parent.chooseIcon('ext-icon-folder-edit')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-folder-error" onclick="parent.chooseIcon('ext-icon-folder-error')"></span></td>
+                <td><span class="ext-icon-folder-explore" onclick="parent.chooseIcon('ext-icon-folder-explore')"></span></td>
+                <td><span class="ext-icon-folder-feed" onclick="parent.chooseIcon('ext-icon-folder-feed')"></span></td>
+                <td><span class="ext-icon-folder-find" onclick="parent.chooseIcon('ext-icon-folder-find')"></span></td>
+                <td><span class="ext-icon-folder-go" onclick="parent.chooseIcon('ext-icon-folder-go')"></span></td>
+                <td><span class="ext-icon-folder-heart" onclick="parent.chooseIcon('ext-icon-folder-heart')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-folder-image" onclick="parent.chooseIcon('ext-icon-folder-image')"></span></td>
+                <td><span class="ext-icon-folder-key" onclick="parent.chooseIcon('ext-icon-folder-key')"></span></td>
+                <td><span class="ext-icon-folder-lightbulb" onclick="parent.chooseIcon('ext-icon-folder-lightbulb')"></span></td>
+                <td><span class="ext-icon-folder-link" onclick="parent.chooseIcon('ext-icon-folder-link')"></span></td>
+                <td><span class="ext-icon-folder-magnify" onclick="parent.chooseIcon('ext-icon-folder-magnify')"></span></td>
+                <td><span class="ext-icon-folder-page" onclick="parent.chooseIcon('ext-icon-folder-page')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-folder-page-white" onclick="parent.chooseIcon('ext-icon-folder-page-white')"></span></td>
+                <td><span class="ext-icon-folder-palette" onclick="parent.chooseIcon('ext-icon-folder-palette')"></span></td>
+                <td><span class="ext-icon-folder-picture" onclick="parent.chooseIcon('ext-icon-folder-picture')"></span></td>
+                <td><span class="ext-icon-folder-star" onclick="parent.chooseIcon('ext-icon-folder-star')"></span></td>
+                <td><span class="ext-icon-folder-table" onclick="parent.chooseIcon('ext-icon-folder-table')"></span></td>
+                <td><span class="ext-icon-folder-user" onclick="parent.chooseIcon('ext-icon-folder-user')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-folder-wrench" onclick="parent.chooseIcon('ext-icon-folder-wrench')"></span></td>
+                <td><span class="ext-icon-group" onclick="parent.chooseIcon('ext-icon-group')"></span></td>
+                <td><span class="ext-icon-group-add" onclick="parent.chooseIcon('ext-icon-group-add')"></span></td>
+                <td><span class="ext-icon-group-delete" onclick="parent.chooseIcon('ext-icon-group-delete')"></span></td>
+                <td><span class="ext-icon-group-edit" onclick="parent.chooseIcon('ext-icon-group-edit')"></span></td>
+                <td><span class="ext-icon-group-error" onclick="parent.chooseIcon('ext-icon-group-error')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-group-gear" onclick="parent.chooseIcon('ext-icon-group-gear')"></span></td>
+                <td><span class="ext-icon-group-go" onclick="parent.chooseIcon('ext-icon-group-go')"></span></td>
+                <td><span class="ext-icon-group-key" onclick="parent.chooseIcon('ext-icon-group-key')"></span></td>
+                <td><span class="ext-icon-group-link" onclick="parent.chooseIcon('ext-icon-group-link')"></span></td>
+                <td><span class="ext-icon-ipod" onclick="parent.chooseIcon('ext-icon-ipod')"></span></td>
+                <td><span class="ext-icon-ipod-cast" onclick="parent.chooseIcon('ext-icon-ipod-cast')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-ipod-cast-add" onclick="parent.chooseIcon('ext-icon-ipod-cast-add')"></span></td>
+                <td><span class="ext-icon-ipod-cast-delete" onclick="parent.chooseIcon('ext-icon-ipod-cast-delete')"></span></td>
+                <td><span class="ext-icon-ipod-sound" onclick="parent.chooseIcon('ext-icon-ipod-sound')"></span></td>
+                <td><span class="ext-icon-keyboard" onclick="parent.chooseIcon('ext-icon-keyboard')"></span></td>
+                <td><span class="ext-icon-keyboard-add" onclick="parent.chooseIcon('ext-icon-keyboard-add')"></span></td>
+                <td><span class="ext-icon-keyboard-delete" onclick="parent.chooseIcon('ext-icon-keyboard-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-keyboard-magnify" onclick="parent.chooseIcon('ext-icon-keyboard-magnify')"></span></td>
+                <td><span class="ext-icon-layout" onclick="parent.chooseIcon('ext-icon-layout')"></span></td>
+                <td><span class="ext-icon-layout-add" onclick="parent.chooseIcon('ext-icon-layout-add')"></span></td>
+                <td><span class="ext-icon-layout-content" onclick="parent.chooseIcon('ext-icon-layout-content')"></span></td>
+                <td><span class="ext-icon-layout-delete" onclick="parent.chooseIcon('ext-icon-layout-delete')"></span></td>
+                <td><span class="ext-icon-layout-edit" onclick="parent.chooseIcon('ext-icon-layout-edit')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-layout-error" onclick="parent.chooseIcon('ext-icon-layout-error')"></span></td>
+                <td><span class="ext-icon-layout-header" onclick="parent.chooseIcon('ext-icon-layout-header')"></span></td>
+                <td><span class="ext-icon-layout-link" onclick="parent.chooseIcon('ext-icon-layout-link')"></span></td>
+                <td><span class="ext-icon-layout-sidebar" onclick="parent.chooseIcon('ext-icon-layout-sidebar')"></span></td>
+                <td><span class="ext-icon-overlays" onclick="parent.chooseIcon('ext-icon-overlays')"></span></td>
+                <td><span class="ext-icon-lock" onclick="parent.chooseIcon('ext-icon-lock')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-lock-add" onclick="parent.chooseIcon('ext-icon-lock-add')"></span></td>
+                <td><span class="ext-icon-lock-break" onclick="parent.chooseIcon('ext-icon-lock-break')"></span></td>
+                <td><span class="ext-icon-lock-delete" onclick="parent.chooseIcon('ext-icon-lock-delete')"></span></td>
+                <td><span class="ext-icon-lock-edit" onclick="parent.chooseIcon('ext-icon-lock-edit')"></span></td>
+                <td><span class="ext-icon-lock-go" onclick="parent.chooseIcon('ext-icon-lock-go')"></span></td>
+                <td><span class="ext-icon-lock-open" onclick="parent.chooseIcon('ext-icon-lock-open')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-magifier-zoom-out" onclick="parent.chooseIcon('ext-icon-magifier-zoom-out')"></span></td>
+                <td><span class="ext-icon-magnifier" onclick="parent.chooseIcon('ext-icon-magnifier')"></span></td>
+                <td><span class="ext-icon-magnifier-zoom-in" onclick="parent.chooseIcon('ext-icon-magnifier-zoom-in')"></span></td>
+                <td><span class="ext-icon-map" onclick="parent.chooseIcon('ext-icon-map')"></span></td>
+                <td><span class="ext-icon-map-add" onclick="parent.chooseIcon('ext-icon-map-add')"></span></td>
+                <td><span class="ext-icon-map-delete" onclick="parent.chooseIcon('ext-icon-map-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-map-edit" onclick="parent.chooseIcon('ext-icon-map-edit')"></span></td>
+                <td><span class="ext-icon-map-go" onclick="parent.chooseIcon('ext-icon-map-go')"></span></td>
+                <td><span class="ext-icon-map-magnify" onclick="parent.chooseIcon('ext-icon-map-magnify')"></span></td>
+                <td><span class="ext-icon-monitor" onclick="parent.chooseIcon('ext-icon-monitor')"></span></td>
+                <td><span class="ext-icon-monitor-add" onclick="parent.chooseIcon('ext-icon-monitor-add')"></span></td>
+                <td><span class="ext-icon-monitor-delete" onclick="parent.chooseIcon('ext-icon-monitor-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-monitor-edit" onclick="parent.chooseIcon('ext-icon-monitor-edit')"></span></td>
+                <td><span class="ext-icon-monitor-error" onclick="parent.chooseIcon('ext-icon-monitor-error')"></span></td>
+                <td><span class="ext-icon-monitor-go" onclick="parent.chooseIcon('ext-icon-monitor-go')"></span></td>
+                <td><span class="ext-icon-monitor-lightning" onclick="parent.chooseIcon('ext-icon-monitor-lightning')"></span></td>
+                <td><span class="ext-icon-monitor-link" onclick="parent.chooseIcon('ext-icon-monitor-link')"></span></td>
+                <td><span class="ext-icon-newspaper" onclick="parent.chooseIcon('ext-icon-newspaper')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-newspaper-add" onclick="parent.chooseIcon('ext-icon-newspaper-add')"></span></td>
+                <td><span class="ext-icon-newspaper-delete" onclick="parent.chooseIcon('ext-icon-newspaper-delete')"></span></td>
+                <td><span class="ext-icon-newspaper-go" onclick="parent.chooseIcon('ext-icon-newspaper-go')"></span></td>
+                <td><span class="ext-icon-newspaper-link" onclick="parent.chooseIcon('ext-icon-newspaper-link')"></span></td>
+                <td><span class="ext-icon-note" onclick="parent.chooseIcon('ext-icon-note')"></span></td>
+                <td><span class="ext-icon-note-add" onclick="parent.chooseIcon('ext-icon-note-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-note-delete" onclick="parent.chooseIcon('ext-icon-note-delete')"></span></td>
+                <td><span class="ext-icon-note-edit" onclick="parent.chooseIcon('ext-icon-note-edit')"></span></td>
+                <td><span class="ext-icon-note-error" onclick="parent.chooseIcon('ext-icon-note-error')"></span></td>
+                <td><span class="ext-icon-note-go" onclick="parent.chooseIcon('ext-icon-note-go')"></span></td>
+                <td><span class="ext-icon-page" onclick="parent.chooseIcon('ext-icon-page')"></span></td>
+                <td><span class="ext-icon-page-add" onclick="parent.chooseIcon('ext-icon-page-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-attach" onclick="parent.chooseIcon('ext-icon-page-attach')"></span></td>
+                <td><span class="ext-icon-page-code" onclick="parent.chooseIcon('ext-icon-page-code')"></span></td>
+                <td><span class="ext-icon-page-copy" onclick="parent.chooseIcon('ext-icon-page-copy')"></span></td>
+                <td><span class="ext-icon-page-delete" onclick="parent.chooseIcon('ext-icon-page-delete')"></span></td>
+                <td><span class="ext-icon-page-edit" onclick="parent.chooseIcon('ext-icon-page-edit')"></span></td>
+                <td><span class="ext-icon-page-error" onclick="parent.chooseIcon('ext-icon-page-error')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-excel" onclick="parent.chooseIcon('ext-icon-page-excel')"></span></td>
+                <td><span class="ext-icon-page-find" onclick="parent.chooseIcon('ext-icon-page-find')"></span></td>
+                <td><span class="ext-icon-page-gear" onclick="parent.chooseIcon('ext-icon-page-gear')"></span></td>
+                <td><span class="ext-icon-page-go" onclick="parent.chooseIcon('ext-icon-page-go')"></span></td>
+                <td><span class="ext-icon-page-green" onclick="parent.chooseIcon('ext-icon-page-green')"></span></td>
+                <td><span class="ext-icon-page-key" onclick="parent.chooseIcon('ext-icon-page-key')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-lightning" onclick="parent.chooseIcon('ext-icon-page-lightning')"></span></td>
+                <td><span class="ext-icon-page-link" onclick="parent.chooseIcon('ext-icon-page-link')"></span></td>
+                <td><span class="ext-icon-page-paintbrush" onclick="parent.chooseIcon('ext-icon-page-paintbrush')"></span></td>
+                <td><span class="ext-icon-page-paste" onclick="parent.chooseIcon('ext-icon-page-paste')"></span></td>
+                <td><span class="ext-icon-page-red" onclick="parent.chooseIcon('ext-icon-page-red')"></span></td>
+                <td><span class="ext-icon-page-refresh" onclick="parent.chooseIcon('ext-icon-page-refresh')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-save" onclick="parent.chooseIcon('ext-icon-page-save')"></span></td>
+                <td><span class="ext-icon-page-white" onclick="parent.chooseIcon('ext-icon-page-white')"></span></td>
+                <td><span class="ext-icon-page-white-acrobat" onclick="parent.chooseIcon('ext-icon-page-white-acrobat')"></span></td>
+                <td><span class="ext-icon-page-white-actionscript" onclick="parent.chooseIcon('ext-icon-page-white-actionscript')"></span></td>
+                <td><span class="ext-icon-page-white-add" onclick="parent.chooseIcon('ext-icon-page-white-add')"></span></td>
+                <td><span class="ext-icon-page-white-c" onclick="parent.chooseIcon('ext-icon-page-white-c')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-white-camera" onclick="parent.chooseIcon('ext-icon-page-white-camera')"></span></td>
+                <td><span class="ext-icon-page-white-cd" onclick="parent.chooseIcon('ext-icon-page-white-cd')"></span></td>
+                <td><span class="ext-icon-page-white-code" onclick="parent.chooseIcon('ext-icon-page-white-code')"></span></td>
+                <td><span class="ext-icon-page-white-code-red" onclick="parent.chooseIcon('ext-icon-page-white-code-red')"></span></td>
+                <td><span class="ext-icon-page-white-coldfusion" onclick="parent.chooseIcon('ext-icon-page-white-coldfusion')"></span></td>
+                <td><span class="ext-icon-page-white-compressed" onclick="parent.chooseIcon('ext-icon-page-white-compressed')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-white-copy" onclick="parent.chooseIcon('ext-icon-page-white-copy')"></span></td>
+                <td><span class="ext-icon-page-white-cplusplus" onclick="parent.chooseIcon('ext-icon-page-white-cplusplus')"></span></td>
+                <td><span class="ext-icon-page-white-csharp" onclick="parent.chooseIcon('ext-icon-page-white-csharp')"></span></td>
+                <td><span class="ext-icon-page-white-cup" onclick="parent.chooseIcon('ext-icon-page-white-cup')"></span></td>
+                <td><span class="ext-icon-page-white-database" onclick="parent.chooseIcon('ext-icon-page-white-database')"></span></td>
+                <td><span class="ext-icon-page-white-delete" onclick="parent.chooseIcon('ext-icon-page-white-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-white-dvd" onclick="parent.chooseIcon('ext-icon-page-white-dvd')"></span></td>
+                <td><span class="ext-icon-page-white-edit" onclick="parent.chooseIcon('ext-icon-page-white-edit')"></span></td>
+                <td><span class="ext-icon-page-white-error" onclick="parent.chooseIcon('ext-icon-page-white-error')"></span></td>
+                <td><span class="ext-icon-page-white-excel" onclick="parent.chooseIcon('ext-icon-page-white-excel')"></span></td>
+                <td><span class="ext-icon-page-white-find" onclick="parent.chooseIcon('ext-icon-page-white-find')"></span></td>
+                <td><span class="ext-icon-page-white-flash" onclick="parent.chooseIcon('ext-icon-page-white-flash')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-white-freehand" onclick="parent.chooseIcon('ext-icon-page-white-freehand')"></span></td>
+                <td><span class="ext-icon-page-white-gear" onclick="parent.chooseIcon('ext-icon-page-white-gear')"></span></td>
+                <td><span class="ext-icon-page-white-get" onclick="parent.chooseIcon('ext-icon-page-white-get')"></span></td>
+                <td><span class="ext-icon-page-white-go" onclick="parent.chooseIcon('ext-icon-page-white-go')"></span></td>
+                <td><span class="ext-icon-page-white-h" onclick="parent.chooseIcon('ext-icon-page-white-h')"></span></td>
+                <td><span class="ext-icon-page-white-horizontal" onclick="parent.chooseIcon('ext-icon-page-white-horizontal')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-white-key" onclick="parent.chooseIcon('ext-icon-page-white-key')"></span></td>
+                <td><span class="ext-icon-page-white-lightning" onclick="parent.chooseIcon('ext-icon-page-white-lightning')"></span></td>
+                <td><span class="ext-icon-page-white-link" onclick="parent.chooseIcon('ext-icon-page-white-link')"></span></td>
+                <td><span class="ext-icon-page-white-magnify" onclick="parent.chooseIcon('ext-icon-page-white-magnify')"></span></td>
+                <td><span class="ext-icon-page-white-medal" onclick="parent.chooseIcon('ext-icon-page-white-medal')"></span></td>
+                <td><span class="ext-icon-page-white-office" onclick="parent.chooseIcon('ext-icon-page-white-office')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-white-paint" onclick="parent.chooseIcon('ext-icon-page-white-paint')"></span></td>
+                <td><span class="ext-icon-page-white-paintbrush" onclick="parent.chooseIcon('ext-icon-page-white-paintbrush')"></span></td>
+                <td><span class="ext-icon-page-white-paste" onclick="parent.chooseIcon('ext-icon-page-white-paste')"></span></td>
+                <td><span class="ext-icon-page-white-php" onclick="parent.chooseIcon('ext-icon-page-white-php')"></span></td>
+                <td><span class="ext-icon-page-white-picture" onclick="parent.chooseIcon('ext-icon-page-white-picture')"></span></td>
+                <td><span class="ext-icon-page-white-powerpoint" onclick="parent.chooseIcon('ext-icon-page-white-powerpoint')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-white-put" onclick="parent.chooseIcon('ext-icon-page-white-put')"></span></td>
+                <td><span class="ext-icon-page-white-ruby" onclick="parent.chooseIcon('ext-icon-page-white-ruby')"></span></td>
+                <td><span class="ext-icon-page-white-stack" onclick="parent.chooseIcon('ext-icon-page-white-stack')"></span></td>
+                <td><span class="ext-icon-page-white-star" onclick="parent.chooseIcon('ext-icon-page-white-star')"></span></td>
+                <td><span class="ext-icon-page-white-swoosh" onclick="parent.chooseIcon('ext-icon-page-white-swoosh')"></span></td>
+                <td><span class="ext-icon-page-white-text" onclick="parent.chooseIcon('ext-icon-page-white-text')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-white-text-width" onclick="parent.chooseIcon('ext-icon-page-white-text-width')"></span></td>
+                <td><span class="ext-icon-page-white-tux" onclick="parent.chooseIcon('ext-icon-page-white-tux')"></span></td>
+                <td><span class="ext-icon-page-white-vector" onclick="parent.chooseIcon('ext-icon-page-white-vector')"></span></td>
+                <td><span class="ext-icon-page-white-visualstudio" onclick="parent.chooseIcon('ext-icon-page-white-visualstudio')"></span></td>
+                <td><span class="ext-icon-page-white-width" onclick="parent.chooseIcon('ext-icon-page-white-width')"></span></td>
+                <td><span class="ext-icon-page-white-word" onclick="parent.chooseIcon('ext-icon-page-white-word')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-page-white-world" onclick="parent.chooseIcon('ext-icon-page-white-world')"></span></td>
+                <td><span class="ext-icon-page-white-wrench" onclick="parent.chooseIcon('ext-icon-page-white-wrench')"></span></td>
+                <td><span class="ext-icon-page-white-zip" onclick="parent.chooseIcon('ext-icon-page-white-zip')"></span></td>
+                <td><span class="ext-icon-page-word" onclick="parent.chooseIcon('ext-icon-page-word')"></span></td>
+                <td><span class="ext-icon-page-world" onclick="parent.chooseIcon('ext-icon-page-world')"></span></td>
+                <td><span class="ext-icon-paste-plain" onclick="parent.chooseIcon('ext-icon-paste-plain')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-paste-word" onclick="parent.chooseIcon('ext-icon-paste-word')"></span></td>
+                <td><span class="ext-icon-report" onclick="parent.chooseIcon('ext-icon-report')"></span></td>
+                <td><span class="ext-icon-report-add" onclick="parent.chooseIcon('ext-icon-report-add')"></span></td>
+                <td><span class="ext-icon-report-delete" onclick="parent.chooseIcon('ext-icon-report-delete')"></span></td>
+                <td><span class="ext-icon-report-disk" onclick="parent.chooseIcon('ext-icon-report-disk')"></span></td>
+                <td><span class="ext-icon-report-edit" onclick="parent.chooseIcon('ext-icon-report-edit')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-report-go" onclick="parent.chooseIcon('ext-icon-report-go')"></span></td>
+                <td><span class="ext-icon-report-key" onclick="parent.chooseIcon('ext-icon-report-key')"></span></td>
+                <td><span class="ext-icon-report-link" onclick="parent.chooseIcon('ext-icon-report-link')"></span></td>
+                <td><span class="ext-icon-report-magnify" onclick="parent.chooseIcon('ext-icon-report-magnify')"></span></td>
+                <td><span class="ext-icon-report-picture" onclick="parent.chooseIcon('ext-icon-report-picture')"></span></td>
+                <td><span class="ext-icon-report-user" onclick="parent.chooseIcon('ext-icon-report-user')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-report-word" onclick="parent.chooseIcon('ext-icon-report-word')"></span></td>
+                <td><span class="ext-icon-photo" onclick="parent.chooseIcon('ext-icon-photo')"></span></td>
+                <td><span class="ext-icon-photos" onclick="parent.chooseIcon('ext-icon-photos')"></span></td>
+                <td><span class="ext-icon-photo-add" onclick="parent.chooseIcon('ext-icon-photo-add')"></span></td>
+                <td><span class="ext-icon-photo-delete" onclick="parent.chooseIcon('ext-icon-photo-delete')"></span></td>
+                <td><span class="ext-icon-photo-link" onclick="parent.chooseIcon('ext-icon-photo-link')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-picture" onclick="parent.chooseIcon('ext-icon-picture')"></span></td>
+                <td><span class="ext-icon-pictures" onclick="parent.chooseIcon('ext-icon-pictures')"></span></td>
+                <td><span class="ext-icon-picture-add" onclick="parent.chooseIcon('ext-icon-picture-add')"></span></td>
+                <td><span class="ext-icon-picture-delete" onclick="parent.chooseIcon('ext-icon-picture-delete')"></span></td>
+                <td><span class="ext-icon-picture-edit" onclick="parent.chooseIcon('ext-icon-picture-edit')"></span></td>
+                <td><span class="ext-icon-picture-empty" onclick="parent.chooseIcon('ext-icon-picture-empty')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-picture-error" onclick="parent.chooseIcon('ext-icon-picture-error')"></span></td>
+                <td><span class="ext-icon-picture-go" onclick="parent.chooseIcon('ext-icon-picture-go')"></span></td>
+                <td><span class="ext-icon-picture-key" onclick="parent.chooseIcon('ext-icon-picture-key')"></span></td>
+                <td><span class="ext-icon-picture-link" onclick="parent.chooseIcon('ext-icon-picture-link')"></span></td>
+                <td><span class="ext-icon-picture-save" onclick="parent.chooseIcon('ext-icon-picture-save')"></span></td>
+                <td><span class="ext-icon-printer" onclick="parent.chooseIcon('ext-icon-printer')"></span></td>
+            </tr><tr>
+                <td><span class="ext-icon-printer-add" onclick="parent.chooseIcon('ext-icon-printer-add')"></span></td>
+                <td><span class="ext-icon-printer-delete" onclick="parent.chooseIcon('ext-icon-printer-delete')"></span></td>
+                <td><span class="ext-icon-printer-empty" onclick="parent.chooseIcon('ext-icon-printer-empty')"></span></td>
+                <td><span class="ext-icon-printer-error" onclick="parent.chooseIcon('ext-icon-printer-error')"></span></td>
+                <td><span class="ext-icon-script" onclick="parent.chooseIcon('ext-icon-script')"></span></td>
+                <td><span class="ext-icon-script-add" onclick="parent.chooseIcon('ext-icon-script-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-script-code" onclick="parent.chooseIcon('ext-icon-script-code')"></span></td>
+                <td><span class="ext-icon-script-code-red" onclick="parent.chooseIcon('ext-icon-script-code-red')"></span></td>
+                <td><span class="ext-icon-script-delete" onclick="parent.chooseIcon('ext-icon-script-delete')"></span></td>
+                <td><span class="ext-icon-script-edit" onclick="parent.chooseIcon('ext-icon-script-edit')"></span></td>
+                <td><span class="ext-icon-script-error" onclick="parent.chooseIcon('ext-icon-script-error')"></span></td>
+                <td><span class="ext-icon-script-gear" onclick="parent.chooseIcon('ext-icon-script-gear')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-script-go" onclick="parent.chooseIcon('ext-icon-script-go')"></span></td>
+                <td><span class="ext-icon-script-key" onclick="parent.chooseIcon('ext-icon-script-key')"></span></td>
+                <td><span class="ext-icon-script-lightning" onclick="parent.chooseIcon('ext-icon-script-lightning')"></span></td>
+                <td><span class="ext-icon-script-link" onclick="parent.chooseIcon('ext-icon-script-link')"></span></td>
+                <td><span class="ext-icon-script-palette" onclick="parent.chooseIcon('ext-icon-script-palette')"></span></td>
+                <td><span class="ext-icon-script-save" onclick="parent.chooseIcon('ext-icon-script-save')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-table" onclick="parent.chooseIcon('ext-icon-table')"></span></td>
+                <td><span class="ext-icon-table-add" onclick="parent.chooseIcon('ext-icon-table-add')"></span></td>
+                <td><span class="ext-icon-table-delete" onclick="parent.chooseIcon('ext-icon-table-delete')"></span></td>
+                <td><span class="ext-icon-table-edit" onclick="parent.chooseIcon('ext-icon-table-edit')"></span></td>
+                <td><span class="ext-icon-table-error" onclick="parent.chooseIcon('ext-icon-table-error')"></span></td>
+                <td><span class="ext-icon-table-gear" onclick="parent.chooseIcon('ext-icon-table-gear')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-table-go" onclick="parent.chooseIcon('ext-icon-table-go')"></span></td>
+                <td><span class="ext-icon-table-key" onclick="parent.chooseIcon('ext-icon-table-key')"></span></td>
+                <td><span class="ext-icon-table-lightning" onclick="parent.chooseIcon('ext-icon-table-lightning')"></span></td>
+                <td><span class="ext-icon-table-link" onclick="parent.chooseIcon('ext-icon-table-link')"></span></td>
+                <td><span class="ext-icon-table-multiple" onclick="parent.chooseIcon('ext-icon-table-multiple')"></span></td>
+                <td><span class="ext-icon-table-refresh" onclick="parent.chooseIcon('ext-icon-table-refresh')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-table-relationship" onclick="parent.chooseIcon('ext-icon-table-relationship')"></span></td>
+                <td><span class="ext-icon-table-row-delete" onclick="parent.chooseIcon('ext-icon-table-row-delete')"></span></td>
+                <td><span class="ext-icon-table-row-insert" onclick="parent.chooseIcon('ext-icon-table-row-insert')"></span></td>
+                <td><span class="ext-icon-table-save" onclick="parent.chooseIcon('ext-icon-table-save')"></span></td>
+                <td><span class="ext-icon-table-sort" onclick="parent.chooseIcon('ext-icon-table-sort')"></span></td>
+                <td><span class="ext-icon-tag-blue" onclick="parent.chooseIcon('ext-icon-tag-blue')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-tag-blue-add" onclick="parent.chooseIcon('ext-icon-tag-blue-add')"></span></td>
+                <td><span class="ext-icon-tag-blue-delete" onclick="parent.chooseIcon('ext-icon-tag-blue-delete')"></span></td>
+                <td><span class="ext-icon-tag-blue-edit" onclick="parent.chooseIcon('ext-icon-tag-blue-edit')"></span></td>
+                <td><span class="ext-icon-tag-green" onclick="parent.chooseIcon('ext-icon-tag-green')"></span></td>
+                <td><span class="ext-icon-tag-orange" onclick="parent.chooseIcon('ext-icon-tag-orange')"></span></td>
+                <td><span class="ext-icon-tag-pink" onclick="parent.chooseIcon('ext-icon-tag-pink')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-tag-purple" onclick="parent.chooseIcon('ext-icon-tag-purple')"></span></td>
+                <td><span class="ext-icon-tag-red" onclick="parent.chooseIcon('ext-icon-tag-red')"></span></td>
+                <td><span class="ext-icon-tag-yellow" onclick="parent.chooseIcon('ext-icon-tag-yellow')"></span></td>
+                <td><span class="ext-icon-television" onclick="parent.chooseIcon('ext-icon-television')"></span></td>
+                <td><span class="ext-icon-television-add" onclick="parent.chooseIcon('ext-icon-television-add')"></span></td>
+                <td><span class="ext-icon-television-delete" onclick="parent.chooseIcon('ext-icon-television-delete')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-user" onclick="parent.chooseIcon('ext-icon-user')"></span></td>
+                <td><span class="ext-icon-user-add" onclick="parent.chooseIcon('ext-icon-user-add')"></span></td>
+                <td><span class="ext-icon-user-comment" onclick="parent.chooseIcon('ext-icon-user-comment')"></span></td>
+                <td><span class="ext-icon-user-delete" onclick="parent.chooseIcon('ext-icon-user-delete')"></span></td>
+                <td><span class="ext-icon-user-edit" onclick="parent.chooseIcon('ext-icon-user-edit')"></span></td>
+                <td><span class="ext-icon-user-female" onclick="parent.chooseIcon('ext-icon-user-female')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-user-go" onclick="parent.chooseIcon('ext-icon-user-go')"></span></td>
+                <td><span class="ext-icon-user-gray" onclick="parent.chooseIcon('ext-icon-user-gray')"></span></td>
+                <td><span class="ext-icon-user-green" onclick="parent.chooseIcon('ext-icon-user-green')"></span></td>
+                <td><span class="ext-icon-user-orange" onclick="parent.chooseIcon('ext-icon-user-orange')"></span></td>
+                <td><span class="ext-icon-user-red" onclick="parent.chooseIcon('ext-icon-user-red')"></span></td>
+                <td><span class="ext-icon-user-suit" onclick="parent.chooseIcon('ext-icon-user-suit')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-vcard" onclick="parent.chooseIcon('ext-icon-vcard')"></span></td>
+                <td><span class="ext-icon-vcard-add" onclick="parent.chooseIcon('ext-icon-vcard-add')"></span></td>
+                <td><span class="ext-icon-vcard-delete" onclick="parent.chooseIcon('ext-icon-vcard-delete')"></span></td>
+                <td><span class="ext-icon-vcard-edit" onclick="parent.chooseIcon('ext-icon-vcard-edit')"></span></td>
+                <td><span class="ext-icon-world" onclick="parent.chooseIcon('ext-icon-world')"></span></td>
+                <td><span class="ext-icon-world-add" onclick="parent.chooseIcon('ext-icon-world-add')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-world-delete" onclick="parent.chooseIcon('ext-icon-world-delete')"></span></td>
+                <td><span class="ext-icon-world-edit" onclick="parent.chooseIcon('ext-icon-world-edit')"></span></td>
+                <td><span class="ext-icon-world-go" onclick="parent.chooseIcon('ext-icon-world-go')"></span></td>
+                <td><span class="ext-icon-world-link" onclick="parent.chooseIcon('ext-icon-world-link')"></span></td>
+                <td><span class="ext-icon-zoom" onclick="parent.chooseIcon('ext-icon-zoom')"></span></td>
+                <td><span class="ext-icon-zoom-in" onclick="parent.chooseIcon('ext-icon-zoom-in')"></span></td>
+            </tr>
+            <tr>
+                <td><span class="ext-icon-zoom-out" onclick="parent.chooseIcon('ext-icon-zoom-out')"></span></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

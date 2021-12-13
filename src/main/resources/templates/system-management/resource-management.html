@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>资源管理</title>
+    <!-- myFontIcon CSS-->
+    <link rel="stylesheet" href="../../static/css/myFontIcon.css" th:href="@{/css/myFontIcon.css}">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- Bootstrap-treeTable CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery.treegrid.min.css" th:href="@{/css/lib/jquery.treegrid.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <!-- treeview stylesheet-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-treeview.min.css" th:href="@{/css/lib/bootstrap-treeview.min.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+<body onload="init();">
+
+    <div class="panel-body" style="padding-bottom:0;">
+        <div id="toolbar" class="btn-group">
+            <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+            </button>
+        </div>
+        <table id="table"></table>
+    </div>
+
+    <!-- 模态框（Modal） 查看 -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="viewModalLabel">
+                        查看资源信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <caption>资源基本信息</caption>
+                        <tbody>
+                        <tr>
+                            <td>编号</td>
+                            <td id="view_id">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>资源名称</td>
+                            <td id="view_name">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>资源路径</td>
+                            <td id="view_url">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>资源类型</td>
+                            <td id="view_syResourceTypeId">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>上级资源</td>
+                            <td id="view_syResourceId">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>资源图标</td>
+                            <td id="view_icons">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>顺序</td>
+                            <td id="view_seq">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>资源描述	</td>
+                            <td id="view_description">xxx</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 编辑 -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="editModalLabel">
+                        编辑资源信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" onsubmit="return false;">
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_id">编号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="edit_id" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_name">资源名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="edit_name" onchange="checkInputChange('edit_name');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_url">资源路径</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="edit_url">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_syResourceTypeId">资源类型</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" data-style="btn-success" id="edit_syResourceTypeId">
+                                    <option value="0">菜单</option>
+                                    <option value="1">功能</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_syResourceId">上级资源</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="edit_syResourceId" disabled>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-success view" data-toggle="modal" data-target="#resourceModal" onclick="syResourceIdButtonClick(0);">选择资源</button>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_icons">资源图标</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" id="edit_icons" disabled>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-success view" data-toggle="modal" data-target="#iconsModal">选择图标</button>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_seq">顺序</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="edit_seq">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_description">资源描述</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" id="edit_description"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="edit();">修改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 新增 -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-center" id="addModalLabel">
+                        资源基本信息
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" onsubmit="return false;">
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="input_name">资源名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input_name" onchange="checkInputChange('input_name');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_url">资源路径</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input_url">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_sy_resource_type_id">资源类型</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" data-style="btn-success" id="input_sy_resource_type_id">
+                                    <option value="0">菜单</option>
+                                    <option value="1">功能</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_sy_resource_id">上级资源</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="input_sy_resource_id" disabled>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-success view" data-toggle="modal" data-target="#resourceModal" onclick="syResourceIdButtonClick(1);">选择资源</button>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_icons">资源图标</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="input_icons" disabled>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-success view" data-toggle="modal" data-target="#iconsModal">选择图标</button>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_seq">顺序</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="input_seq">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_description">资源描述</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" id="input_description"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="add();">添加</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 资源选择 -->
+    <div class="modal fade" id="resourceModal" tabindex="-1" role="dialog" aria-labelledby="resourceModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="resourceModalLabel">
+                        菜单资源
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="treeViewScrollbar">
+                        <div id="treeView"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 图标选择 -->
+    <div class="modal fade" id="iconsModal" tabindex="-1" role="dialog" aria-labelledby="iconsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="iconsModalLabel">
+                        菜单资源
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div style="height: 500px; overflow: hidden;">
+                        <iframe width="600px" height="500px" frameborder="no" src="../../static/icon/icon.html" th:src="@{/icon/icon.html}"></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- Bootstrap-treeTable js-->
+<script src="../../static/js/lib/bootstrap-table-treegrid.js" th:src="@{/js/lib/bootstrap-table-treegrid.js}"></script>
+<script src="../../static/js/lib/jquery.treegrid.min.js" th:src="@{/js/lib/jquery.treegrid.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- treeview js-->
+<script src="../../static/js/lib/bootstrap-treeview.min.js" th:src="@{/js/lib/bootstrap-treeview.min.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+    $table.bootstrapTable({
+        toolbar: '#toolbar',                //工具按钮用哪个容器
+        striped: true,                     //是否显示行间隔色
+        cache: false,                      //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        sortable: true,                    //是否启用排序
+        sortOrder: "asc",                   //排序方式
+        showColumns: true,                 //是否显示所有的列
+        showRefresh: true,                 //是否显示刷新按钮
+        minimumCountColumns: 2,            //最少允许的列数
+        clickToSelect: true,               //是否启用点击选中行
+        search: true,                      //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        searchOnEnterKey: true,
+        strictSearch: false,
+        idField: 'id',                      //id
+        columns: [{
+            field: 'name',
+            title: '资源名称',
+            width: "250px",
+            formatter: iconFormatter
+        }, {
+            field: 'icons',
+            title: '图标名称',
+            width: "170px",
+            formatter: stringFormatter
+        }, {
+            field: 'url',
+            title: '资源路径',
+            width: "170px",
+            formatter: stringFormatter
+        }, {
+            field: 'syResourceTypeId',
+            title: '资源类型',
+            width: "90px",
+            align: 'center',
+            formatter: value => "0" === value ? '<span title="菜单" class="label label-success">菜单</span>' : '<span title="功能" class="label label-default">功能</span>'
+        }, {
+            field: 'description',
+            title: '资源描述',
+            width: "170px",
+            formatter: stringFormatter
+        }, {
+            field: 'operation',
+            title: '操作',
+            width: "210px",
+            formatter: operateFormatter
+        }],
+        // bootstrap-table-treegrid.js 插件配置 -- start
+        treeShowField: 'name',              //在哪一列展开树形
+        parentIdField: 'syResourceId',      //指定父id列
+        onResetView: () => {
+            $table.treegrid({
+                initialState: 'collapsed',  // 所有节点都折叠,默认展开
+                treeColumn: 0               //在哪一列展开树形
+            });
+        }
+        // bootstrap-table-treetreegrid.js 插件配置 -- end
+    });
+
+    function iconFormatter(value, row) {
+        return [
+            '&nbsp;&nbsp;<i class="' + row.iconCls + '"></i>&nbsp;&nbsp;' + value
+        ].join('');
+    }
+
+    function operateFormatter(value, row, index) {
+        return [
+            '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>&nbsp;&nbsp;' +
+            '<button class="btn btn-primary view" data-toggle="modal" data-target="#editModal" onclick="initEdit('+ index +');">编辑</button>&nbsp;&nbsp;' +
+            '<button class="btn btn-danger view" onclick="deleteOne('+ index +');">删除</button>'
+        ].join('');
+    }
+
+    // 修改提示框样式
+    changeToolTip();
+
+    // 模态框初始化
+    dragTheModalDialog();
+
+    // 初始化表格信息
+    function init() {
+        noParameterPostRequest("/resource-management/getAllResources", result => {
+            $table.bootstrapTable("load", result.module);
+        });
+    }
+</script>
+<script>
+    /** 页面逻辑 */
+    // 资源名称改变
+    let $nameInput = $("#input_name");
+    let $edit_name = $("#edit_name");
+
+    // 资源选择
+    let treeView = $('#treeView');
+    let addResourceId = null;
+    let editResourceId = null;
+    // flag 1：添加 0：修改
+    function syResourceIdButtonClick(flag) {
+        noParameterPostRequest("/resource-management/getTreeView", result => {
+            treeView.treeview({
+                data: result.module,
+                levels: 0,      // 设置初始化展开几级菜单 默认为2
+            }).on('nodeSelected',function(event, data) {
+                if (flag) {
+                    $("#input_sy_resource_id").val(data.text);
+                    addResourceId = data.id;
+                } else {
+                    $("#edit_syResourceId").val(data.text);
+                    editResourceId = data.id;
+                }
+                $('#resourceModal').modal('hide');
+            });
+        }, "GET");
+    }
+
+    // 图标选择
+    function chooseIcon(text) {
+        if ($('#addModal').hasClass('in')) {
+            $("#input_icons").val(text);
+        } else {
+            $("#edit_icons").val(text);
+        }
+
+        $('#iconsModal').modal('hide');
+    }
+</script>
+<script>
+    /** 功能 */
+    // 添加
+    function add() {
+        if ("" === $nameInput.val()) {
+            swal("操作提示", "请输入必输入项", "info");
+        } else {
+            let data = {
+                name: $nameInput.val(),
+                url: $("#input_url").val(),
+                syResourceTypeId: $("#input_sy_resource_type_id").val(),
+                syResourceId: addResourceId,
+                icons: $("#input_icons").val(),
+                seq: $("#input_seq").val(),
+                description: $("#input_description").val(),
+            };
+            parameterPostRequest("/resource-management/insert", data, () => {
+                $('#addModal').modal('hide');
+                swal("正确", "添加成功", "success");
+                parent.init();
+                init();
+            });
+        }
+    }
+
+    // 查看
+    function view(index) {
+        let rows = $table.bootstrapTable('getData');
+        let pIndex = rows.findIndex(item => item.id === rows[index].syResourceId);
+        $("#view_id").text(rows[index].id);
+        $("#view_name").text(rows[index].name);
+        $("#view_url").text(rows[index].url);
+        $("#view_syResourceTypeId").html("0" === rows[index].syResourceTypeId ? '<span title="菜单" class="label label-success">菜单</span>' : '<span title="功能" class="label label-default">功能</span>');
+        $("#view_syResourceId").text(-1 === pIndex ? "" : rows[pIndex].name);
+        $("#view_icons").html('&nbsp;&nbsp;<i class="' + rows[index].icons + '"></i>&nbsp;&nbsp;' + rows[index].icons);
+        $("#view_seq").text(rows[index].seq);
+        $("#view_description").text(rows[index].description);
+    }
+
+    // 编辑
+    function initEdit(index) {
+        let rows = $table.bootstrapTable('getData');
+        let pIndex = rows.findIndex(item => item.id === rows[index].syResourceId);
+        editResourceId = -1 === pIndex ? null : rows[pIndex].id;
+        $("#edit_id").val(rows[index].id);
+        $edit_name.val(rows[index].name).trigger("change");
+        $("#edit_url").val(rows[index].url);
+        $("#edit_syResourceTypeId").val(rows[index].syResourceTypeId);
+        $("#edit_syResourceId").val(-1 === pIndex ? "" : rows[pIndex].name);
+        $("#edit_icons").val(rows[index].icons);
+        $("#edit_seq").val(rows[index].seq);
+        $("#edit_description").val(rows[index].description);
+    }
+    function edit() {
+        if ("" === $edit_name.val()) {
+            swal("操作提示", "请输入必输入项", "info");
+        } else {
+            let data = {
+                id: $("#edit_id").val(),
+                name: $edit_name.val(),
+                url: $("#edit_url").val(),
+                syResourceTypeId: $("#edit_syResourceTypeId").val(),
+                syResourceId: editResourceId,
+                icons: $("#edit_icons").val(),
+                seq: $("#edit_seq").val(),
+                description: $("#edit_description").val(),
+            };
+            parameterPostRequest("/resource-management/updateResources", data, () => {
+                $('#editModal').modal('hide');
+                swal("正确", "修改成功", "success");
+                parent.init();
+                init();
+            });
+        }
+    }
+
+    // 删除
+    function deleteOne(index) {
+        dialog("确定删除吗？", () => {
+            let data = { id: $table.bootstrapTable('getData')[index].id };
+            parameterPostRequest("/resource-management/delete", data, () => {
+                swal("正确", "删除成功", "success");
+                parent.init();
+                init();
+            });
+        });
+    }
+</script>
+
+
+</body>
+</html>

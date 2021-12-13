@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>质量抽检</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <!-- select2 CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/select2.min.css" th:href="@{/css/lib/select2.min.css}">
+    <link rel="stylesheet" href="../../static/css/lib/select2-bootstrap.min.css" th:href="@{/css/lib/select2-bootstrap.min.css}">
+    <link href="../../static/css/file.css" rel="stylesheet" th:href="@{/css/file.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+
+<body onload="init();">
+
+    <div class="panel-body" style="padding-bottom:0;">
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <div class="form-group" style="margin-top:15px">
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_order_number">订单号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_order_number">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_product_number">客户料号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_product_number">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_check_flag">状态</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_search_check_flag">
+                                <option>--请选择--</option>
+                                <option>未审核</option>
+                                <option>未通过</option>
+                                <option>已通过</option>
+                            </select>
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_item_name">品名</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_item_name">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_sample_result">检验结果</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_search_sample_result">
+                                <option>--请选择--</option>
+                                <option>合格</option>
+                                <option>不合格</option>
+                            </select>
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_code">客户代码</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_code">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_job_ticket_number">工作传票号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_job_ticket_number">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_spec">规格</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_spec">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_package_operator">包装员</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_package_operator">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_check_operator">检验员</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_check_operator">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <div class="col-sm-offset-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_filter" class="btn btn-primary" onclick="filter();">过滤</button>
+                            <button type="button" style="margin-left:50px" id="btn_reset_filter" class="btn btn-primary" onclick="init();">重置过滤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toolbar" class="btn-group">
+            <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增质量抽检
+            </button>
+            <button id="btn_export" type="button" class="btn btn-default" onclick="exportExcel();">
+                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>批量导出
+            </button>
+        </div>
+        <table id="table"></table>
+
+    </div>
+
+    <!-- 模态框（Modal）查看 -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        查看质量抽检信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <caption>质量抽检信息</caption>
+                        <tbody>
+                        <tr>
+                            <td>工作传票号</td>
+                            <td id="view_job_ticket_number">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>包装人员</td>
+                            <td id="view_package_operator">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>抽样数</td>
+                            <td id="view_sample_number">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>合格数</td>
+                            <td id="view_pass_number">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>判定结果</td>
+                            <td id="view_sample_result">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>包装数量</td>
+                            <td id="view_package_number">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>检验人员</td>
+                            <td id="view_checker">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>AQL</td>
+                            <td id="view_aql">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>不良数</td>
+                            <td id="view_fail_number">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>备注</td>
+                            <td id="view_remark">xxx</td>
+                        </tr>
+                        <tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 新增 -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-center" id="addModalLabel">
+                        质量抽检信息
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" onsubmit="return false;">
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="job_ticket_number_select">工作传票号</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control" id="job_ticket_number_select" onchange="jobTicketNumberSelectChange();">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="input_package_number">包装数量</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="input_package_number" onchange="numberInputChange('input_package_number', '包装数量不能为负数');">
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="package_operator_select">包装人员</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control" id="package_operator_select" onchange="setInputSuccess($packageOperatorSelect);">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="check_operator_select">检验人员</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control" id="check_operator_select" onchange="setInputSuccess($checkOperatorSelect);">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="input_sample_number">抽样数</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="input_sample_number" onchange="numberInputChange('input_sample_number', '抽样数量不能为负数');">
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="input_aql">AQL</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="input_aql" onchange="numberInputChange('input_aql', 'AQL不能为负数');">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="input_pass_number">合格数</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="input_pass_number" onchange="numberInputChange('input_pass_number', '合格数不能为负数');" >
+                            </div>
+                        </div>
+
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="input_fail_number">不良数</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="input_fail_number" onchange="numberInputChange('input_fail_number', '不良数不能为负数');">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_sample_result">判定结果</label>
+                            <div class="col-sm-10">
+                                <select class="selectpicker form-control" data-style="btn-danger" id="input_sample_result">
+                                    <option value="合格">合格</option>
+                                    <option value="不合格">不合格</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_remark">备注</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" id="input_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="add();">添加</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 编辑 -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="editModalLabel">
+                        编辑质量抽检信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_job_ticket_number">工作传票号</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control" id="edit_job_ticket_number" onchange="setInputSuccess($editJobTicketNumber);">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_package_number">包装数量</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="number" id="edit_package_number" onchange="numberInputChange('edit_package_number', '包装数量不能为负数');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_package_operator">包装人员</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control" id="edit_package_operator" onchange="setInputSuccess($editPackageOperator);">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_check_operator">检验人员</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control" id="edit_check_operator" onchange="setInputSuccess($editCheckOperator);">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_sample_number">抽样数</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="number" id="edit_sample_number" onchange="numberInputChange('edit_sample_number', '抽样数量不能为负数');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_aql">AQL</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="number" id="edit_aql" onchange="numberInputChange('edit_aql', 'AQL不能为负数');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_pass_number">合格数</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="number" id="edit_pass_number" onchange="numberInputChange('edit_pass_number', '合格数不能为负数');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_fail_number">不良数</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="number" id="edit_fail_number" onchange="numberInputChange('edit_fail_number', '不良数不能为负数');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_sample_result">判定结果</label>
+                            <div class="col-sm-10">
+                                <select class="selectpicker form-control" data-style="btn-danger" id="edit_sample_result">
+                                    <option value="合格">合格</option>
+                                    <option value="不合格">不合格</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_remark">备注</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" id="edit_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="edit();">编辑</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 审核 -->
+    <div class="modal fade" id="auditModal" tabindex="-1" role="dialog" aria-labelledby="auditModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="auditModalLabel">
+                        审核质量抽检信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="audit_check_flag">审核</label>
+                            <div class="col-sm-10">
+                                <select class="selectpicker form-control" data-style="btn-success" id="audit_check_flag">
+                                    <option value="未审核">未审核</option>
+                                    <option value="未通过">未通过</option>
+                                    <option value="已通过">已通过</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="audit_remark">备注</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" id="audit_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="audit();">审核</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- select2.js -->
+<script src="../../static/js/lib/select2.min.js" th:src="@{/js/lib/select2.min.js}"></script>
+<script src="../../static/js/lib/Select2-zh-CN.js" th:src="@{/js/lib/Select2-zh-CN.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+    let $jobTicketNumberSelect=$("#job_ticket_number_select");
+    let $packageOperatorSelect = $("#package_operator_select");
+    let $checkOperatorSelect = $("#check_operator_select");
+    let $editJobTicketNumber = $("#edit_job_ticket_number");
+    let $editPackageOperator = $("#edit_package_operator");
+    let $editCheckOperator = $("#edit_check_operator");
+
+    // 服务器分页获取数据
+    function getServerPaging(node, url, queryParams) {
+        initTable(node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams,
+            [{
+                checkbox: true
+            }, {
+                field: 'orderNumber',
+                title: '订单号',
+                width: '170px',
+                formatter: stringFormatter
+            }, {
+                field: 'code',
+                title: '客户代码',
+                width: '100px',
+                formatter: stringFormatter
+            }, {
+                field: 'jobTicketNumber',
+                title: '工作传票号',
+                width: '170px',
+                formatter: stringFormatter
+            }, {
+                field: 'productNumber',
+                title: '成品料号',
+                width: '170px',
+                formatter: stringFormatter
+            }, {
+                field: 'itemName',
+                title: '品名',
+                width: '120px',
+                formatter: stringFormatter
+            }, {
+                field: 'spec',
+                title: '规格',
+                width: '170px',
+                formatter: stringFormatter
+            }, {
+                field: 'packageNumber',
+                title: '包装数量',
+                width: '80px',
+                formatter: stringFormatter
+            }, {
+                field: 'packageOperator',
+                title: '包装员',
+                width: '100px',
+                formatter: stringFormatter
+            }, {
+                field: 'sampleNumber',
+                title: '抽样数',
+                width: '80px',
+                formatter: stringFormatter
+            }, {
+                field: 'aql',
+                title: 'AQL',
+                width: '80px',
+                formatter: stringFormatter
+            }, {
+                field: 'passNumber',
+                title: '合格数',
+                width: '80px',
+                formatter: stringFormatter
+            }, {
+                field: 'failNumber',
+                title: '不良数',
+                width: '80px',
+                formatter: stringFormatter
+            }, {
+                field: 'checkOperator',
+                title: '检验员',
+                width: '100px',
+                formatter: stringFormatter
+            }, {
+                field: 'sampleResult',
+                title: '检验结果',
+                width: '80px',
+                align: "center",
+                formatter: value => null === value ? "" : "合格" === value ? '<span title="合格" class="label label-success">合格</span>' : '<span title="不合格" class="label label-danger">不合格</span>'
+            }, {
+                field: 'enter',
+                title: '录入者',
+                width: '100px',
+                formatter: stringFormatter
+            }, {
+                field: 'checker',
+                title: '审核者',
+                width: '100px',
+                formatter: stringFormatter
+            }, {
+                field: 'checkFlag',
+                title: '状态',
+                width: '80px',
+                formatter: stringFormatter
+            }, {
+                field: 'createTime',
+                title: '录入时间',
+                width: '170px',
+                formatter: dateFormatter
+            }, {
+                field: 'operate',
+                title: '操作',
+                width: '274px',
+                formatter: operateFormatter // 自定义方法，添加操作按钮
+            }]);
+    }
+    function operateFormatter(value, row, index) {  // 赋予的参数
+        if ("已通过" === row.checkFlag) {
+            return [ '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>' ].join('');
+        } else {
+            return [
+                '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-primary view" data-toggle="modal" data-target="#editModal"  onclick="initEdit('+ index +');">编辑</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-danger view" onclick="deleteOne('+ index +');">删除</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-warning view" data-toggle="modal" data-target="#auditModal" onclick="initAudit('+ index +');">审核</button>'
+            ].join('');
+        }
+    }
+
+    // 修改提示框样式
+    changeToolTip();
+
+    // 模态框初始化
+    dragTheModalDialog();
+
+    // 初始化新增下拉框（工作传票号）
+    initSelect($jobTicketNumberSelect, "请输入工作传票号", jobTicketNumberFormatter, "/manufacturing-process-sheet/getManufactureProcessSLave", 1000, params => {
+        return { offset: params.page ? 10 * (params.page - 1) : 0, limit: 10, jobTicketNumber: params.term };
+    },result =>result.module.rows.map(item => {
+        return { id: item.id, text: item.jobTicketNumber, code: item.code, everyAmount: item.everyAmount, itemName: item.itemName, spec: item.spec };
+    }), 10);
+
+    // 初始化编辑下拉框（工作传票号)
+    initSelect($editJobTicketNumber, "请输入工作传票号", jobTicketNumberFormatter, "/manufacturing-process-sheet/getManufactureProcessSLave", 1000, params => {
+        return { offset: params.page ? 10 * (params.page - 1) : 0, limit: 10, jobTicketNumber: params.term };
+    },result => result.module.rows.map(item => {
+        return { id: item.id, text: item.jobTicketNumber, code: item.code, everyAmount: item.everyAmount, itemName: item.itemName, spec: item.spec };
+    }), 10);
+    function jobTicketNumberFormatter(result) {
+        return '<span title="'+ result.code + " | " + result.everyAmount + " | " +result.itemName + " | " +result.spec+'">' + result.text +'</span>';
+    }
+
+    // 初始化新增下拉框（包装人员）
+    initSelect($packageOperatorSelect, '请输入包装员姓名', userFormatter, "/user/getUsers", 1000, params => {
+        return { offset: params.page ? 10 * (params.page - 1) : 0, limit: 10, name: params.term };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.name, sex: item.sex};
+    }), 10);
+
+    // 初始化编辑下拉框（包装人员)
+    initSelect($editPackageOperator, '请输入包装员姓名', userFormatter, "/user/getUsers", 1000, params => {
+        return { offset: params.page ? 10 * (params.page - 1) : 0, limit: 10, name: params.term };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.name, sex: item.sex};
+    }), 10);
+
+    // 初始化新增下拉框（检验员）
+    initSelect($checkOperatorSelect, '请输入检验员姓名', userFormatter, "/user/getUsers", 1000, params => {
+        return { offset: params.page ? 10 * (params.page - 1) : 0, limit: 10, name: params.term };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.name, sex: item.sex};
+    }), 10);
+
+    // 初始化编辑下拉框（检验员)
+    initSelect($editCheckOperator, '请输入检验员姓名', userFormatter, "/user/getUsers", 1000, params => {
+        return { offset: params.page ? 10 * (params.page - 1) : 0, limit: 10, name: params.term };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.name, sex: item.sex};
+    }), 10);
+    function userFormatter(result) {
+        return '<span title="'+ result.sex + '">' + result.text +'</span>';
+    }
+
+    // 初始化表格数据
+    function init() {
+        getServerPaging($table, "/the-quality-of-sampling/getQualitySampling", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+    }
+</script>
+
+<script>
+    /** 页面逻辑*/
+    // 工作传票号下拉框改变
+    let $packNumInput = $("#input_package_number");
+    function jobTicketNumberSelectChange() {
+        setInputSuccess($jobTicketNumberSelect);
+        setInputError($packNumInput);
+        $packNumInput.val("");
+    }
+</script>
+
+<script>
+    /** 功能*/
+    //过滤
+    function filter() {
+        let data = { orderNumber: $("#txt_search_order_number").val(), code: $("#txt_search_code").val(), itemName: $("#txt_search_item_name").val(),
+            spec: $("#txt_search_spec").val(), packageOperator: $("#txt_search_package_operator").val(), checkOperator: $("#txt_search_check_operator").val(), jobTicketNumber: $("#txt_search_job_ticket_number").val(),
+            productNumber: $("#txt_search_product_number").val(), sampleResult: $("#txt_search_sample_result").val(), checkFlag: $("#txt_search_check_flag").val() };
+
+        if ("" === data["orderNumber"] && "" === data["code"] && "--请选择--" === data["checkFlag"] && "" === data["itemName"] && "" === data["spec"]
+            && "" === data["packageOperator"] && "" === data["checkOperator"] && "" === data["jobTicketNumber"] && "" === data["productNumber"] && "" === data["sampleResult"]) {
+            swal("操作提示", "请填写过滤参数", "info");
+            return;
+        }
+
+        getServerPaging($table, "/the-quality-of-sampling/getQualitySamplingByConditions", params => {
+            let result = { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC", orderNumber: data["orderNumber"],
+                code: data["code"], checkFlag: data["checkFlag"], itemName: data["itemName"], spec: data["spec"], packageOperator: data["packageOperator"],
+                checkOperator: data["checkOperator"], jobTicketNumber: data["jobTicketNumber"], productNumber: data["productNumber"], sampleResult: data["sampleResult"] };
+
+            removeEmptyField(result);
+            if ("--请选择--" === result["checkFlag"]) {
+                delete result["checkFlag"];
+            }
+            if ("--请选择--" === result["sampleResult"]) {
+                delete result["sampleResult"];
+            }
+
+            return result;
+        });
+    }
+
+    // 导出excel
+    function exportExcel() {
+        let selections = $table.bootstrapTable('getSelections');
+        if (selections.length === 0) {
+            swal("操作提示", "请选择记录", "info");
+        } else {
+            parameterPostRequest("/the-quality-of-sampling/exportExcel", selections, () => loadFile("质量抽检信息.xlsx"));
+        }
+    }
+
+    // 查看
+    function view(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#view_job_ticket_number").text(rows[index].jobTicketNumber);
+        $("#view_package_operator").text(rows[index].packageOperator);
+        $("#view_sample_number").text(rows[index].sampleNumber);
+        $("#view_pass_number").text(rows[index].passNumber);
+        $("#view_sample_result").text(rows[index].sampleResult);
+        $("#view_package_number").text(rows[index].packageNumber);
+        $("#view_checker").text(rows[index].checkOperator);
+        $("#view_aql").text(rows[index].aql);
+        $("#view_fail_number").text(rows[index].failNumber);
+        $("#view_remark").text(rows[index].remark);
+    }
+
+    // 添加质量抽检记录
+    function add() {
+        if (0 !== $jobTicketNumberSelect.select2('data').length || 0 !== $packageOperatorSelect.select2('data').length || 0 !== $checkOperatorSelect.select2('data').length) {
+            let data = {
+                manufactureProcessSlaveId: $jobTicketNumberSelect.select2('data')[0].id,
+                packageNumber: $("#input_package_number").val(),
+                sampleNumber: $("#input_sample_number").val(),
+                aql: $("#input_aql").val(),
+                passNumber: $("#input_pass_number").val(),
+                failNumber: $("#input_fail_number").val(),
+                sampleResult: $("#input_sample_result").val(),
+                remark: $("#input_remark").val(),
+                packageOperator: $packageOperatorSelect.select2('data')[0].id,
+                checkOperator: $checkOperatorSelect.select2('data')[0].id
+            };
+            if ("" === data.packageNumber || "" === data.sampleNumber || "" === data.aql || "" === data.passNumber || "" === data.failNumber || "" === data.sampleResult) {
+                swal("操作提示", "请输入必输入项", "info");
+            } else if (parseFloat(data.sampleNumber) > parseFloat(data.packageNumber)) {
+                swal("操作提示", "抽样数不能大于包装数量", "info");
+            } else if (parseFloat(data.sampleNumber) !== parseFloat(data.passNumber) + parseFloat(data.failNumber)) {
+                swal("操作提示", "抽样数和合格数和不良数之和不等", "info");
+            } else {
+                parameterPostRequest("/the-quality-of-sampling/insert", data, () => {
+                    $('#addModal').modal('hide');
+                    swal("正确", "添加成功", "success");
+                    init();
+                });
+            }
+        } else {
+            swal("操作提示", "请输入必输入项", "info");
+        }
+    }
+
+    // 删除
+    function deleteOne(index) {
+        dialog("确定删除吗?",() =>{
+            let data ={ id: $table.bootstrapTable('getData')[index].id };
+            parameterPostRequest("/the-quality-of-sampling/delete", data, () => {
+                swal("正确", "删除成功", "success");
+                init();
+            });
+        });
+    }
+
+    // 编辑
+    // edit记录id
+    let editId;
+    function initEdit(index) {
+        let rows = $table.bootstrapTable('getData');
+        $editJobTicketNumber.html('<option value="' + rows[index].manufactureProcessSlaveId + '">' + rows[index].jobTicketNumber + '</option>').trigger("change");
+        $("#edit_package_number").val(rows[index].packageNumber).trigger("change");
+        $("#edit_sample_number").val(rows[index].sampleNumber).trigger("change");
+        $("#edit_aql").val(rows[index].aql).trigger("change");
+        $("#edit_pass_number").val(rows[index].passNumber).trigger("change");
+        $("#edit_fail_number").val(rows[index].failNumber).trigger("change");
+        $("#edit_sample_result").val(rows[index].sampleResult).trigger("change");
+        $("#edit_remark").val(rows[index].remark);
+        $editPackageOperator.html('<option value="' + rows[index].packageOperatorId + '">' + rows[index].packageOperator + '</option>').trigger("change");
+        $editCheckOperator.html('<option value="' + rows[index].checkOperatorId + '">' + rows[index].checkOperator + '</option>').trigger("change");
+        editId = rows[index].id;
+    }
+    function edit() {
+        if (0 !== $editJobTicketNumber.select2('data').length || 0 !== $editPackageOperator.select2('data').length || 0 !== $editCheckOperator.select2('data').length) {
+            let data = {
+                id: editId,
+                manufactureProcessSlaveId: $editJobTicketNumber.select2('data')[0].id,
+                packageNumber: $("#edit_package_number").val(),
+                sampleNumber: $("#edit_sample_number").val(),
+                aql: $("#edit_aql").val(),
+                passNumber: $("#edit_pass_number").val(),
+                failNumber: $("#edit_fail_number").val(),
+                sampleResult: $("#edit_sample_result").val(),
+                remark: $("#edit_remark").val(),
+                packageOperator: $editPackageOperator.select2('data')[0].id,
+                checkOperator: $editCheckOperator.select2('data')[0].id
+            };
+            if ("" === data.id || data.sampleNumber < 0 || data.passNumber < 0 || data.failNumber < 0 || data.packageNumber < 0) {
+                swal("操作提示", "请输入必输入项", "info");
+            } else if (parseFloat(data.sampleNumber) > parseFloat(data.packageNumber)) {
+                swal("操作提示", "抽样数不能大于包装数量", "info");
+            } else if (parseFloat(data.sampleNumber) !== parseFloat(data.passNumber) + parseFloat(data.failNumber)) {
+                swal("操作提示", "抽样数和合格数和不良数之和不等", "info");
+            } else {
+                parameterPostRequest("/the-quality-of-sampling/updateQualitySampling", data, () => {
+                    $('#editModal').modal('hide');
+                    swal("正确", "编辑成功", "success");
+                    init();
+                });
+            }
+        } else {
+            swal("操作提示", "请输入必输入项", "info");
+        }
+    }
+
+    // 审核
+    // audit记录id
+    let auditId;
+    function initAudit(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#audit_check_flag").val(rows[index].checkFlag);
+        $("#audit_remark").val(rows[index].remark);
+        auditId = rows[index].id;
+    }
+    function audit() {
+        let data = {
+            id: auditId,
+            checkFlag: $("#audit_check_flag").val(),
+            remark: $("#audit_remark").val()
+        };
+        parameterPostRequest("/the-quality-of-sampling/updateCheckerById", data, () => {
+            $('#auditModal').modal('hide');
+            swal("正确", "审核成功", "success");
+            init();
+        });
+    }
+</script>
+
+</body>
+
+</html>

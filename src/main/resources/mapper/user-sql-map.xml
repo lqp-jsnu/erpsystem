@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.UserDAO">
+    <resultMap id="UserDO" type="edu.yctc.erpsystem.entity.UserDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="name" property="name"/>
+        <result column="login_name" property="loginName"/>
+        <result column="pwd" property="pwd"/>
+        <result column="age" property="age"/>
+        <result column="photo" property="photo"/>
+        <result column="sex" property="sex"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+	<select id="count" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM `sy_user`
+		<where>
+			<if test="loginName != null"> AND `login_name` LIKE CONCAT('%', #{loginName ,jdbcType=VARCHAR}, '%') </if>
+			<if test="name != null"> AND `name` LIKE CONCAT('%', #{name ,jdbcType=VARCHAR}, '%') </if>
+			<if test="sex != null"> AND `sex` = #{sex} </if>
+			<if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+			<if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+		</where>
+	</select>
+
+	<select id="getUser" resultMap="UserDO">
+		SELECT *
+		FROM `sy_user`
+		<where>
+			<if test="loginName != null"> AND `login_name` LIKE CONCAT('%', #{loginName ,jdbcType=VARCHAR}, '%') </if>
+			<if test="name != null"> AND `name` LIKE CONCAT('%', #{name ,jdbcType=VARCHAR}, '%') </if>
+			<if test="sex != null"> AND `sex` = #{sex} </if>
+			<if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+			<if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				ORDER BY ${sort} ${order}
+			</when>
+		</choose>
+		<if test="offset != null and limit != null">
+			LIMIT #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="login" resultMap="UserDO">
+		SELECT *
+		FROM `sy_user`
+		WHERE `login_name` = #{loginName} AND `pwd` = #{pwd};
+	</select>
+
+	<select id="getUserByLoginName" resultMap="UserDO">
+		SELECT *
+		FROM `sy_user`
+		WHERE `login_name` = #{loginName};
+	</select>
+
+	<select id="getUserById" resultMap="UserDO">
+		SELECT *
+		FROM `sy_user`
+		WHERE `id` = #{id};
+	</select>
+
+	<select id="getUserByIds" resultMap="UserDO">
+		SELECT *
+		FROM `sy_user`
+		WHERE `id`
+		IN
+		<foreach collection="ids" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<insert id="insert" parameterType="edu.yctc.erpsystem.entity.UserDO">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			SELECT replace(uuid(),'-','') FROM dual;
+		</selectKey>
+
+		INSERT INTO `sy_user` (`id`, `login_name`, `name`, `sex`, `photo`, `create_time`, `update_time`, `pwd`)
+		VALUES (#{id}, #{loginName}, #{name}, #{sex}, #{photo}, now(), now(), #{pwd});
+	</insert>
+
+	<delete id="delete">
+		DELETE FROM `sy_user`
+		WHERE `id` = #{id};
+	</delete>
+
+	<update id="updateUserInfo" parameterType="edu.yctc.erpsystem.entity.UserDO">
+        UPDATE `sy_user`
+        SET `login_name` = #{loginName}, `name` = #{name}, `sex` = #{sex}, `update_time` = now()
+        WHERE `id` = #{id};
+    </update>
+
+	<update id="updatePhotoById" parameterType="edu.yctc.erpsystem.entity.UserDO">
+        UPDATE `sy_user`
+        SET `photo` = #{photo}, `update_time` = now()
+        WHERE `id` = #{id};
+    </update>
+
+	<update id="updatePasswordById" parameterType="edu.yctc.erpsystem.entity.UserDO">
+        UPDATE `sy_user`
+        SET `pwd` = #{pwd}, `update_time` = now()
+        WHERE `id` = #{id};
+    </update>
+
+</mapper>

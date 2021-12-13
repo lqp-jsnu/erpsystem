@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.CustomerOrderDAO">
+    <resultMap id="CustomerOrderDO" type="edu.yctc.erpsystem.entity.CustomerOrderDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="original_product_id" property="originalProductId"/>
+        <result column="user" property="user"/>
+        <result column="checker" property="checker"/>
+        <result column="order_amount" property="orderAmount"/>
+        <result column="product_amount" property="productAmount"/>
+        <result column="order_number" property="orderNumber"/>
+        <result column="order_date" property="orderDate"/>
+        <result column="delivery_date" property="deliveryDate"/>
+        <result column="plan_arrival_date" property="planArrivalDate"/>
+        <result column="actual_arrival_date" property="actualArrivalDate"/>
+        <result column="is_arrival" property="isArrival"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="final_check_flag" property="finalCheckFlag"/>
+        <result column="is_generate_manufacture" property="isGeneraManufacture"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="every_order_amount" property="everyOrderAmount"/>
+        <result column="every_product_amount" property="everyProductAmount"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(* )
+        FROM `t_customer_order`
+        <where>
+            <if test='checkFlag == "已通过" '>
+                AND `is_generate_manufacture` = '否'
+                AND `check_flag` = #{checkFlag}
+            </if>
+            <if test='checkFlag == "未审核"'>
+                AND `check_flag` != '已通过'
+            </if>
+            <if test='finalCheckFlag == "已通过"'>
+                AND `is_generate_manufacture` = '是'
+                AND `final_check_flag` = '已通过'
+                AND `check_flag` = '已通过'
+            </if>
+            <if test="orderNumber != null"> AND `order_number` LIKE CONCAT('%', #{orderNumber ,jdbcType=VARCHAR}, '%') </if>
+            <if test="isGenerateManufacture != null"> AND `is_generate_manufacture` LIKE CONCAT('%', #{isGenerateManufacture ,jdbcType=VARCHAR}, '%') </if>
+            <if test="startTime != null"> AND `order_date` >= #{startTime} </if>
+            <if test="endTime != null"> AND `order_date` &lt;= #{endTime} </if>
+            <if test="startDeliveryDateTime != null"> AND `delivery_date` >= #{startDeliveryDateTime} </if>
+            <if test="endDeliveryDateTime != null"> AND `delivery_date` &lt;= #{endDeliveryDateTime} </if>
+        </where>
+    </select>
+
+    <select id="getCustomerOrder" resultMap="CustomerOrderDO">
+        SELECT *
+        FROM `t_customer_order`
+        <where>
+            <if test='checkFlag == "已通过" '>
+                AND `is_generate_manufacture` = '否'
+                AND `check_flag` = #{checkFlag}
+            </if>
+            <if test='checkFlag == "未审核"'>
+                AND `check_flag` != '已通过'
+            </if>
+            <if test='finalCheckFlag == "已通过"'>
+                AND `is_generate_manufacture` = '是'
+                AND `final_check_flag` = '已通过'
+                AND `check_flag` = '已通过'
+            </if>
+            <if test="orderNumber != null"> AND `order_number` LIKE CONCAT('%', #{orderNumber ,jdbcType=VARCHAR}, '%') </if>
+            <if test="isGenerateManufacture != null"> AND `is_generate_manufacture` LIKE CONCAT('%', #{isGenerateManufacture ,jdbcType=VARCHAR}, '%') </if>
+            <if test="startTime != null"> AND `order_date` >= #{startTime} </if>
+            <if test="endTime != null"> AND `order_date` &lt;= #{endTime} </if>
+            <if test="startDeliveryDateTime != null"> AND `delivery_date` >= #{startDeliveryDateTime} </if>
+            <if test="endDeliveryDateTime != null"> AND `delivery_date` &lt;= #{endDeliveryDateTime} </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.CustomerOrderDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_customer_order` (`id`, `customer_id`, `original_product_id`, `order_amount`, `order_number`, `order_date`, `delivery_date`, `plan_arrival_date`, `actual_arrival_date`, `is_arrival`, `create_time`, `user`,`checker`, `check_flag`,`final_check_flag`, `is_generate_manufacture`, `order_status`, `remark`)
+        VALUES (#{id}, #{customerId}, #{originalProductId}, #{orderAmount}, #{orderNumber}, #{orderDate}, #{deliveryDate}, #{planArrivalDate}, #{actualArrivalDate}, "否", now(), #{user}, #{checker}, "未审核", "未审核", "否", #{orderStatus}, #{remark});
+    </insert>
+
+    <insert id="insertAll" parameterType="edu.yctc.erpsystem.entity.CustomerOrderDO">
+        INSERT INTO `t_customer_order` (`id`, `customer_id`, `original_product_id`, `order_amount`, `order_number`, `order_date`, `delivery_date`, `plan_arrival_date`, `actual_arrival_date`, `is_arrival`, `create_time`, `user`,`checker`, `check_flag`,`final_check_flag`, `is_generate_manufacture`, `order_status`, `remark`)
+        VALUES
+        <foreach collection="customerOrderDO" item="item"  separator=",">
+            ((SELECT replace(uuid(),'-','') FROM dual),
+            #{item.customerId}, #{item.originalProductId}, #{item.orderAmount}, #{item.orderAmount}, #{item.orderDate}, #{item.deliveryDate}, #{item.planArrivalDate}, #{item.actualArrivalDate},
+            "否", now(), #{item.user}, #{item.checker}, "未审核", "未审核", "否", #{item.orderStatus}, #{item.remark})
+        </foreach>
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `t_customer_order`
+        WHERE `id` = #{id};
+    </delete>
+
+    <update id="updateFinalCheckFlagById" parameterType="edu.yctc.erpsystem.entity.CustomerOrderDO">
+        UPDATE `t_customer_order`
+        SET `final_check_flag` = #{finalCheckFlag}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateCustomerOrderDetailsById" parameterType="edu.yctc.erpsystem.entity.CustomerOrderDO">
+        UPDATE `t_customer_order`
+        SET `order_amount` = #{orderAmount},
+            `product_amount` = #{productAmount},
+            `every_order_amount` = #{everyOrderAmount},
+            `every_product_amount` = #{everyProductAmount},
+            `order_date` = #{orderDate},
+            `delivery_date` = #{deliveryDate},
+            `plan_arrival_date` = #{planArrivalDate},
+            `actual_arrival_date` = #{actualArrivalDate},
+            `is_arrival` = #{isArrival},
+            `remark` = #{remark}
+        WHERE id = #{id};
+    </update>
+
+    <update id="updateCustomerOrder" parameterType="edu.yctc.erpsystem.entity.CustomerOrderDO">
+        UPDATE `t_customer_order`
+        SET `order_amount` = #{orderAmount},
+            `order_date` = #{orderDate},
+            `delivery_date` = #{deliveryDate},
+            `plan_arrival_date` = #{planArrivalDate},
+            `actual_arrival_date` = #{actualArrivalDate},
+            `is_arrival` = #{isArrival}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateCheckerById" parameterType="edu.yctc.erpsystem.entity.CustomerOrderDO">
+        UPDATE `t_customer_order`
+        SET `checker` = #{checker},
+            `check_flag` = #{checkFlag}
+        WHERE `id` = #{id};
+    </update>
+
+    <delete id="make">
+        UPDATE `t_customer_order`
+        SET `is_generate_manufacture` = '是',
+            `order_status` = '生产中'
+        WHERE `id` = #{id};
+    </delete>
+
+    <delete id="finish">
+        UPDATE `t_customer_order`
+        SET `order_status` = '已完成'
+        WHERE `id` = #{id};
+    </delete>
+
+    <select id="getCustomerOrderById" resultMap="CustomerOrderDO">
+        SELECT *
+        FROM `t_customer_order`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getCustomerOrderByIds" resultMap="CustomerOrderDO">
+        SELECT *
+        FROM `t_customer_order`
+        WHERE `id` IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

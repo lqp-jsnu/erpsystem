@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.MaterialPurchaseToBeStorageDAO">
+    <resultMap id="MaterialPurchaseToBeStorageDO" type="edu.yctc.erpsystem.entity.MaterialPurchaseToBeStorageDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="material_purchase_id" property="materialPurchaseId"/>
+        <result column="invoice_title_id" property="invoiceTitleId"/>
+        <result column="checker" property="checker"/>
+        <result column="order_number" property="orderNumber"/>
+        <result column="in_amount" property="inAmount"/>
+        <result column="hope_delivery_date" property="hopeDeliveryDate"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="all_in" property="allIn"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_material_purchase_to_be_storage`
+        <where>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="start != null"> AND `hope_delivery_date` >= #{start} </if>
+            <if test="end != null"> AND `hope_delivery_date` &lt;= #{end} </if>
+            AND `all_in` = 0
+        </where>
+    </select>
+
+    <select id="getMaterialPurchaseToBeStorage" resultMap="MaterialPurchaseToBeStorageDO">
+        SELECT *
+        FROM `t_material_purchase_to_be_storage`
+        <where>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="start != null"> AND `hope_delivery_date` >= #{start} </if>
+            <if test="end != null"> AND `hope_delivery_date` &lt;= #{end} </if>
+            AND `all_in` = 0
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insertAll" parameterType="edu.yctc.erpsystem.entity.MaterialPurchaseToBeStorageDO">
+        INSERT INTO `t_material_purchase_to_be_storage`(`id`, `hope_delivery_date`, `order_number`, `material_purchase_id`, `invoice_title_id`, `create_time`, `in_amount`, `all_in`, `check_flag`)
+        VALUES
+        <foreach collection="materialPurchaseToBeStorageDO" item="item"  separator=",">
+            ((SELECT replace(uuid(),'-','') FROM dual),
+            #{item.hopeDeliveryDate}, #{item.orderNumber}, #{item.materialPurchaseId},
+            #{item.invoiceTitleId}, now(), "0", "0", "未审核")
+        </foreach>
+    </insert>
+
+    <update id="updateInAmountByMaterialPurchaseToBeStorageId" parameterType="edu.yctc.erpsystem.entity.MaterialStorageDO">
+        UPDATE `t_material_purchase_to_be_storage`
+        SET   `in_amount` = #{inAmount}
+        WHERE `id`= #{id}
+    </update>
+
+    <update id="updateAllInByMaterialPurchaseToBeStorageId" parameterType="edu.yctc.erpsystem.entity.MaterialStorageDO">
+        UPDATE `t_material_purchase_to_be_storage`
+        SET `all_in` = 1
+        WHERE `id` = #{id}
+    </update>
+
+    <select id="getMaterialPurchaseToBeStorageById" resultMap="MaterialPurchaseToBeStorageDO">
+        SELECT *
+        FROM `t_material_purchase_to_be_storage`
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="getMaterialPurchaseToBeStorageByIds" resultMap="MaterialPurchaseToBeStorageDO">
+        SELECT *
+        FROM `t_material_purchase_to_be_storage`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

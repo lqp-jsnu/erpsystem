@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.MaterialInventoryDAO">
+    <resultMap id="MaterialInventoryDO" type="edu.yctc.erpsystem.entity.MaterialInventoryDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="material_storage_id" property="materialStorageId"/>
+        <result column="material_inventory_master_id" property="materialInventoryMasterId"/>
+        <result column="dict_id" property="dictId"/>
+        <result column="in_date" property="inDate"/>
+        <result column="in_storage_date" property="inStorageDate"/>
+        <result column="left_amount" property="leftAmount"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_material_inventory`, `t_material_inventory_master`, `t_material_info_master`, `t_material_storage`, `t_material_purchase_to_be_storage`, `t_material_purchase`, `t_supplier`, `t_material_info`, `t_warehouse`
+        <where>
+            AND `t_material_inventory`.`material_inventory_master_id` = `t_material_inventory_master`.`id`
+            AND `t_material_inventory_master`.`material_info_master_id` = `t_material_info_master`.`id`
+            AND `t_material_inventory`.`material_storage_id` = `t_material_storage`.`id`
+            AND `t_material_storage`.`material_purchase_to_be_storage_id` = `t_material_purchase_to_be_storage`.`id`
+            AND `t_material_purchase_to_be_storage`.`material_purchase_id` = `t_material_purchase`.`id`
+            AND `t_material_purchase`.`supplier_id` = `t_supplier`.`id`
+            AND `t_material_purchase`.`material_info_id` = `t_material_info`.`id`
+            AND `t_material_storage`.`warehouse_id` = `t_warehouse`.`id`
+            <if test="startTime != null"> AND `t_material_inventory`.`in_date` >= #{startTime} </if>
+            <if test="endTime != null"> AND `t_material_inventory`.`in_date` &lt;= #{endTime} </if>
+            <if test="startStorageDateTime != null"> AND `t_material_inventory`.`in_storage_date` >= #{startStorageDateTime} </if>
+            <if test="endStorageDateTime != null"> AND `t_material_inventory`.`in_storage_date` &lt;= #{endStorageDateTime} </if>
+            <if test="materialInventoryMasterId != null"> AND `t_material_inventory`.`material_inventory_master_id` = #{materialInventoryMasterId} </if>
+            AND `t_material_inventory`.`left_amount` != 0
+        </where>
+    </select>
+
+    <select id="getMaterialInventory" resultType="edu.yctc.erpsystem.vo.MaterialInventoryVO">
+        SELECT `t_material_inventory`.`id`, `t_material_inventory_master`.`id` `materialInventoryMasterId`, `t_material_storage`.`warehouse_id` `warehouseId`, `t_supplier`.`id` `supplierId`, `t_supplier`.`code`, `t_material_purchase_to_be_storage`.`order_number` `orderNumber`, `t_material_inventory`.`in_date` `inDate`, `t_material_inventory`.`in_storage_date` `inStorageDate`, `t_material_info_master`.`item_name` `itemName`, `t_material_info_master`.`spec`, `t_material_inventory`.`left_amount` `leftAmount`, `t_material_storage`.`in_amount` `inAmount`, `t_material_info`.`unit_price` `unitPrice`, `t_material_info_master`.`unit`, `t_material_info`.`unit_price` * `t_material_inventory`.`left_amount` `jine` ,`t_warehouse`.`name` `houseName`, `t_material_info_master`.`id` `materialInfoMasterId`
+        FROM `t_material_inventory`, `t_material_inventory_master`, `t_material_info_master`, `t_material_storage`, `t_material_purchase_to_be_storage`, `t_material_purchase`, `t_supplier`, `t_material_info`, `t_warehouse`
+        <where>
+            AND `t_material_inventory`.`material_inventory_master_id` = `t_material_inventory_master`.`id`
+            AND `t_material_inventory_master`.`material_info_master_id` = `t_material_info_master`.`id`
+            AND `t_material_inventory`.`material_storage_id` = `t_material_storage`.`id`
+            AND `t_material_storage`.`material_purchase_to_be_storage_id` = `t_material_purchase_to_be_storage`.`id`
+            AND `t_material_purchase_to_be_storage`.`material_purchase_id` = `t_material_purchase`.`id`
+            AND `t_material_purchase`.`supplier_id` = `t_supplier`.`id`
+            AND `t_material_purchase`.`material_info_id` = `t_material_info`.`id`
+            AND `t_material_storage`.`warehouse_id` = `t_warehouse`.`id`
+            <if test="startTime != null"> AND `t_material_inventory`.`in_date` >= #{startTime} </if>
+            <if test="endTime != null"> AND `t_material_inventory`.`in_date` &lt;= #{endTime} </if>
+            <if test="startStorageDateTime != null"> AND `t_material_inventory`.`in_storage_date` >= #{startStorageDateTime} </if>
+            <if test="endStorageDateTime != null"> AND `t_material_inventory`.`in_storage_date` &lt;= #{endStorageDateTime} </if>
+            <if test="materialInventoryMasterId != null"> AND `t_material_inventory`.`material_inventory_master_id` = #{materialInventoryMasterId} </if>
+            AND `t_material_inventory`.`left_amount` != 0
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY `t_material_inventory`.${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.MaterialInventoryDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_material_inventory` (`id`, `left_amount`, `material_storage_id`, `in_date`, `in_storage_date`, `create_time`, `dict_id`, `material_inventory_master_id`)
+        VALUES (#{id}, #{leftAmount}, #{materialStorageId}, #{inDate}, #{inStorageDate}, now(), #{dictId}, #{materialInventoryMasterId})
+    </insert>
+
+    <select id="updateLeftAmountById" resultMap="MaterialInventoryDO">
+        UPDATE `t_material_inventory`
+        SET `left_amount` = #{leftAmount}
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="updateAllLeftAmountByIds" parameterType="java.util.List">
+        <foreach collection="materialInventoryDO" item="item" index="index" open="" close="" separator=";">
+            UPDATE `t_material_inventory`
+            SET `left_amount` = #{item.leftAmount}
+            where `id` = #{item.id}
+        </foreach>
+    </select>
+
+    <select id="getMaterialInventoryById" resultMap="MaterialInventoryDO">
+        SELECT *
+        FROM `t_material_inventory`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getMaterialInventoryByIds" resultMap="MaterialInventoryDO">
+        SELECT *
+        FROM `t_material_inventory`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getMaterialInventoryByMasterId" resultMap="MaterialInventoryDO">
+        SELECT *
+        FROM `t_material_inventory`
+        WHERE `material_inventory_master_id` = #{materialInventoryMasterId}
+    </select>
+
+</mapper>

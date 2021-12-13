@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.CustomerDAO">
+    <resultMap id="CustomerDO" type="edu.yctc.erpsystem.entity.CustomerDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="code" property="code"/>
+        <result column="supplier_code" property="supplierCode"/>
+        <result column="name" property="name"/>
+        <result column="pay_type" property="payType"/>
+        <result column="contact" property="contact"/>
+        <result column="fixed_telephone" property="fixedTelephone"/>
+        <result column="email" property="email"/>
+        <result column="fax" property="fax"/>
+        <result column="mobile_telephone" property="mobileTelephone"/>
+        <result column="address" property="address"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="delivery_time" property="deliveryTime"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_customer`
+        <where>
+            <if test="code != null"> AND `code` LIKE CONCAT('%', #{code ,jdbcType=VARCHAR}, '%') </if>
+            <if test="name != null"> AND `name` LIKE CONCAT('%', #{name ,jdbcType=VARCHAR}, '%') </if>
+            <if test="supplierCode != null"> AND `supplier_code` LIKE CONCAT('%', #{supplierCode ,jdbcType=VARCHAR}, '%') </if>
+            AND `delete_flag` = 0;
+        </where>
+    </select>
+
+    <select id="getCustomer" resultMap="CustomerDO">
+        SELECT *
+        FROM `t_customer`
+        <where>
+            <if test="code != null"> AND `code` LIKE CONCAT('%', #{code ,jdbcType=VARCHAR}, '%') </if>
+            <if test="name != null"> AND `name` LIKE CONCAT('%', #{name ,jdbcType=VARCHAR}, '%') </if>
+            <if test="supplierCode != null"> AND `supplier_code` LIKE CONCAT('%', #{supplierCode ,jdbcType=VARCHAR}, '%') </if>
+            AND `delete_flag` = 0
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.CustomerDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_customer` (`id`, `code`, `name`, `supplier_code`, `pay_type`, `contact`, `fixed_telephone`,
+        `email`, `fax`, `mobile_telephone`, `address`, `remark`, `create_time`, `update_time`, `delete_flag`, `delivery_time`)
+        VALUES (#{id}, #{code}, #{name}, #{supplierCode}, #{payType}, #{contact}, #{fixedTelephone},
+        #{email}, #{fax}, #{mobileTelephone}, #{address}, #{remark}, now(), now(), "0", #{deliveryTime})
+    </insert>
+
+    <insert id="insertAll" parameterType="edu.yctc.erpsystem.entity.CustomerDO">
+        INSERT INTO `t_customer` (`id`, `code`, `name`, `supplier_code`, `pay_type`, `contact`, `fixed_telephone`,
+        `email`, `fax`, `mobile_telephone`, `address`, `remark`, `create_time`, `update_time`, `delete_flag`, `delivery_time`)
+        VALUES
+        <foreach collection="customerDO" item="item"  separator=",">
+            ((SELECT replace(uuid(),'-','') FROM dual),
+            #{item.code}, #{item.name}, #{item.supplierCode}, #{item.payType}, #{item.contact}, #{item.fixedTelephone},
+            #{item.email}, #{item.fax}, #{item.mobileTelephone}, #{item.address}, #{item.remark}, now(), now(), "0", #{item.deliveryTime})
+        </foreach>
+    </insert>
+
+    <update id="delete" parameterType="edu.yctc.erpsystem.entity.CustomerDO">
+        UPDATE `t_customer`
+        SET `delete_flag` = '1'
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateCustomer" parameterType="edu.yctc.erpsystem.entity.CustomerDO">
+        UPDATE `t_customer`
+        SET `code` = #{code}, `name` = #{name}, `supplier_code` = #{supplierCode}, `pay_type` = #{payType}, `contact` = #{contact}, `fixed_telephone` = #{fixedTelephone},
+        `email` = #{email}, `fax` = #{fax}, `mobile_telephone` = #{mobileTelephone}, `address` = #{address}, `update_time` = now(), `remark` = #{remark}, `delivery_time` = #{deliveryTime}
+        WHERE `id` = #{id};
+    </update>
+
+    <select id="getCustomerById" resultMap="CustomerDO">
+        SELECT *
+        FROM `t_customer`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getCustomerByIds" resultMap="CustomerDO">
+        SELECT *
+        FROM `t_customer`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

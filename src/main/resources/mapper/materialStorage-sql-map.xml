@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.MaterialStorageDAO">
+    <resultMap id="MaterialStorageDO" type="edu.yctc.erpsystem.entity.MaterialStorageDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="material_purchase_to_be_storage_id" property="materialPurchaseToBeStorageId"/>
+        <result column="warehouse_id" property="wareHouseId"/>
+        <result column="dict_id" property="dictId"/>
+        <result column="user" property="user"/>
+        <result column="checker" property="checker"/>
+        <result column="in_date" property="inDate"/>
+        <result column="in_storage_date" property="inStorageDate"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="in_amount" property="inAmount"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_material_storage`
+        <where>
+            <if test="inStart != null"> AND `in_date` > #{inStart} </if>
+            <if test="inEnd != null"> AND `in_date` &lt; #{inEnd} </if>
+            <if test="startTime != null"> AND `create_time` > #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt; #{endTime} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+        </where>
+    </select>
+
+    <select id="getMaterialStorage" resultMap="MaterialStorageDO">
+        SELECT *
+        FROM `t_material_storage`
+        <where>
+            <if test="inStart != null"> AND `in_date` > #{inStart} </if>
+            <if test="inEnd != null"> AND `in_date` &lt; #{inEnd} </if>
+            <if test="startTime != null"> AND `create_time` > #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt; #{endTime} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.MaterialStorageDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_material_storage` (`id`,`in_amount`, `material_purchase_to_be_storage_id`, `in_date`, `in_storage_date`, `user`, `check_flag`, `create_time`, `dict_id`, `remark`, `warehouse_id`)
+        VALUES (#{id}, #{inAmount}, #{materialPurchaseToBeStorageId}, #{inDate}, #{inStorageDate}, #{user}, "未审核", now(), #{dictId}, #{remark}, #{wareHouseId});
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `t_material_storage`
+        WHERE `id` = #{id}
+    </delete>
+
+    <update id="updateCheckerById" parameterType="edu.yctc.erpsystem.entity.MaterialStorageDO">
+        UPDATE `t_material_storage`
+        SET `checker`= #{checker},
+            `check_flag` = #{checkFlag}
+        WHERE `id` = #{id};
+    </update>
+
+    <select id="getMaterialStorageById" resultMap="MaterialStorageDO">
+        SELECT *
+        FROM `t_material_storage`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getMaterialStorageByIds" resultMap="MaterialStorageDO">
+        SELECT *
+        FROM `t_material_storage`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登陆</title>
+    <!-- font CSS-->
+    <link rel="stylesheet" href="../../static/css/myFontIcon.css" th:href="@{/css/myFontIcon.css}">
+    <link rel="stylesheet" href="../../static/css/lib/material-design-icons.min.css" th:href="@{/css/lib/material-design-icons.min.css}">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
+    <!-- tab stylesheet-->
+    <link rel="stylesheet" href="../../static/css/lib/nth.tabs.min.css" th:href="@{/css/lib/nth.tabs.min.css}">
+    <!-- treeview stylesheet-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-treeview.min.css" th:href="@{/css/lib/bootstrap-treeview.min.css}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="../../static/img/favicon.png?3" th:href="@{/img/favicon.png}">
+</head>
+
+<body onload="init();">
+
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+        <!--左侧导航-->
+        <aside class="lyear-layout-sidebar">
+            <!-- logo -->
+            <div id="logo" class="sidebar-header">
+                <a href="#">
+                    <img src="../../static/img/logo-sidebar.png" alt="图片未加载" th:src="@{/img/logo-sidebar.png}"/>
+                </a>
+            </div>
+            <!-- 树状导航 -->
+            <div class="lyear-layout-sidebar-scroll">
+                <div id="treeView"></div>
+            </div>
+        </aside>
+        <!--End 左侧导航-->
+
+        <!--头部信息-->
+        <header class="lyear-layout-header">
+            <nav class="navbar navbar-default">
+                <div class="topbar">
+
+                    <div class="topbar-left">
+                        <div class="lyear-aside-toggler">
+                            <span class="lyear-toggler-bar"></span>
+                            <span class="lyear-toggler-bar"></span>
+                            <span class="lyear-toggler-bar"></span>
+                        </div>
+                        <span class="navbar-page-title"> 后台首页 </span>
+                    </div>
+
+                    <ul class="topbar-right">
+                        <li class="dropdown dropdown-profile">
+                            <a href="javascript:void(0)" data-toggle="dropdown">
+                                <img class="img-avatar img-avatar-48 m-r-10" src="../../static/img/user.jpg" th:src="@{/file/img/{path}(path=${userDO.photo})}" alt="null"/>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="#" data-toggle="modal" data-target="#viewModal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mdi mdi-account"></span> 我的信息</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#changePasswordModal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mdi mdi-lock-outline"></span> 修改密码</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" onclick="lockWindow();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mdi mdi-lock"></span> 锁定窗口</a></li>
+                                <li><a href="#" th:href="@{/user/logout}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mdi mdi-logout-variant"></span> 退出登录</a></li>
+                            </ul>
+                        </li>
+                        <!--切换主题配色-->
+                        <li class="dropdown dropdown-skin">
+                            <span data-toggle="dropdown" class="icon-palette"><span class="mdi mdi-palette"></span></span>
+                            <ul class="dropdown-menu dropdown-menu-right" data-stopPropagation="true">
+                                <li class="drop-title">
+                                    <p>主题</p>
+                                </li>
+                                <li class="drop-skin-li clearfix">
+                                    <span class="inverse">
+                                        <input type="radio" name="site_theme" value="default" id="site-theme-1" checked>
+                                        <label for="site-theme-1"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="site_theme" value="dark" id="site-theme-2">
+                                        <label for="site-theme-2"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="site_theme" value="translucent" id="site-theme-3">
+                                        <label for="site-theme-3"></label>
+                                    </span>
+                                </li>
+                                <li class="drop-title">
+                                    <p>LOGO</p>
+                                </li>
+                                <li class="drop-skin-li clearfix">
+                                    <span class="inverse">
+                                        <input type="radio" name="logo_bg" value="default" id="logo-bg-1" checked>
+                                        <label for="logo-bg-1"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="logo_bg" value="color_2" id="logo-bg-2">
+                                        <label for="logo-bg-2"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="logo_bg" value="color_3" id="logo-bg-3">
+                                        <label for="logo-bg-3"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="logo_bg" value="color_4" id="logo-bg-4">
+                                        <label for="logo-bg-4"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="logo_bg" value="color_5" id="logo-bg-5">
+                                        <label for="logo-bg-5"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="logo_bg" value="color_6" id="logo-bg-6">
+                                        <label for="logo-bg-6"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="logo_bg" value="color_7" id="logo-bg-7">
+                                        <label for="logo-bg-7"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="logo_bg" value="color_8" id="logo-bg-8">
+                                        <label for="logo-bg-8"></label>
+                                    </span>
+                                </li>
+                                <li class="drop-title">
+                                    <p>头部</p>
+                                </li>
+                                <li class="drop-skin-li clearfix">
+                                    <span class="inverse">
+                                        <input type="radio" name="header_bg" value="default" id="header-bg-1" checked>
+                                        <label for="header-bg-1"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="header_bg" value="color_2" id="header-bg-2">
+                                        <label for="header-bg-2"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="header_bg" value="color_3" id="header-bg-3">
+                                        <label for="header-bg-3"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="header_bg" value="color_4" id="header-bg-4">
+                                        <label for="header-bg-4"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="header_bg" value="color_5" id="header-bg-5">
+                                        <label for="header-bg-5"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="header_bg" value="color_6" id="header-bg-6">
+                                        <label for="header-bg-6"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="header_bg" value="color_7" id="header-bg-7">
+                                        <label for="header-bg-7"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="header_bg" value="color_8" id="header-bg-8">
+                                        <label for="header-bg-8"></label>
+                                    </span>
+                                </li>
+                                <li class="drop-title">
+                                    <p>侧边栏</p>
+                                </li>
+                                <li class="drop-skin-li clearfix">
+                                    <span class="inverse">
+                                        <input type="radio" name="sidebar_bg" value="default" id="sidebar-bg-1" checked>
+                                        <label for="sidebar-bg-1"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="sidebar_bg" value="color_2" id="sidebar-bg-2">
+                                        <label for="sidebar-bg-2"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="sidebar_bg" value="color_3" id="sidebar-bg-3">
+                                        <label for="sidebar-bg-3"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="sidebar_bg" value="color_4" id="sidebar-bg-4">
+                                        <label for="sidebar-bg-4"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="sidebar_bg" value="color_5" id="sidebar-bg-5">
+                                        <label for="sidebar-bg-5"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="sidebar_bg" value="color_6" id="sidebar-bg-6">
+                                        <label for="sidebar-bg-6"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="sidebar_bg" value="color_7" id="sidebar-bg-7">
+                                        <label for="sidebar-bg-7"></label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" name="sidebar_bg" value="color_8" id="sidebar-bg-8">
+                                        <label for="sidebar-bg-8"></label>
+                                    </span>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--切换主题配色-->
+                    </ul>
+
+                </div>
+            </nav>
+        </header>
+        <!--End 头部信息-->
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nth-tabs" id="tabs"></div>
+                </div>
+            </div>
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+
+    <!-- 模态框（Modal） 查看 -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="viewModalLabel">
+                        查看用户信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <caption>我的信息</caption>
+                        <tbody>
+                            <tr>
+                                <td>用户ID</td>
+                                <td th:text="${userDO.id}">xxx</td>
+                                <td>使用IP</td>
+                                <td th:text="${ip}">xxx</td>
+                            </tr>
+                            <tr>
+                                <td>登录名</td>
+                                <td th:text="${userDO.loginName}">xxx</td>
+                                <td>姓名</td>
+                                <td th:text="${userDO.name}">xxx</td>
+                            </tr>
+                            <tr>
+                                <td>性别</td>
+                                <td th:text="${userDO.sex eq '1' ? '男' : '女'}">xxx</td>
+                                <td>年龄</td>
+                                <td th:text="${userDO.age eq 0 ? '' : userDO.age}">xxx</td>
+                            </tr>
+                            <tr>
+                                <td>创建时间</td>
+                                <td th:text="${#dates.format(userDO.createTime,'yyyy-MM-dd HH:mm:ss')}">xxx</td>
+                                <td>最后修改时间</td>
+                                <td th:text="${#dates.format(userDO.updateTime,'yyyy-MM-dd HH:mm:ss')}">xxx</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-success" data-toggle="modal" data-target="#roleModal" onclick="roleButtonClick();">
+                                        我的角色
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#departmentModal" onclick="departmentButtonClick();">
+                                        我的部门
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-info" data-toggle="modal" data-target="#resourceModal" onclick="resourceButtonClick();">
+                                        我的资源
+                                    </button>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 用户角色 -->
+    <div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="roleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="roleModalLabel">
+                        所属角色
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="tree-view-scrollbar">
+                        <table id="roleView"></table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框（Modal） 用户部门 -->
+    <div class="modal fade" id="departmentModal" tabindex="-1" role="dialog" aria-labelledby="departmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="departmentModalLabel">
+                        所属部门
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="tree-view-scrollbar">
+                        <div id="departmentTreeView"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框（Modal） 资源选择 -->
+    <div class="modal fade" id="resourceModal" tabindex="-1" role="dialog" aria-labelledby="resourceModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="resourceModalLabel">
+                        菜单资源
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="tree-view-scrollbar">
+                        <div id="resourceTreeView"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 修改密码模态框（Modal） -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordLabel" aria-hidden="true"
+         data-keyboard=false data-backdrop='static'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        修改密码
+                    </h4>
+                </div>
+                <div class="modal-body text-center">
+                    <form class="form-horizontal" role="form" onsubmit="return false;">
+                        <div class="form-group has-success">
+                            <label class="col-sm-3 control-label" for="changePassword">密码：</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="password" id="changePassword">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-3 control-label" for="changePasswordRepeat">重复密码：</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="password" id="changePasswordRepeat">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="changePassword();">修改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 锁定窗口模态框（Modal） -->
+    <div class="modal fade" id="lockModal" tabindex="-1" role="dialog" aria-labelledby="lockModalLabel" aria-hidden="true"
+         data-keyboard=false data-backdrop='static'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="lockModalLabel" th:text="${userDO.loginName}">
+                        XXX
+                    </h4>
+                </div>
+                <div class="modal-body text-center">
+                    请输入密码：<input type="password" id="lockPassword"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="unlockWindow();">解锁</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- tab js-->
+<script src="../../static/js/lib/jquery.scrollbar.min.js" th:src="@{/js/lib/jquery.scrollbar.min.js}"></script>
+<script src="../../static/js/lib/nth.tabs.min.js" th:src="@{/js/lib/nth.tabs.min.js}"></script>
+<!-- treeview js-->
+<script src="../../static/js/lib/bootstrap-treeview.min.js" th:src="@{/js/lib/bootstrap-treeview.min.js}"></script>
+
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+
+<script>
+    // 锁定窗口
+    function lockWindow() {
+        $.ajax({
+            type: "POST",
+            url: "/user/lock",
+            dataType: "json",
+            contentType : "application/json",
+            success: function (result) {
+                if (result.success === false) {
+                    switch (result.code) {
+                        case 1002: swal("错误", "无当前用户", "error");   break;
+                        case 9001: swal("错误", "数据库错误", "error");   break;
+                        case 9002: swal("错误", "参数错误", "error");     break;
+                        case 9999: swal("错误", "系统错误", "error");     break;
+                    }
+                } else {
+                    $('#lockModal').modal('show');
+                }
+            },
+            error: function () {
+                swal("错误", "404", "error");
+            }
+        });
+    }
+
+    // 解锁窗口
+    function unlockWindow() {
+        let userDO = {
+            loginName: $("#lockModalLabel").text(),
+            pwd: $("#lockPassword").val()
+        };
+        if ("" === userDO.pwd) {
+            swal("操作提示", "密码不能为空", "info");
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/user/unlock",
+            dataType: "json",
+            data: JSON.stringify(userDO),
+            traditional: true,
+            contentType : "application/json",
+            success: function (result) {
+                if (result.success === false) {
+                    switch (result.code) {
+                        case 1002: swal("错误", "无当前用户", "error");   break;
+                        case 1021: swal("错误", "密码错误", "error");     break;
+                        case 9001: swal("错误", "数据库错误", "error");   break;
+                        case 9002: swal("错误", "参数错误", "error");     break;
+                        case 9999: swal("错误", "系统错误", "error");     break;
+                    }
+                } else {
+                    $('#lockModal').modal('hide');
+                }
+            },
+            error: function () {
+                swal("错误", "404", "error");
+            }
+        });
+    }
+
+    // 修改密码
+    let $changePassword = $("#changePassword");
+    let $changePasswordRepeat = $("#changePasswordRepeat");
+    function changePassword() {
+        if ("" === $changePassword.val() || "" === $changePasswordRepeat.val()) {
+            swal("操作提示", "密码不能为空", "info");
+            return;
+        }
+
+        if ($changePassword.val() === $changePasswordRepeat.val()) {
+            parameterPostRequest("/user/changePassword", { pwd: $changePassword.val() }, () => {
+                $('#changePasswordModal').modal('hide');
+                swal("正确", "密码修改成功！", "success");
+            });
+        } else {
+            swal("操作提示", "两次输入的密码必须相同", "info");
+        }
+    }
+
+    // 判断是否存在页面
+    function hasTab(href) {
+        let page = $("iframe");
+        for (let i = 0; i < page.length; ++i) {
+            if (page[i].src.endsWith(href) === true) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // 添加页面
+    function addTab(node, data) {
+        let id = data.href.replace(/\//g,"-");
+        node.addTab({
+            id: id,
+            title: data.text,
+            content:'<iframe class="w-100 shadow" height="1000px" width="100%" frameborder="no" src="' + data.href + '"></iframe>'
+        }).setActTab("#" + id);
+    }
+
+    // 初始化导航栏
+    let treeView = $('#treeView');
+    function init() {
+        noParameterPostRequest("/resource-management/getTreeView", result => {
+            treeView.treeview({
+                data: result.module
+            }).on('nodeSelected',function(event, data) {
+                if (hasTab(data.href)) {
+                    nthTabs.setActTab("#" + data.href.replace(/\//g,"-"));
+                } else {
+                    addTab(nthTabs, data);
+                }
+            });
+        }, "GET");
+    }
+
+    // 查看角色权限
+    function roleButtonClick() {
+
+    }
+
+    // 查看部门权限
+    function departmentButtonClick() {
+
+    }
+
+    // 查看资源权限
+    function resourceButtonClick() {
+
+    }
+</script>
+<script>
+    // 模态框
+    dragTheModalDialog();
+
+    // 侧边栏
+    $(".lyear-aside-toggler").bind('click', function(){
+        $('.lyear-layout-sidebar').toggleClass('lyear-aside-open');
+        $("body").toggleClass('lyear-layout-sidebar-close');
+
+        if ($('.lyear-mask-modal').length === 0) {
+            $('<div class="lyear-mask-modal"></div>').prependTo('body');
+        } else {
+            $( '.lyear-mask-modal' ).remove();
+        }
+        $('.lyear-mask-modal').on( 'click', function() {
+            $( this ).remove();
+            $('.lyear-layout-sidebar').toggleClass('lyear-aside-open');
+            $('body').toggleClass('lyear-layout-sidebar-close');
+        });
+    });
+
+    // 设置主题配色
+    setTheme = function(input_name, data_name) {
+        $("input[name='"+input_name+"']").click(function(){
+            $('body').attr(data_name, $(this).val());
+        });
+    };
+    setTheme('site_theme', 'data-theme');
+    setTheme('logo_bg', 'data-logobg');
+    setTheme('header_bg', 'data-headerbg');
+    setTheme('sidebar_bg', 'data-sidebarbg');
+
+    // 选项卡
+    let nthTabs = $("#tabs").nthTabs();
+    nthTabs.addTab({
+        id:'-admin-main-table',
+        title:'首页',
+        content:'<iframe class="w-100 shadow" height="1000px" width="100%" frameborder="no" src="/admin/main-table"></iframe>',
+        active:true,            // 不可关闭
+        allowClose:false
+    }).setActTab("#-admin-main-table");
+</script>
+
+</body>
+
+</html>

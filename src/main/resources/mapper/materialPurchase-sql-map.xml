@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.MaterialPurchaseDAO">
+    <resultMap id="MaterialPurchaseDO" type="edu.yctc.erpsystem.entity.MaterialPurchaseDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="supplier_id" property="supplierId"/>
+        <result column="material_info_id" property="materialInfoId"/>
+        <result column="user" property="user"/>
+        <result column="checker" property="checker"/>
+        <result column="amount" property="amount"/>
+        <result column="hope_delivery_date" property="hopeDeliveryDate"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="is_export" property="isExport"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_material_purchase`
+        <where>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="start != null"> AND `hope_delivery_date` >= #{start} </if>
+            <if test="end != null"> AND `hope_delivery_date` &lt;= #{end} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+            AND `is_export` != 1
+        </where>
+    </select>
+
+    <select id="getMaterialPurchase" resultMap="MaterialPurchaseDO">
+        SELECT *
+        FROM `t_material_purchase`
+        <where>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="start != null"> AND `hope_delivery_date` >= #{start} </if>
+            <if test="end != null"> AND `hope_delivery_date` &lt;= #{end} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+            AND `is_export` != 1
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <delete id="delete">
+        DELETE FROM `t_material_purchase` WHERE `id` = #{id};
+    </delete>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.MaterialPurchaseDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_material_purchase` (`id`, `material_info_id`, `amount`, `hope_delivery_date`, `remark`, `user`, `checker`, `check_flag`, `create_time`, `supplier_id`,`is_export`)
+        VALUES (#{id}, #{materialInfoId}, #{amount}, #{hopeDeliveryDate}, #{remark}, #{user}, #{checker}, "未审核", now(), #{supplierId}, "0");
+    </insert>
+
+    <insert id="insertAll" parameterType="edu.yctc.erpsystem.entity.MaterialPurchaseDO">
+        INSERT INTO `t_material_purchase` (`id`, `material_info_id`, `amount`, `hope_delivery_date`, `remark`, `user`, `checker`, `check_flag`, `create_time`, `supplier_id`,`is_export`)
+        VALUES
+        <foreach collection="materialPurchaseDO" item="item"  separator=",">
+            ((SELECT replace(uuid(),'-','') FROM dual),
+            #{item.materialInfoId}, #{item.amount}, #{item.hopeDeliveryDate}, #{item.remark}, #{item.user}, #{item.checker}, "未审核", now(), #{item.supplierId}, "0")
+        </foreach>
+    </insert>
+
+    <update id="updateCheckerById" parameterType="edu.yctc.erpsystem.entity.MaterialPurchaseDO">
+        UPDATE `t_material_purchase`
+        SET `checker` = #{checker}, `check_flag` = #{checkFlag}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateMaterialPurchase" parameterType="edu.yctc.erpsystem.entity.MaterialPurchaseDO">
+        UPDATE `t_material_purchase`
+        SET `amount` = #{amount}, `hope_delivery_date` = #{hopeDeliveryDate}, `remark` = #{remark}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateIsExportByIds" parameterType="edu.yctc.erpsystem.entity.MaterialPurchaseDO">
+        UPDATE `t_material_purchase`
+        SET `is_export` = '1'
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="getMaterialPurchaseById" resultMap="MaterialPurchaseDO">
+        SELECT *
+        FROM `t_material_purchase`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getMaterialPurchaseByIds" resultMap="MaterialPurchaseDO">
+        SELECT *
+        FROM `t_material_purchase`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

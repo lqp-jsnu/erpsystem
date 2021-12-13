@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.MaterialDumpDAO">
+    <resultMap id="MaterialDumpDO" type="edu.yctc.erpsystem.entity.MaterialDumpDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="material_inventory_id" property="materialInventoryId"/>
+        <result column="enter" property="enter"/>
+        <result column="checker" property="checker"/>
+        <result column="amount" property="amount"/>
+        <result column="date" property="date"/>
+        <result column="reason" property="reason"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_material_dump`
+        <where>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+        </where>
+    </select>
+
+    <select id="getMaterialDump" resultMap="MaterialDumpDO">
+        SELECT *
+        FROM `t_material_dump`
+        <where>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.MaterialDumpDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_material_dump`(`id`, `material_inventory_id`, `amount`, `date`, `reason`, `enter`, `check_flag`, `create_time`)
+        VALUES (#{id}, #{materialInventoryId}, #{amount}, #{date}, #{reason}, #{enter}, "未审核", now());
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `t_material_dump`
+        WHERE `id` = #{id};
+    </delete>
+
+    <update id="updateMaterialDump" parameterType="edu.yctc.erpsystem.entity.MaterialDumpDO">
+        UPDATE `t_material_dump`
+        SET `amount` = #{amount}, `date` = #{date}, `reason` = #{reason}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateCheckerById" parameterType="edu.yctc.erpsystem.entity.MaterialDumpDO">
+        UPDATE `t_material_dump`
+        SET `checker` = #{checker}, `check_flag` = #{checkFlag}
+        WHERE `id` = #{id};
+    </update>
+
+    <select id="getMaterialDumpById" resultMap="MaterialDumpDO">
+        SELECT *
+        FROM `t_material_dump`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getMaterialDumpByIds" resultMap="MaterialDumpDO">
+        SELECT *
+        FROM `t_material_dump`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

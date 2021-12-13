@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.SupplierDAO">
+    <resultMap id="SupplierDO" type="edu.yctc.erpsystem.entity.SupplierDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="product_category" property="productCategory"/>
+        <result column="contact" property="contact"/>
+        <result column="fixed_telephone" property="fixedTelephone"/>
+        <result column="fax" property="fax"/>
+        <result column="mobile_telephone" property="mobileTelephone"/>
+        <result column="email" property="email"/>
+        <result column="address" property="address"/>
+        <result column="payment" property="payment"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="delivery_time" property="deliveryTime"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_supplier`
+        <where>
+            <if test="code != null"> AND `code` LIKE CONCAT('%', #{code ,jdbcType=VARCHAR}, '%') </if>
+            <if test="name != null"> AND `name` LIKE CONCAT('%', #{name ,jdbcType=VARCHAR}, '%') </if>
+            AND `delete_flag` = 0
+        </where>
+    </select>
+
+    <select id="getSupplier" resultMap="SupplierDO">
+        SELECT *
+        FROM `t_supplier`
+        <where>
+            <if test="code != null"> AND `code` LIKE CONCAT('%', #{code ,jdbcType=VARCHAR}, '%') </if>
+            <if test="name != null"> AND `name` LIKE CONCAT('%', #{name ,jdbcType=VARCHAR}, '%') </if>
+            AND `delete_flag` = 0
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.SupplierDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+
+        INSERT INTO `t_supplier` (`id`, `code`, `name`, `product_category`, `contact`, `fixed_telephone`, `fax`,
+        `mobile_telephone`, `email`, `address`, `payment`, `delivery_time`, `remark`, `create_time`, `delete_flag`)
+
+        VALUES (#{id}, #{code}, #{name}, #{productCategory}, #{contact}, #{fixedTelephone}, #{fax},
+        #{mobileTelephone}, #{email}, #{address}, #{payment}, #{deliveryTime}, #{remark}, now(), "0")
+    </insert>
+
+    <update id="delete" parameterType="edu.yctc.erpsystem.entity.SupplierDO">
+        UPDATE `t_supplier`
+        SET `delete_flag` = '1'
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateSupplier" parameterType="edu.yctc.erpsystem.entity.SupplierDO">
+        UPDATE `t_supplier`
+        SET `code` = #{code}, `name` = #{name}, `product_category` = #{productCategory}, `contact` = #{contact}, `fixed_telephone` = #{fixedTelephone}, `fax` = #{fax},
+        `mobile_telephone` = #{mobileTelephone}, `email` = #{email}, `address` = #{address}, `payment` = #{payment}, `delivery_time` = #{deliveryTime}, `remark` = #{remark}
+        WHERE `id` = #{id};
+    </update>
+
+    <select id="getSupplierByCodes" resultMap="SupplierDO">
+        SELECT *
+        FROM `t_supplier`
+        WHERE `code`
+        IN
+        <foreach collection="codes" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getSupplierById" resultMap="SupplierDO">
+        SELECT *
+        FROM `t_supplier`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getSupplierByIds" resultMap="SupplierDO">
+        SELECT *
+        FROM `t_supplier`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

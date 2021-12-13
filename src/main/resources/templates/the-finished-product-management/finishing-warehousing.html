@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>成品入库</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <!-- select2 CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/select2.min.css" th:href="@{/css/lib/select2.min.css}">
+    <link rel="stylesheet" href="../../static/css/lib/select2-bootstrap.min.css" th:href="@{/css/lib/select2-bootstrap.min.css}">
+    <link href="../../static/css/file.css" rel="stylesheet" th:href="@{/css/file.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+
+<body onload="init();">
+
+    <div class="panel-body" style="padding-bottom:0;">
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <div class="form-group" style="margin-top:15px">
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_order_number">订单号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_order_number">
+                        </div>
+    
+                        <label class="control-label col-sm-2 label-font" for="txt_search_product_number">客户料号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_product_number">
+                        </div>
+                    </div>
+    
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_item_name">品名</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_item_name">
+                        </div>
+    
+                        <label class="control-label col-sm-2 label-font" for="txt_search_spec">规格</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_spec">
+                        </div>
+                    </div>
+    
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_check_flag">状态</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_search_check_flag">
+                                <option>--请选择--</option>
+                                <option>未审核</option>
+                                <option>未通过</option>
+                            </select>
+                        </div>
+    
+                        <label class="control-label col-sm-2 label-font" for="txt_search_house_name">存放仓库</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_search_house_name">
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_start_time" >开始时间</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_start_time">
+                        </div>
+    
+                        <label class="control-label col-sm-2 label-font" for="txt_search_end_time">结束时间</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_end_time">
+                        </div>
+                    </div>
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_code">客户代号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_code">
+                        </div>
+                        <label class="control-label col-sm-2 label-font" for="txt_search_job_ticket_number">工作传票号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_job_ticket_number">
+                        </div>
+                    </div>
+    
+                    <div class="row row-gap">
+                        <div class="col-sm-offset-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_filter" class="btn btn-primary" onclick="filter();">过滤</button>
+                            <button type="button" style="margin-left:50px" id="btn_reset_filter" class="btn btn-primary" onclick="init();">重置过滤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div id="toolbar" class="btn-group">
+            <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增成品入库
+            </button>
+            <button id="btn_export" type="button" class="btn btn-default" onclick="exportExcel();">
+                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>批量导出
+            </button>
+        </div>
+        <table id="table"></table>
+    </div>
+    
+    <!-- 模态框（Modal）查看 -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="viewModalLabel">
+                        查看成品入库信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <caption>成品入库信息</caption>
+                        <tbody>
+                        <tr>
+                            <td>客户代号</td>
+                            <td id="view_code">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>工作传票号</td>
+                            <td id="view_job_ticket_number">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>品名</td>
+                            <td id="view_item_name">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>规格</td>
+                            <td id="view_spec">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>生产数量</td>
+                            <td id="view_product_quantity">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>成品入库数量</td>
+                            <td id="view_storage_amount">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>成品存放仓库</td>
+                            <td id="view_house_name">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>入库日期</td>
+                            <td id="view_storage_date">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>是否有零品入库</td>
+                            <td id="view_is_zero_product_storage">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>备注</td>
+                            <td id="view_remark">xxx</td>
+                        </tr>
+                        <tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    
+    <!-- 模态框（Modal） 新增 -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-center" id="addModalLabel">
+                        成品入库信息
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form"  onsubmit="return false;">
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font">工作传票号</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control" id="job_ticket_number_select" title="工作传票号" onchange="setInputSuccess($('#job_ticket_number_select'));">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font">生产数量</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="input_product_quantity" title="生产数量" onchange="numberInputChange('input_product_quantity', '生产数量不能为负数')">
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font">成品入库数量</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="input_storage_amount" title="成品入库数量" onchange="addStorageAmount();" >
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font">成品存放仓库</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control" id="house_name_select" title="成品存放仓库" onchange="setInputSuccess($('#house_name_select'));">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font">入库时间</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="input_storage_date" title="入库时间" onchange="checkInputChange('input_storage_date');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font">是否零品入库</label>
+                            <div class="col-sm-10">
+                                <select class="selectpicker form-control" data-style="btn-danger" id="input_is_zero_product_storage"  title="是否零品入库">
+                                    <option>否</option>
+                                    <option>是</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font">备注</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" id="input_remark" title="备注"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="add();">添加</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    
+    <!-- 模态框（Modal） 编辑 -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="editModalLabel">
+                        编辑成品入库信息
+                    </h4>
+    
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font">客户代号</label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control" type="text" id="edit_code" title="客户代号">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font">工作传票号</label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control" type="text" id="edit_job_ticket_number" title="工作传票号">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font">品名</label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control" type="text" id="edit_item_name" title="品名">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font">规格</label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control" type="text" id="edit_spec" title="规格">
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font">生产数量</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="number" id="edit_product_quantity" title="生产数量" onchange="numberInputChange('edit_product_quantity', '生产数量不能为负数');">
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font">成品入库数量</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="number" id="edit_storage_amount" title="成品入库数量" onchange="editStorageAmount();">
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font">成品存放仓库</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control" id="edit_house_name" title="成品存放仓库" onchange="setInputSuccess($('#edit_house_name'));">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font">入库时间</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="date" id="edit_storage_date" title="入库时间" onchange="checkInputChange('edit_storage_date')">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font">是否零品入库</label>
+                            <div class="col-sm-10">
+                                <select class="selectpicker form-control" data-style="btn-danger" id="edit_is_zero_prod_storage" title="是否零品入库" >
+                                    <option>--请选择--</option>
+                                    <option>是</option>
+                                    <option>否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" id="edit_remark" title="备注"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="edit();">编辑</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    
+    <!-- 模态框（Modal） 审核 -->
+    <div class="modal fade" id="auditModal" tabindex="-1" role="dialog" aria-labelledby="auditModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="auditModalLabel">
+                        审核零品入库信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font">审核</label>
+                            <div class="col-sm-10">
+                                <select class="selectpicker form-control" data-style="btn-success" id="audit_check_flag" title="审核">
+                                    <option value="未审核">未审核</option>
+                                    <option value="未通过">未通过</option>
+                                    <option value="已通过">已通过</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-10">
+                                <textarea  class="form-control" rows="6" id="audit_remark" title="备注"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="audit();">审核</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- select2.js -->
+<script src="../../static/js/lib/select2.min.js" th:src="@{/js/lib/select2.min.js}"></script>
+<script src="../../static/js/lib/Select2-zh-CN.js" th:src="@{/js/lib/Select2-zh-CN.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+    let $jobTicketNumberSelect = $("#job_ticket_number_select");
+    let $houseNameSelect = $("#house_name_select");
+    let $editHouseName = $("#edit_house_name");
+    let $productQuantityInput = $("#input_product_quantity");
+    let $inputStorageAmount = $("#input_storage_amount");
+    let $editProductQuantity = $("#edit_product_quantity");
+    let $editStorageAmount = $("#edit_storage_amount");
+
+    // 服务器分页获取数据
+    function getServerPaging(node, url, queryParams) {
+        initTable(node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+                checkbox: true
+            }, {
+                field: 'orderNumber',
+                title: '订单号',
+                width: '150px',
+                formatter: stringFormatter
+            }, {
+                field: 'code',
+                title: '客户代码',
+                width: '90px',
+                formatter: stringFormatter
+            }, {
+                field: 'jobTicketNumber',
+                title: '工作传票号',
+                width: '170px',
+                formatter: stringFormatter
+            }, {
+                field: 'productNumber',
+                title: '客户料号',
+                width: '170px',
+                formatter: stringFormatter
+            }, {
+                field: 'itemName',
+                title: '品名',
+                width: '90px',
+                formatter: stringFormatter
+            }, {
+                field: 'spec',
+                title: '规格',
+                width: '170px',
+                formatter: stringFormatter
+            }, {
+                field: 'productQuantity',
+                title: '生产数量',
+                width: '120px',
+                formatter: stringFormatter
+            }, {
+                field: 'storageAmount',
+                title: '产品入库数量',
+                width: '120px',
+                formatter: stringFormatter
+            }, {
+                field: 'houseName',
+                title: '产品存放仓库',
+                width: '120px',
+                formatter: stringFormatter
+            }, {
+                field: 'isZeroProductStorage',
+                title: '是否有零品入库',
+                width: '150px',
+                formatter: stringFormatter
+            }, {
+                field: 'enter',
+                title: '录入者',
+                width: '130px',
+                formatter: stringFormatter
+            }, {
+                field: 'checkFlag',
+                title: '状态',
+                width: '100px',
+                formatter: stringFormatter
+            }, {
+                field: 'storageDate',
+                title: '入库日期',
+                width: '170px',
+                formatter: dateFormatter
+            }, {
+                field: 'createTime',
+                title: '创建时间',
+                width: '170px',
+                formatter: dateFormatter
+            }, {
+                field: 'operate',
+                title: '操作',
+                width: '270px',
+                formatter: operateFormatter // 自定义方法，添加操作按钮
+            }]);
+    }
+    function operateFormatter(value, row, index) {  // 赋予的参数
+        if ("已通过" === row.checkFlag) {
+            return [ '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>' ].join('');
+        } else {
+            return [
+                '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-primary view" data-toggle="modal" data-target="#editModal" onclick="initEdit('+ index +');">编辑</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-danger view" onclick="deleteOne('+ index +');">删除</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-warning view" data-toggle="modal" data-target="#auditModal" onclick="initAudit('+ index +');">审核</button>'
+            ].join('');
+        }
+    }
+
+    // 修改提示框样式
+    changeToolTip();
+
+    // 模态框初始化
+    dragTheModalDialog();
+
+    // 初始化新增下拉框（工作传票号）
+    initSelect($jobTicketNumberSelect,"请输入工作传票号", jobTicketNumberFormatter, "/the-flow-sheet-has-been-printed/getFlowSheetPrinted", 1000, params => {
+        return { jobTicketNumber: params.term, offset: params.page ? 10 * (params.page - 1) : 0, limit: 10, isInHouse:"否", isZeroProductInHouse:"否",
+            isIntoMake:"是", isGenerateManufacture: "是", isMaterialExport: "是", isExportCheckPass: "是", isHaveZeroProductStorage: "是" };
+    },result =>result.module.rows.map(item => {
+        return { id: item.id, text: item.jobTicketNumber, code:item.code, everyOrderAmount:item.everyOrderAmount, itemName:item.itemName, spec:item.spec };
+    }), 10);
+    function jobTicketNumberFormatter(result) {
+        return  '<span title="'+ result.code + " | " + result.everyOrderAmount + " | " + result.itemName + " | " + result.spec+'">' + result.text + '</span>';
+    }
+
+    // 初始化新增下拉框（仓库信息）
+    initSelect($houseNameSelect, "请输入仓库名称", houseNameFormatter, "/warehouse-management/getWarehouse", 1000, params => {
+        return { name: params.term, offset: params.page ? 10 * (params.page - 1) : 0, limit: 10, type:"成品仓库", isZero:"否" };
+    },result =>result.module.rows.map(item => {
+        return { id: item.id, text: item.name };
+    }), 10);
+
+    // 初始化编辑下拉框（仓库信息）
+    initSelect($editHouseName,"请输入仓库名称",houseNameFormatter,"/warehouse-management/getWarehouse",1000,params => {
+        return { name: params.term, offset: params.page ? 10 * (params.page - 1) : 0, limit: 10, type:"成品仓库", isZero:"否" };
+    },result =>result.module.rows.map(item => {
+        return { id: item.id, text: item.name };
+    }), 10);
+
+    function houseNameFormatter(result) {
+        return  '<span title="'+'">' + result.text +'</span>';
+    }
+
+    // 增加下拉框初始化
+    let $searchWarehouseSelect = $("#txt_search_house_name");
+    function initWareHouseSelect() {
+        noParameterPostRequest("/warehouse-management/getWarehouse?limit=100&offset=0&sort=create_time&order=DESC&type=成品仓库&isZero=否", result => {
+            $searchWarehouseSelect.empty();
+            $searchWarehouseSelect.append("<option value='--请选择--'>--请选择--</option>");
+            result.module.rows.forEach(item => $searchWarehouseSelect.append("<option value="+ item.name +">" + item.name + "</option>"));
+        }, "GET");
+    }
+
+    // 初始化表格数据
+    function init() {
+        getServerPaging($table, "/finished-warehousing/getProductStorage", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+        initWareHouseSelect();
+    }
+
+</script>
+<script>
+    /** 页面逻辑*/
+    // 成品入库数量改变
+    function addStorageAmount() {
+        if (null === $productQuantityInput.val()) {
+            swal("操作提示", "请先输入生产数量", "info");
+            $inputStorageAmount.val("");
+            return;
+        }
+
+        if ($inputStorageAmount.val() < 0) {
+            swal("操作提示", "成品入库数量需为正数", "info");
+            setInputError($inputStorageAmount);
+            return;
+        }
+
+        if (parseFloat($inputStorageAmount.val()) > parseFloat($productQuantityInput.val())) {
+            swal("操作提示", "零品入库数量不能大于生产数量", "info");
+            setInputError($inputStorageAmount);
+            return;
+        }
+        "" === $inputStorageAmount.val() ? setInputError($inputStorageAmount) : setInputSuccess($inputStorageAmount);
+    }
+
+    // 编辑成品入库数量
+    function editStorageAmount() {
+        if (null === $editProductQuantity.val()) {
+            swal("操作提示", "请先输入生产数量", "info");
+            $editStorageAmount.val("");
+            return;
+        }
+
+        if ($editStorageAmount.val() < 0) {
+            swal("操作提示", "成品入库数量需为正数", "info");
+            setInputError($editStorageAmount);
+            return;
+        }
+
+        if (parseFloat($editStorageAmount.val()) > parseFloat($editProductQuantity.val())) {
+            swal("操作提示", "零品入库数量不能大于生产数量", "info");
+            setInputError($editStorageAmount);
+            return;
+        }
+        "" === $editStorageAmount.val() ? setInputError($editStorageAmount) : setInputSuccess($editStorageAmount);
+    }
+
+</script>
+<script>
+    /** 功能 */
+    // 过滤
+    function filter(){
+        let time = [$("#txt_search_start_time"), $("#txt_search_end_time")];
+        if ("" !== time[0][0].validationMessage || "" !== time[1][0].validationMessage) {
+            swal("操作提示", "请填写完整的时间", "info");
+            return;
+        }
+
+        let data = { orderNumber: $("#txt_search_order_number").val(), code: $("#txt_search_code").val(), jobTicketNumber: $("#txt_search_job_ticket_number").val(), checkFlag: $("#txt_search_check_flag").val(),
+            productNumber: $("#txt_search_product_number").val(), itemName: $("#txt_search_item_name").val(), spec: $("#txt_search_spec").val(), houseName: $searchWarehouseSelect.val(), startTime: time[0].val(), endTime: time[1].val() };
+
+        if ("" === data["orderNumber"] && "" === data["code"] && "--请选择--" === data["checkFlag"] && "" === data["jobTicketNumber"] && "" === data["productNumber"]
+            && "" === data["itemName"] && "" === data["spec"] && "" === data["houseName"] && "" === data["startTime"] && "" === data["endTime"]) {
+            swal("操作提示", "请填写过滤参数", "info");
+            return;
+        }
+
+        getServerPaging($table, "/finished-warehousing/getProductStorageByConditions", params => {
+            let result = { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC", orderNumber: data["orderNumber"], code: data["code"], jobTicketNumber: data["jobTicketNumber"], productNumber: data["productNumber"],
+                itemName: data["itemName"], spec: data["spec"], checkFlag: data["checkFlag"], startTime: data["startTime"], endTime: data["endTime"], houseName: data["houseName"]};
+
+            removeEmptyField(result);
+            if ("--请选择--" === result["houseName"]) {
+                delete result["houseName"];
+            }
+
+            if ("--请选择--" === result["checkFlag"]) {
+                delete result["checkFlag"];
+            }
+
+            return result;
+        });
+    }
+
+    // 导出excel
+    function exportExcel() {
+        let selections = $table.bootstrapTable('getSelections');
+        if (selections.length === 0) {
+            swal("操作提示", "请选择记录", "info");
+        } else {
+            parameterPostRequest("/finished-warehousing/exportExcel", selections, () => loadFile("成品入库信息.xlsx"));
+        }
+    }
+
+    // 查看
+    function view(index) {
+        let rows = $("#table").bootstrapTable('getData');
+        $("#view_code").text(rows[index].code);
+        $("#view_job_ticket_number").text(rows[index].jobTicketNumber);
+        $("#view_item_name").text(rows[index].itemName);
+        $("#view_spec").text(rows[index].spec);
+        $("#view_product_quantity").text(rows[index].productQuantity);
+        $("#view_storage_amount").text(rows[index].storageAmount);
+        $("#view_house_name").text(rows[index].houseName);
+        $("#view_storage_date").text(formatDateTime(rows[index].storageDate));
+        $("#view_is_zero_product_storage").text(rows[index].isZeroProductStorage);
+        $("#view_remark").text(rows[index].remark);
+    }
+
+    // 添加
+    function add() {
+        if (0 !== $jobTicketNumberSelect.select2('data').length || 0 !== $houseNameSelect.select2('data').length) {
+            let data = {
+                manufactureProcessSlaveId: $jobTicketNumberSelect.select2('data')[0].id,
+                productQuantity: $("#input_product_quantity").val(),
+                storageAmount: $("#input_storage_amount").val(),
+                wareHouseId: $houseNameSelect.select2('data')[0].id,
+                storageDate: $("#input_storage_date").val(),
+                isZeroProductStorage: $("#input_is_zero_product_storage").val(),
+                remark: $("#input_remark").val()
+            };
+
+            if ("" === data.manufactureProcessSlaveId || "" === data.productQuantity || "" === data.storageAmount
+                || "" === data.wareHouseId ||  "" === data.storageDate || "" === data.isZeroProductStorage) {
+                swal("操作提示", "请输入必输入项", "info");
+                return;
+            }
+
+            if (data.storageAmount < 0 || data.productQuantity < 0 || parseFloat(data.storageAmount) > parseFloat(data.productQuantity)) {
+                swal("操作提示", "请按照要求填写", "info");
+            } else {
+                parameterPostRequest("/finished-warehousing/insert", data, () => {
+                    let data = { id: $jobTicketNumberSelect.select2('data')[0].id };
+                    parameterPostRequest("/manufacturing-process-sheet/changeIsInHouseWhenInsert", data, () => {
+                        $jobTicketNumberSelect.val(null).trigger("change");
+                        setInputError($jobTicketNumberSelect);
+                        $('#addModal').modal('hide');
+                        swal("正确", "添加成功", "success");
+                        init();
+                    });
+                });
+            }
+        } else {
+            swal("操作提示", "请输入必输入项", "info");
+        }
+    }
+
+    // 删除
+    function deleteOne(index) {
+        dialog("确定删除吗?", () => {
+            let rows = $("#table").bootstrapTable('getData');
+            let data = {id: rows[index].id};
+            parameterPostRequest("/finished-warehousing/delete", data, () => {
+                let data = {id: rows[index].manufactureProcessSlaveId};
+                parameterPostRequest("/manufacturing-process-sheet/changeIsInHouseWhenDelete", data, () => {
+                    $('#addModal').modal('hide');
+                    swal("正确", "删除成功", "success");
+                    init();
+                });
+            });
+        });
+    }
+
+    // 编辑
+    function initEdit(index) {
+        let rows = $("#table").bootstrapTable('getData');
+        $("#edit_code").val(rows[index].code);
+        $("#edit_job_ticket_number").val(rows[index].jobTicketNumber);
+        $("#edit_item_name").val(rows[index].itemName);
+        $("#edit_spec").val(rows[index].spec);
+        $("#edit_product_quantity").val(rows[index].productQuantity).trigger("change");
+        $("#edit_storage_amount").val(rows[index].storageAmount).trigger("change");
+        $editHouseName.html('<option value="' + rows[index].wareHouseId + '">' + rows[index].houseName + '</option>').trigger("change");
+        $("#edit_storage_date").val(dateInputFormat(rows[index].storageDate)).trigger("change");
+        $("#edit_is_zero_prod_storage").val(rows[index].isZeroProductStorage);
+        $("#edit_remark").val(rows[index].remark);
+        editId = rows[index].id;
+    }
+    function edit() {
+        let data = {
+            id: editId,
+            productQuantity: $("#edit_product_quantity").val(),
+            storageAmount: $("#edit_storage_amount").val(),
+            wareHouseId: $editHouseName.select2('data')[0].id,
+            storageDate: $("#edit_storage_date").val(),
+            isZeroProductStorage: $("#edit_is_zero_prod_storage").val(),
+            remark: $("#edit_remark").val()
+        };
+        if (null === data.id || data.productQuantity < 0 || data.storageAmount < 0 || "" === data.storageDate) {
+            swal("操作提示", "请输入必输入项", "info");
+        } else {
+            parameterPostRequest("/finished-warehousing/updateProductStorage", data, () => {
+                $('#editModal').modal('hide');
+                swal("正确", "编辑成功", "success");
+                init();
+            });
+        }
+    }
+
+    // 审核
+    // audit记录id
+    let auditId;
+    function initAudit(index) {
+        let rows = $("#table").bootstrapTable('getData');
+        $("#audit_check_flag").val(rows[index].checkFlag);
+        $("#audit_remark").val(rows[index].remark);
+        auditId = rows[index].id;
+    }
+    function audit() {
+        let data = {
+            id: auditId,
+            checkFlag: $("#audit_check_flag").val(),
+            remark: $("#audit_remark").val()
+        };
+        parameterPostRequest("/finished-warehousing/updateCheckerById", data, () => {
+            if ( "已通过" === $("#audit_check_flag").val()) {
+                let data = { productStorageId: auditId };
+                parameterPostRequest("/finished-goods-inventory/insert", data, () => {
+                    $('#auditModal').modal('hide');
+                    swal("正确", "审核成功", "success");
+                    init();
+                });
+            } else {
+                $('#auditModal').modal('hide');
+                swal("正确", "审核成功", "success");
+                init();
+            }
+        });
+    }
+</script>
+
+</body>
+
+</html>

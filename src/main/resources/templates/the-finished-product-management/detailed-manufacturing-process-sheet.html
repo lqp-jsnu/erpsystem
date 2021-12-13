@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>制造流程单详细</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <!-- select2 CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/select2.min.css" th:href="@{/css/lib/select2.min.css}">
+    <link rel="stylesheet" href="../../static/css/lib/select2-bootstrap.min.css" th:href="@{/css/lib/select2-bootstrap.min.css}">
+    <link href="../../static/css/file.css" rel="stylesheet" th:href="@{/css/file.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+
+<body onload="init();">
+<div class="panel-body" style="padding-bottom:0;">
+    <div class="panel panel-default">
+        <div class="panel-heading">查询条件</div>
+        <div class="panel-body">
+            <div class="form-group" style="margin-top:15px">
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_job_ticket_number" title="制造流程单号">制造流程单号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_job_ticket_number">
+                    </div>
+
+                    <label class="control-label col-sm-2 label-font" for="txt_search_order_number" title="客户订单号">客户订单号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_order_number">
+                    </div>
+                </div>
+
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_code" title="客户代号">客户代号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_code">
+                    </div>
+
+                    <label class="control-label col-sm-2 label-font" for="txt_search_product_number" title="产品料号">产品料号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_product_number">
+                    </div>
+                </div>
+
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_item_name" title="品名">品名</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_item_name">
+                    </div>
+
+                    <label class="control-label col-sm-2 label-font" for="txt_search_spec" title="规格">规格</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_spec">
+                    </div>
+                </div>
+
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_is_issue_order" title="是否补单">是否补单</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="txt_search_is_issue_order">
+                            <option value="--请选择--">--请选择--</option>
+                            <option value="是">是</option>
+                            <option value="否">否</option>
+                        </select>
+                    </div>
+
+                    <label class="control-label col-sm-2 label-font" for="txt_search_is_in_house" title="是否入库">是否入库</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="txt_search_is_in_house">
+                            <option value="--请选择--">--请选择--</option>
+                            <option value="是">是</option>
+                            <option value="否">否</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_is_material_export" title="是否出库">是否出库</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="txt_search_is_material_export">
+                            <option value="--请选择--">--请选择--</option>
+                            <option value="是">是</option>
+                            <option value="否">否</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row row-gap">
+                    <div class="col-sm-offset-4" style="text-align:left;">
+                        <button type="button" style="margin-left:50px" id="btn_filter" class="btn btn-primary" onclick="filter();">过滤</button>
+                        <button type="button" style="margin-left:50px" id="btn_reset_filter" class="btn btn-primary" onclick="init();">重置过滤</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toolbar" class="btn-group">
+        <button id="btn_export" type="button" class="btn btn-default" onclick="exportExcel();">
+            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>批量导出
+        </button>
+    </div>
+    <table id="table"></table>
+</div>
+
+<!-- 模态框（Modal） 编辑 -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="editModalLabel">
+                    生产出库
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group has-success">
+                        <label class="col-sm-4 control-label label-font" for="edit_export_number">出库单号</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="text" id="edit_export_number">
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label class="col-sm-4 control-label label-font" for="edit_export_date">出库日期</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="date" id="edit_export_date" onchange="checkInputChange('edit_export_date');">
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label class="col-sm-4 control-label label-font" for="edit_issue_number">发料数量</label>
+                        <div class="col-sm-8">
+                            <input disabled class="form-control" type="number" id="edit_issue_number">
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label class="col-sm-4 control-label label-font" for="edit_remark">备注</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="6" id="edit_remark"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="edit();">修改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 模态框（Modal） 导出 -->
+<div class="modal fade" id="excelModal" tabindex="-1" role="dialog" aria-labelledby="excelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="excelModalLabel">
+                    导出模板
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group has-success">
+                        <label class="col-sm-5 control-label label-font" for="audit_template">请选择导出模板</label>
+                        <div class="col-sm-5">
+                            <select class="form-control" data-style="btn-success" id="audit_template">
+                                <option value="电阻">电阻</option>
+                                <option value="弹簧">弹簧</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="excel();">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- select2.js -->
+<script src="../../static/js/lib/select2.min.js" th:src="@{/js/lib/select2.min.js}"></script>
+<script src="../../static/js/lib/Select2-zh-CN.js" th:src="@{/js/lib/Select2-zh-CN.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+
+    // 服务器分页获取数据
+    function getServerPaging(node, url, queryParams) {
+        initTable(node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'jobTicketNumber',
+            title: '工作传票号码',
+            width: '210px',
+            formatter: stringFormatter
+        }, {
+            field: 'orderNumber',
+            title: '订单号',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'code',
+            title: '客户代号',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'productNumber',
+            title: '成品料号',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'itemName',
+            title: '品名',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'spec',
+            title: '规格',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'masterItemName',
+            title: '品名／磁棒／尺寸(材质)',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'masterSpec',
+            title: '规格/初R值/电阻线(线径)',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'orderAmount',
+            title: '订购数量',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'productAmount',
+            title: '投产数量',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'everyAmount',
+            title: '每单投产数量',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'orderDate',
+            title: '采购日期',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'deliveryDate',
+            title: '交货日期',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'isIssueOrder',
+            title: '是否补单',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'isInHouse',
+            title: '是否入库',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'isIntoMake',
+            title: '是否进入生成',
+            width: '120px',
+            formatter: stringFormatter
+        }, {
+            field: 'isGenerateManufacture',
+            title: '是否生成流程单',
+            width: '130px',
+            formatter: stringFormatter
+        }, {
+            field: 'isMaterialExport',
+            title: '是否出库',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'isExportCheckPass',
+            title: '出库是否审核通过',
+            width: '130px',
+            formatter: stringFormatter
+        }, {
+            field: 'operation',
+            title: '操作',
+            width: '180px',
+            formatter: operateFormatter // 自定义方法，添加操作按钮
+        }]);
+    }
+
+    function operateFormatter(value, row, index) {  // 赋予的参数
+        if ("是" === row.isIntoMake) {
+            return '<button class="btn btn-warning view"  data-toggle="modal" data-target="#excelModal" onclick="initExcel('+ index +');">成制造流程单excel</button>';
+        } else if ("否" === row.isMaterialExport) {
+            return '<button class="btn btn-danger view"  onclick="initEdit('+ index +');">出库</button>';
+        } else if ("是" === row.isExportCheckPass) {
+            return '<button class="btn btn-danger view"  onclick="IsIntoMakeOne('+ index +');">进入生产</button>';
+        }
+    }
+
+    // 修改提示框样式
+    changeToolTip();
+
+    // 模态框初始化
+    dragTheModalDialog();
+
+    // 初始化表格数据
+    function init() {
+        getServerPaging($table, "/detailed-manufacturing-process-sheet/getDetailedManufactureProcessSlaves", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" , isGenerateManufacture: "否" };
+        });
+    }
+</script>
+<script>
+    /** 功能 */
+    // 过滤
+    function filter() {
+        let data = { jobTicketNumber: $("#txt_search_job_ticket_number").val(), orderNumber: $("#txt_search_order_number").val(),
+            code: $("#txt_search_code").val(), productNumber: $("#txt_search_product_number").val(), itemName: $("#txt_search_item_name").val(),
+            spec: $("#txt_search_spec").val(), isIssueOrder: $("#txt_search_is_issue_order").val(), isInHouse: $("#txt_search_is_in_house").val(),
+            isMaterialExport: $("#txt_search_is_material_export").val() };
+
+        if ("" === data["jobTicketNumber"] && "" === data["orderNumber"]&& "" === data["code"]&& "" === data["productNumber"] && "" === data["itemName"]
+            && "" === data["spec"] && "--请选择--" === data["isIssueOrder"] && "--请选择--" === data["isInHouse"] && "--请选择--" === data["isMaterialExport"]) {
+            swal("操作提示", "请填写过滤参数", "info");
+            return;
+        }
+
+        getServerPaging($table, "/detailed-manufacturing-process-sheet/getDetailedManufactureProcessSlaveByConditions", params => {
+            let result = { limit: params.limit, offset: params.offset, isGenerateManufacture: "否", sort: "create_time", order: "DESC", jobTicketNumber: data["jobTicketNumber"],
+                orderNumber: data["orderNumber"], code: data["code"], productNumber: data["productNumber"], itemName: data["itemName"],
+                spec: data["spec"], isIssueOrder: data["isIssueOrder"], isInHouse: data["isInHouse"] , isMaterialExport: data["isMaterialExport"]  };
+
+            removeEmptyField(result);
+            if ("--请选择--" === result["isIssueOrder"]) {
+                delete result["isIssueOrder"];
+            }
+
+            if ("--请选择--" === result["isInHouse"]) {
+                delete result["isInHouse"];
+            }
+
+            if ("--请选择--" === result["isMaterialExport"]) {
+                delete result["isMaterialExport"];
+            }
+
+            return result;
+        });
+    }
+
+    // 导出excel
+    function exportExcel() {
+        let selections = $table.bootstrapTable('getSelections');
+        if (selections.length === 0) {
+            swal("操作提示", "请选择记录", "info");
+        } else {
+            parameterPostRequest("/detailed-manufacturing-process-sheet/exportExcel", selections, () => loadFile("制造流程单详细信息.xlsx"));
+        }
+    }
+
+    // 生产
+
+    // 进入生产
+    function IsIntoMakeOne(index) {
+        let rows = $table.bootstrapTable('getData');
+        // 客订数量
+        let orderAmount = rows[index].orderAmount;
+        // 库存数量
+        let storageAmount = rows[index].storageAmount;
+        if (parseFloat(orderAmount) < parseFloat(storageAmount) || "null" === storageAmount) {
+            dialog("客订数量小于库存数量，您确定生产吗？确定后系统将自动为其分配原材料", () => {
+                let data = { "id": rows[index].id };
+                parameterPostRequest("/detailed-manufacturing-process-sheet/updateIsIntoMake", data, () => {
+                    swal("正确", "成功进入生产", "success");
+                    init();
+                });
+            });
+        } else {
+            dialog("系统将自动为其分配原材料", () => {
+                let data = { "id": rows[index].id };
+                parameterPostRequest("/detailed-manufacturing-process-sheet/updateIsIntoMake", data, () => {
+                    swal("正确", "成功进入生产", "success");
+                    init();
+                });
+            });
+        }
+    }
+
+    // 出库
+
+    // edit记录id
+    let editId;
+    // edit库存数量
+    let editLeftAmount;
+    // edit投产数量数量
+    let editProductAmount;
+    let materialInventoryMasterId;
+    let customerId;
+    let customerOrderId;
+    let issueNumber;
+    let materialInfoMasterId;
+    function initEdit(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#edit_issue_number").val(rows[index].everyAmount);
+        $("#edit_export_date").val(dateInputFormat(rows[index].exportDate)).trigger("change");
+        editId = rows[index].id;
+        editLeftAmount = rows[index].leftAmount;
+        editProductAmount = rows[index].productAmount;
+        materialInventoryMasterId = rows[index].materialInventoryMasterId;
+        customerId = rows[index].customerId;
+        customerOrderId = rows[index].customerOrderId;
+        issueNumber = rows[index].everyAmount;
+        materialInfoMasterId = rows[index].materialInfoMasterId;
+        if (editLeftAmount == null || parseFloat(editLeftAmount) < parseFloat(editProductAmount)) {
+            dialog("库存数量小于投产数量，错误！！！", () => {
+                $('#editModal').modal('hide');
+            });
+        } else {
+            $('#editModal').modal('show');
+        }
+    }
+    function edit() {
+        let data = {
+            id: editId,
+            materialInventoryMasterId: materialInventoryMasterId,
+            customerId: customerId,
+            customerOrderId: customerOrderId,
+            issueNumber: issueNumber,
+            materialInfoMasterId: materialInfoMasterId,
+            exportNumber: $("#edit_export_number").val(),
+            exportDate: $("#edit_export_date").val(),
+            remark: $("#edit_remark").val(),
+        };
+        if (null === data.id || "" === data.exportNumber || data.exportDate === null) {
+            swal("操作提示", "请输入必输入项", "info");
+        } else {
+            parameterPostRequest("/detailed-manufacturing-process-sheet/updateMaterialExport", data, () => {
+                $('#editModal').modal('hide');
+                swal("正确", "编辑成功", "success");
+                init();
+            });
+        }
+    }
+
+    // 生成制造流程单
+    // 模板
+    let template;
+    // 记录id
+    let excelId;
+    function initExcel(index) {
+        let rows = $table.bootstrapTable('getData');
+        excelId = rows[index].id;
+    }
+    function excel() {
+        template = $("#audit_template").val();
+        let data = {
+            id: excelId,
+        };
+        if ("电阻" === template) {
+            parameterPostRequest("/detailed-manufacturing-process-sheet/exportExcelDianZu", data, () => {
+                $('#excelModal').modal('hide');
+                swal("正确", "生成制造流程单成功", "success");
+                init();
+                loadFile("制造流程单（电阻）（亿）.xlsx");
+            });
+        } else if ("弹簧" === template) {
+            parameterPostRequest("/detailed-manufacturing-process-sheet/exportExcelTangHuang", data, () => {
+                $('#excelModal').modal('hide');
+                swal("正确", "生成制造流程单成功", "success");
+                init();
+                loadFile("制造流程单（弹簧）（永）.xlsx");
+            });
+        }
+    }
+</script>
+
+</body>
+
+</html>

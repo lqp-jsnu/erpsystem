@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.yctc.erpsystem.dao.MaterialExpiryDateSetDAO">
+    <resultMap id="MaterialExpiryDateSetDO" type="edu.yctc.erpsystem.entity.MaterialExpiryDateSetDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="material_info_master_id" property="materialInfoMasterId"/>
+        <result column="expiry_date" property="expiryDate"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_material_expiry_date_set`
+    </select>
+
+    <select id="getMaterialDateSet" resultMap="MaterialExpiryDateSetDO">
+        SELECT *
+        FROM `t_material_expiry_date_set`
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.MaterialExpiryDateSetDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_material_expiry_date_set` (`id`, `expiry_date`, `create_time`, `update_time`, `remark`, `material_info_master_id`)
+        VALUES (#{id}, #{expiryDate}, now(), now(), #{remark}, #{materialInfoMasterId})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `t_material_expiry_date_set`
+        WHERE `id` = #{id};
+    </delete>
+
+    <update id="updateMaterialDateSet" parameterType="edu.yctc.erpsystem.entity.MaterialExpiryDateSetDO">
+        UPDATE `t_material_expiry_date_set`
+        SET `material_info_master_id` = #{materialInfoMasterId}, `expiry_date` = #{expiryDate}, `remark` = #{remark}, `update_time` = now()
+        WHERE `id` = #{id}
+    </update>
+
+</mapper>

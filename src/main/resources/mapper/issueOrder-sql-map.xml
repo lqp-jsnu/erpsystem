@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.IssueOrderDAO">
+    <resultMap id="IssueOrderDO" type="edu.yctc.erpsystem.entity.IssueOrderDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="customer_order_id" property="customerOrderId"/>
+        <result column="user" property="user"/>
+        <result column="checker" property="checker"/>
+        <result column="issue_amount" property="issueAmount"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="is_generate_manufacture" property="isGeneraManufacture"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_issue_order`
+        <where>
+            <if test="checkFlag != null"> AND `check_flag` LIKE CONCAT('%', #{checkFlag ,jdbcType=VARCHAR}, '%') </if>
+        </where>
+    </select>
+
+    <select id="getIssueOrder" resultMap="IssueOrderDO">
+        SELECT *
+        FROM `t_issue_order`
+        <where>
+            <if test="checkFlag != null"> AND `check_flag` LIKE CONCAT('%', #{checkFlag ,jdbcType=VARCHAR}, '%') </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.IssueOrderDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_issue_order` (`id`, `customer_order_id`, `issue_amount`, `user`, `check_flag`, `remark`, `create_time`, `is_generate_manufacture`)
+        VALUES (#{id}, #{customerOrderId}, #{issueAmount}, #{user}, "未审核", #{remark}, now(), "否");
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `t_issue_order`
+        WHERE `id` = #{id};
+    </delete>
+
+    <update id="updateIssueOrder" parameterType="edu.yctc.erpsystem.entity.IssueOrderDO">
+        UPDATE `t_issue_order`
+        SET `issue_amount` = #{issueAmount},
+            `remark` = #{remark}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateCheckerById" parameterType="edu.yctc.erpsystem.entity.IssueOrderDO">
+        UPDATE `t_issue_order`
+        SET `checker` = #{checker},
+            `check_flag` = #{checkFlag}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="make">
+       UPDATE `t_issue_order`
+       SET `is_generate_manufacture` = '是'
+       WHERE `id` = #{id};
+    </update>
+
+</mapper>

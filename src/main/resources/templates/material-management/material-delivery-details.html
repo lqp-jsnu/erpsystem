@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>材料出库明细</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <link href="../../static/css/file.css" rel="stylesheet" th:href="@{/css/file.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+
+<body onload="init();">
+
+    <div class="panel-body" style="padding-bottom:0;">
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <div class="form-group" style="margin-top:15px">
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_job_ticket_number" title="制造流程单号">制造流程单号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_job_ticket_number">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_order_number" title="客户订单号">客户订单号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_order_number">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_item_name" title="品名／磁棒／尺寸(材质)">品名／磁棒／尺寸(材质)</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_item_name">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_spec" title="规格/初R值/电阻线(线径)">规格/初R值/电阻线(线径)</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_spec">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_export_number" title="出库单号">出库单号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_export_number">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_check_flag" title="审核状态">审核状态</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_search_check_flag">
+                                <option value="--请选择--">--请选择--</option>
+                                <option value="未审核">未审核</option>
+                                <option value="未通过">未通过</option>
+                                <option value="已通过">已通过</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_start_time" title="开始时间">出库开始</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_start_time">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_end_time" title="结束时间">出库结束</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_end_time">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <div class="col-sm-offset-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_filter" class="btn btn-primary" onclick="filter();">过滤</button>
+                            <button type="button" style="margin-left:50px" id="btn_reset_filter" class="btn btn-primary" onclick="init();">重置过滤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toolbar" class="btn-group">
+            <button id="btn_export" type="button" class="btn btn-default" onclick="exportExcel();">
+                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>批量导出出库信息
+            </button>
+            <button id="btn_exportDetail" type="button" class="btn btn-default" onclick="exportDetailExcel();">
+                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>批量导出出库详细信息
+            </button>
+        </div>
+        <table id="table"></table>
+    </div>
+
+    <!-- 模态框（Modal） 查看-->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="background: white; height: 40%;width: 80%;margin: auto;">
+            <div class="modal-content" style="background: white; height: 95%;width: 95%;margin: auto;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="viewModalLabel">
+                        查看原材料出库信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table id="ViewTable"></table>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- select2.js -->
+<script src="../../static/js/lib/select2.min.js" th:src="@{/js/lib/select2.min.js}"></script>
+<script src="../../static/js/lib/Select2-zh-CN.js" th:src="@{/js/lib/Select2-zh-CN.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+
+    // 服务器分页获取数据
+    function getServerPaging(node, url, queryParams) {
+        initTable(node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'jobTicketNumber',
+            title: '制造流程单号',
+            width: '150px',
+            formatter: stringFormatter
+        }, {
+            field: 'exportNumber',
+            title: '出库单号',
+            width: '130px',
+            formatter: stringFormatter
+        }, {
+            field: 'orderNumber',
+            title: '客户订单号',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'itemName',
+            title: '品名／磁棒／尺寸(材质)',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'spec',
+            title: '规格/初R值/电阻线(线径)',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'exportDate',
+            title: '出库日期',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'issueNumber',
+            title: '发料数量',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'user',
+            title: '出库者',
+            width: '150px',
+            formatter: stringFormatter
+        }, {
+            field: 'checker',
+            title: '审核者',
+            width: '150px',
+            formatter: stringFormatter
+        }, {
+            field: 'createTime',
+            title: '录入时间',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'operation',
+            title: '操作',
+            width: '90px',
+            formatter: operateFormatter // 自定义方法，添加操作按钮
+        }]);
+    }
+
+    function operateFormatter(value, row, index) {  // 赋予的参数
+            return '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>';
+    }
+
+    // 修改提示框样式
+    changeToolTip();
+
+    // 模态框初始化
+    dragTheModalDialog();
+
+    // 初始化表格数据
+    function init() {
+        getServerPaging($table, "/material-delivery-details/getMaterialExportDetail", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+    }
+
+</script>
+<script>
+    /** 查看初始化 */
+    let $ViewTable = $('#ViewTable');
+    // 服务器分页获取数据
+    function getServerPagingView(node, url, queryParams) {
+        initTable (node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'code',
+            title: '供应商编号',
+            width: '135px',
+            formatter: stringFormatter
+        }, {
+            field: 'exportDate',
+            title: '出库日期',
+            width: '130px',
+            formatter: dateFormatter
+        }, {
+            field: 'itemName',
+            title: '品名／磁棒／尺寸(材质)',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'spec',
+            title: '规格/初R值/电阻线(线径)',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'issueNumber',
+            title: '发料数量',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'unitPrice',
+            title: '单价',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'unit',
+            title: '单位',
+            width: '150px',
+            formatter: stringFormatter
+        }, {
+            field: 'houseName',
+            title: '发出仓库',
+            width: '150px',
+            formatter: stringFormatter
+        }], null);
+    }
+</script>
+<script>
+    /** 功能 */
+    // 过滤
+    function filter() {
+        let time = [$("#txt_search_start_time"), $("#txt_search_end_time")];
+        if ("" !== time[0][0].validationMessage || "" !== time[1][0].validationMessage) {
+            swal("操作提示", "请填写完整的时间", "info");
+            return;
+        }
+
+        let data = { jobTicketNumber: $("#txt_search_job_ticket_number").val(), itemName: $("#txt_search_item_name").val(), exportNumber: $("#txt_search_export_number").val(),
+            checkFlag: $("#txt_search_check_flag").val(), spec: $("#txt_search_spec").val(), orderNumber: $("#txt_search_order_number").val(), startTime:time[0].val(), endTime: time[1].val()};
+
+        if ("" === data["jobTicketNumber"] && "" === data["itemName"] && "" === data["exportNumber"] && "" === data["spec"] && "--请选择--" === data["checkFlag"] && "" === data["orderNumber"] && "" === data["startTime"] && "" === data["endTime"] ) {
+            swal("操作提示", "请填写过滤参数", "info");
+            return;
+        }
+
+        getServerPaging($table, "/material-delivery-details/getMaterialExportDetailByConditions", params => {
+            let result = { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC", code: data["code"],
+                itemName: data["itemName"], checkFlag: data["checkFlag"], spec: data["spec"], jobTicketNumber: data["jobTicketNumber"],
+                exportNumber: data["exportNumber"], orderNumber: data["orderNumber"], startTime: data["startTime"], endTime: data["endTime"]};
+
+            removeEmptyField(result);
+            if ("--请选择--" === result["checkFlag"]) {
+                delete result["checkFlag"];
+            }
+
+            return result;
+        });
+    }
+
+    // 导出DetailExcel
+    function exportDetailExcel() {
+        let selections = $table.bootstrapTable('getSelections');
+        if (selections.length === 0) {
+            swal("操作提示", "请选择记录", "info");
+        } else {
+            parameterPostRequest("/material-outgoing-information/exportDetailExcel", selections, () => loadFile("材料出库详细存单.xlsx"));
+        }
+    }
+
+    // 导出excel
+    function exportExcel() {
+        let selections = $table.bootstrapTable('getSelections');
+        if (selections.length === 0) {
+            swal("操作提示", "请选择记录", "info");
+        } else {
+            parameterPostRequest("/material-outgoing-information/exportExcel", selections, () => loadFile("原材料出库存单.xlsx"));
+        }
+    }
+
+    // 查看
+    function view(index) {
+        let rows = $table.bootstrapTable('getData');
+        getServerPagingView($ViewTable, "/material-delivery-details/getView", params => {
+            return { materialExportId:rows[index].id, limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+    }
+
+</script>
+
+</body>
+
+</html>

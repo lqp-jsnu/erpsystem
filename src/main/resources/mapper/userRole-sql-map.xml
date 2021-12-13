@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.UserRoleDAO">
+    <resultMap id="UserRoleDO" type="edu.yctc.erpsystem.entity.UserRoleDO">
+        <result column="sy_user_id" property="syUserId"/>
+        <result column="sy_role_id" property="syRoleId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="getRoleIdByUserId" resultMap="UserRoleDO">
+        SELECT * FROM `sy_user_role`
+        WHERE `sy_user_id` = #{syUserId}
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.UserRoleDO">
+        INSERT IGNORE INTO `sy_user_role` (`id`, `sy_user_id`, `sy_role_id`, `create_time`, `update_time`)
+        VALUES (#{id}, #{syUserId}, #{syRoleId}, now(), now())
+    </insert>
+
+    <insert id="insertAll" parameterType="edu.yctc.erpsystem.entity.UserRoleDO">
+        INSERT IGNORE INTO `sy_user_role` (`id`, `sy_user_id`, `sy_role_id`, `create_time`, `update_time`)
+        VALUES
+        <foreach collection="userRoleDO" item="item"  separator=",">
+            ((SELECT replace(uuid(),'-','') FROM dual),
+            #{item.syUserId}, #{item.syRoleId}, now(), now())
+        </foreach>
+    </insert>
+
+    <delete id="deleteByRoleId" parameterType="edu.yctc.erpsystem.entity.UserRoleDO">
+        DELETE FROM `sy_user_role`
+        WHERE `sy_role_id` = #{syRoleId}
+    </delete>
+
+    <delete id="deleteByUserId" parameterType="edu.yctc.erpsystem.entity.UserRoleDO">
+        DELETE FROM `sy_user_role`
+        WHERE `sy_user_id` = #{syUserId}
+    </delete>
+
+</mapper>

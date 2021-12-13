@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+    <style>
+        .gutter-vertical {
+            cursor: pointer;
+            background-color: lightgrey;
+        }
+
+        .gutter-horizontal {
+            cursor: pointer;
+            background-color: lightgrey;
+            height: 100%;
+            float: left;
+        }
+
+        .split {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .split-horizontal {
+            height: 100%;
+            float: left;
+        }
+    </style>
+</head>
+<body onload="init();">
+
+    <div style="height: 1000px;">
+        <div id="a" class="split split-vertical">
+
+            <div id="c" class="split split-horizontal">
+                <h3>成品保质期监控</h3>
+                <table id="productExpiryDateTable"></table>
+            </div>
+
+            <div id="d" class="split split-horizontal">
+                <h3>成品数量监控</h3>
+                <table id="productNumberTable"></table>
+            </div>
+
+        </div>
+
+        <div id="b" class="split split-vertical">
+
+            <div id="e" class="split split-horizontal">
+                <h3>材料保质期监控</h3>
+                <table id="materialExpiryDateTable"></table>
+            </div>
+
+            <div id="f" class="split split-horizontal">
+                <h3>材料数量监控</h3>
+                <table id="materialNumberTable"></table>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="glyphicon glyphicon-warning-sign" style="text-align: center;width: 800px; color: red; font-size: xx-large" >&nbsp;预警提醒</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <nav id="myScrollspy" class="navbar navbar-default navbar-static" role="navigation">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button class="navbar-toggle" type="button" data-toggle="collapse"
+                                        data-target=".bs-js-navbar-scrollspy">
+                                    <span class="sr-only">切换导航</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="collapse navbar-collapse bs-js-navbar-scrollspy">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><a href="#productDate">成品保质期预警</a></li>
+                                    <li><a href="#productNub">成品数量预警</a></li>
+                                    <li><a href="#materialDate">原材料保质期预警</a></li>
+                                    <li><a href="#materialNub">原材料数量预警</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <div data-spy="scroll" data-target="#myScrollspy" data-offset="0" style="height:200px;overflow:auto; position: relative;">
+                        <div class="section">
+                            <h3 id="productDate" style="text-align: center">成品保质期预警</h3>
+                            <ul class="list-group" id = "productDateList">
+                            </ul>
+                        </div>
+                        <div class="section">
+                            <h3 id="productNub" style="text-align: center">成品数量预警</h3>
+                            <ul class="list-group" id = "productNubList">
+                            </ul>
+                        </div>
+                        <div class="section">
+                            <h3 id="materialDate" style="text-align: center">原材料保质期预警</h3>
+                            <ul class="list-group" id = "materialDateList">
+                            </ul>
+                        </div>
+                        <div class="section">
+                            <h3 id="materialNub" style="text-align: center">原材料数量预警</h3>
+                            <ul class="list-group" id = "materialNubList">
+                            </ul>
+                        </div>
+                    </div>
+                    <span id="activeitem" style="color:red;"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- split.js -->
+<script src="../../static/js/lib/split.min.js" th:src="@{/js/lib/split.min.js}"></script>
+
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+<script>
+    // 服务器分页获取数据
+    // 成品数量监督
+    function getProductNumberServerPaging(node, url, queryParams) {
+        initTable(node, url, [5,10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'storageAmount',
+            title: '库存数量',
+            width: '100px',
+            formatter: stringFormatter
+        }, {
+            field: 'productNumber',
+            title: '成品料号',
+            width: '100px',
+            formatter: stringFormatter
+        }, {
+            field: 'spec',
+            title: '规格',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'itemName',
+            title: '品名',
+            width: '80px',
+            formatter: stringFormatter
+        }, {
+            field: 'result',
+            title: '检测结果',
+            width: '170px',
+            formatter: value => null === value ? "":"正常"===value ? '<span title="'+ value +'" class="label label-success" style="font-size:14px;">'+ value +'</span>':'<span title="'+ value +'" class="label label-danger" style="font-size:14px;">'+ value +'</span>'
+        }]);
+    }
+
+    // 成品保质期监督
+    function getProductDateServerPaging(node, url, queryParams) {
+        initTable(node, url, [5,10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'storageDate',
+            title: '入库日期',
+            width: '110px',
+            formatter: dateFormatter
+        }, {
+            field: 'productNumber',
+            title: '成品料号',
+            width: '100px',
+            formatter: stringFormatter
+        }, {
+            field: 'spec',
+            title: '规格',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'itemName',
+            title: '品名',
+            width: '80px',
+            formatter: stringFormatter
+        }, {
+            field: 'date',
+            title: '过期/剩余天数',
+            width: '120px',
+            formatter: stringFormatter
+        }, {
+            field: 'result',
+            title: '检测结果',
+            width: '170px',
+            formatter: value => null === value ? "":"正常"===value ? '<span title="'+ value +'" class="label label-success" style="font-size:14px;">'+ value +'</span>':'<span title="'+ value +'" class="label label-danger" style="font-size:14px;">'+ value +'</span>'
+        }]);
+    }
+
+    // 材料保质期监控
+    function getMaterialDateServerPaging(node, url, queryParams) {
+        initTable(node, url, [5,10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'storageDate',
+            title: '入库日期',
+            width: '110px',
+            formatter: dateFormatter
+        }, {
+            field: 'spec',
+            title: '规格/初R值/电阻线(线径)',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'itemName',
+            title: '品名/磁棒/尺寸(线径)',
+            width: '160px',
+            formatter: stringFormatter
+        }, {
+            field: 'date',
+            title: '过期/剩余天数',
+            width: '120px',
+            formatter: stringFormatter
+        }, {
+            field: 'result',
+            title: '检测结果',
+            width: '170px',
+            formatter: value => null === value ? "":"正常"===value ? '<span title="'+ value +'" class="label label-success" style="font-size:14px;">'+ value +'</span>':'<span title="'+ value +'" class="label label-danger" style="font-size:14px;">'+ value +'</span>'
+        }]);
+    }
+
+    // 成品数量监督
+    function getMaterialNumServerPaging(node, url, queryParams) {
+        initTable(node, url, [5,10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'leftAmount',
+            title: '库存数量',
+            width: '100px',
+            formatter: stringFormatter
+        }, {
+            field: 'spec',
+            title: '规格/初R值/电阻线(线径)',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'itemName',
+            title: '品名/磁棒/尺寸(线径)',
+            width: '160px',
+            formatter: stringFormatter
+        }, {
+            field: 'result',
+            title: '检测结果',
+            width: '170px',
+            formatter: value => null === value ? "":"正常"===value ? '<span title="'+ value +'" class="label label-success" style="font-size:14px;">'+ value +'</span>':'<span title="'+ value +'" class="label label-danger" style="font-size:14px;">'+ value +'</span>'
+        }]);
+    }
+
+    dragTheModalDialog();
+
+    changeToolTip();
+
+    // 初始化数据信息
+    function init() {
+        getProductNumberServerPaging($('#productNumberTable'), "/finished-goods-inventory/getMainProductNumber", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+
+        getProductDateServerPaging($('#productExpiryDateTable'), "/finished-goods-inventory/getMainProductExpiryDate", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+
+        getMaterialDateServerPaging($('#materialExpiryDateTable'), "/material-inventory/getMainMaterialExpiryDate", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+
+        getMaterialNumServerPaging($('#materialNumberTable'), "/material-inventory/getMainMaterialNumber", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+
+        oneAlert();
+    }
+
+    Split(['#a', '#b'], { direction: 'vertical' });
+    Split(['#c', '#d']);
+    Split(['#e', '#f']);
+
+    // 显示预警模态框
+    let $myModal = $("#myModal");
+    let $productDateList = $('#productDateList');
+    let $productNubList = $('#productNubList');
+    let $materialDateList = $('#materialDateList');
+    let $materialNubList = $('#materialNubList');
+    function oneAlert() {
+        noParameterPostRequest("/main-table/getMainProductDateWarning", result => {
+            result.module.rows.forEach(item => {
+                if(item.leaveDate > 0) {
+                    $productDateList.append('<li class="list-group-item">'+ '<span style="display:inline-block; width:4cm; text-align:center;">' + item.spec + '</span>' + "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" + '<span style="display:inline-block; width:3cm; text-align:center;">' + item.itemName + '</span>' + "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" + '<span class="label label-warning" style="font-size:14px;">'+ item.date +'</span>' + '</li> ');
+                } else {
+                    $productDateList.append('<li class="list-group-item">'+ '<span style="display:inline-block; width:4cm; text-align:center;">' + item.spec + '</span>' + "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" + '<span style="display:inline-block; width:3cm; text-align:center;">' + item.itemName + '</span>' + "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" + '<span class="label label-danger" style="font-size:14px;">'+ item.date +'</span>' + '</li> ');
+                }
+            });
+
+            if (result.module.rows.length === 0) {
+                $productDateList.append('<li class="list-group-item">' + '<span class="label label-success" style="font-size:14px;">' + "暂无预警" + '</span>' + '</li> ');
+            }
+
+            if (result.module.rows.length !== 0) {
+                $myModal.modal("show");
+            }
+        }, "GET");
+
+        noParameterPostRequest("/main-table/getMainProductNumberWarning", result => {
+            result.module.rows.forEach(item => {
+                $productNubList.append('<li class="list-group-item">' + '<span style="display:inline-block; width:4cm; text-align:center;">' + item.spec + '</span>'+ "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" + '<span style="display:inline-block; width:3cm; text-align:center;">' + item.itemName + '</span>' +"&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" +  '<span class="label label-danger" style="font-size:14px;">'+ item.result +'</span>' + '</li> ');
+            });
+
+            if(result.module.rows.length === 0) {
+                $productNubList.append('<li class="list-group-item">' + '<span class="label label-success" style="font-size:14px;">' + "暂无预警" + '</span>' + '</li> ');
+            }
+
+            if(result.module.rows.length !== 0) {
+                $myModal.modal("show");
+            }
+        },"GET");
+
+        noParameterPostRequest("/main-table/getMainMaterialDateWarning", result => {
+            result.module.rows.forEach(item => {
+                if(item.leaveDate > 0) {
+                    $materialDateList.append('<li class="list-group-item">' + '<span style="display:inline-block; width:4cm; text-align:center;">' + item.spec + '</span>' + "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" + '<span style="display:inline-block; width:3cm; text-align:center;">' + item.itemName + '</span>' + "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" + '<span class="label label-warning" style="font-size:14px;">'+ item.date +'</span>' + '</li> ');
+                } else {
+                    $materialDateList.append('<li class="list-group-item">' + '<span style="display:inline-block; width:4cm; text-align:center;">' + item.spec + '</span>' + "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" + '<span style="display:inline-block; width:3cm; text-align:center;">' + item.itemName + '</span>' + "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" + '<span class="label label-danger" style="font-size:14px;">'+ item.date +'</span>' + '</li> ');
+                }
+            });
+
+            if (result.module.rows.length === 0) {
+                $materialDateList.append('<li class="list-group-item">' + '<span class="label label-success" style="font-size:14px;">' + "暂无预警" + '</span>' + '</li> ');
+            }
+
+            if (result.module.rows.length !== 0) {
+                $myModal.modal("show");
+            }
+        },"GET");
+
+        noParameterPostRequest("/main-table/getMainMaterialNumberWarning", result => {
+            result.module.rows.forEach(item => {
+                $materialNubList.append('<li class="list-group-item">' + '<span style="display:inline-block; width:4cm; text-align:center;">' + item.spec + '</span>' + "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" + '<span style="display:inline-block; width:3cm; text-align:center;">' + item.itemName + '</span>' + "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;" +  '<span class="label label-danger" style="font-size:14px;">'+ item.result +'</span>' + '</li> ');
+            });
+
+            if (result.module.rows.length === 0) {
+                $materialNubList.append('<li class="list-group-item">' + '<span class="label label-success" style="font-size:14px;">' + "暂无预警" + '</span>' + '</li> ');
+            }
+
+            if (result.module.rows.length !== 0) {
+                $myModal.modal("show");
+            }
+        },"GET");
+
+        $(function(){
+            $("#myScrollspy").scrollspy();
+
+            $('#myScrollspy').on('activate.bs.scrollspy', function () {
+                let currentItem = $(".nav li.active > a").text();
+                $("#activeitem").html("目前您正在查看 - " + currentItem);
+            })
+        });
+    }
+
+
+</script>
+</body>
+</html>

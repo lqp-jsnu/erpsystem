@@ -1,0 +1,5059 @@
+/** 字体图标样式 */
+
+.nav-style-big {
+    margin-left: 10px;
+    margin-right: 40px;
+    width: 20px;
+    text-align: right;
+}
+
+.nav-style-small {
+    margin-right: 15px;
+    width: 20px;
+    text-align: right;
+}
+
+.ext-icon-blue:before {
+    content: url('images/ext_icons/blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-green:before {
+    content: url('images/ext_icons/green.png');
+    vertical-align: middle;
+}
+
+.ext-icon-pink:before {
+    content: url('images/ext_icons/pink.png');
+    vertical-align: middle;
+}
+
+.ext-icon-red:before {
+    content: url('images/ext_icons/red.png');
+    vertical-align: middle;
+}
+
+.ext-icon-seagreen:before {
+    content: url('images/ext_icons/seagreen.png');
+    vertical-align: middle;
+}
+
+.ext-icon-violet:before {
+    content: url('images/ext_icons/violet.png');
+    vertical-align: middle;
+}
+
+.ext-icon-anchor:before {
+    content: url('images/ext_icons/anchor.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-green:before {
+    content: url('images/ext_icons/arrow_green.png');
+    vertical-align: middle;
+}
+
+.ext-icon-asterisk-orange:before {
+    content: url('images/ext_icons/asterisk_orange.png');
+    vertical-align: middle;
+}
+
+.ext-icon-asterisk-yellow:before {
+    content: url('images/ext_icons/asterisk_yellow.png');
+    vertical-align: middle;
+}
+
+.ext-icon-attach:before {
+    content: url('images/ext_icons/attach.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bell:before {
+    content: url('images/ext_icons/bell.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bell-add:before {
+    content: url('images/ext_icons/bell_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bell-delete:before {
+    content: url('images/ext_icons/bell_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bell-error:before {
+    content: url('images/ext_icons/bell_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bell-go:before {
+    content: url('images/ext_icons/bell_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bell-link:before {
+    content: url('images/ext_icons/bell_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bin:before {
+    content: url('images/ext_icons/bin.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bin-closed:before {
+    content: url('images/ext_icons/bin_closed.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bin-empty:before {
+    content: url('images/ext_icons/bin_empty.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bomb:before {
+    content: url('images/ext_icons/bomb.png');
+    vertical-align: middle;
+}
+
+.ext-icon-book:before {
+    content: url('images/ext_icons/book.png');
+    vertical-align: middle;
+}
+
+.ext-icon-book-add:before {
+    content: url('images/ext_icons/book_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-book-addresses:before {
+    content: url('images/ext_icons/book_addresses.png');
+    vertical-align: middle;
+}
+
+.ext-icon-book-delete:before {
+    content: url('images/ext_icons/book_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-book-edit:before {
+    content: url('images/ext_icons/book_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-book-error:before {
+    content: url('images/ext_icons/book_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-book-go:before {
+    content: url('images/ext_icons/book_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-book-key:before {
+    content: url('images/ext_icons/book_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-book-link:before {
+    content: url('images/ext_icons/book_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-book-next:before {
+    content: url('images/ext_icons/book_next.png');
+    vertical-align: middle;
+}
+
+.ext-icon-book-open:before {
+    content: url('images/ext_icons/book_open.png');
+    vertical-align: middle;
+}
+
+.ext-icon-book-previous:before {
+    content: url('images/ext_icons/book_previous.png');
+    vertical-align: middle;
+}
+
+.ext-icon-box:before {
+    content: url('images/ext_icons/box.png');
+    vertical-align: middle;
+}
+
+.ext-icon-brick:before {
+    content: url('images/ext_icons/brick.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bricks:before {
+    content: url('images/ext_icons/bricks.png');
+    vertical-align: middle;
+}
+
+.ext-icon-brick-add:before {
+    content: url('images/ext_icons/brick_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-brick-delete:before {
+    content: url('images/ext_icons/brick_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-brick-edit:before {
+    content: url('images/ext_icons/brick_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-brick-error:before {
+    content: url('images/ext_icons/brick_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-brick-go:before {
+    content: url('images/ext_icons/brick_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-brick-link:before {
+    content: url('images/ext_icons/brick_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-briefcase:before {
+    content: url('images/ext_icons/briefcase.png');
+    vertical-align: middle;
+}
+
+.ext-icon-building:before {
+    content: url('images/ext_icons/building.png');
+    vertical-align: middle;
+}
+
+.ext-icon-building-add:before {
+    content: url('images/ext_icons/building_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-building-delete:before {
+    content: url('images/ext_icons/building_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-building-edit:before {
+    content: url('images/ext_icons/building_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-building-error:before {
+    content: url('images/ext_icons/building_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-building-go:before {
+    content: url('images/ext_icons/building_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-building-key:before {
+    content: url('images/ext_icons/building_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-building-link:before {
+    content: url('images/ext_icons/building_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-add:before {
+    content: url('images/ext_icons/bullet_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-arrow-bottom:before {
+    content: url('images/ext_icons/bullet_arrow_bottom.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-arrow-down:before {
+    content: url('images/ext_icons/bullet_arrow_down.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-arrow-top:before {
+    content: url('images/ext_icons/bullet_arrow_top.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-arrow-up:before {
+    content: url('images/ext_icons/bullet_arrow_up.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-black:before {
+    content: url('images/ext_icons/bullet_black.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-blue:before {
+    content: url('images/ext_icons/bullet_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-delete:before {
+    content: url('images/ext_icons/bullet_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-disk:before {
+    content: url('images/ext_icons/bullet_disk.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-error:before {
+    content: url('images/ext_icons/bullet_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-feed:before {
+    content: url('images/ext_icons/bullet_feed.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-go:before {
+    content: url('images/ext_icons/bullet_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-green:before {
+    content: url('images/ext_icons/bullet_green.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-key:before {
+    content: url('images/ext_icons/bullet_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-orange:before {
+    content: url('images/ext_icons/bullet_orange.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-picture:before {
+    content: url('images/ext_icons/bullet_picture.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-pink:before {
+    content: url('images/ext_icons/bullet_pink.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-purple:before {
+    content: url('images/ext_icons/bullet_purple.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-red:before {
+    content: url('images/ext_icons/bullet_red.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-star:before {
+    content: url('images/ext_icons/bullet_star.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-toggle-minus:before {
+    content: url('images/ext_icons/bullet_toggle_minus.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-toggle-plus:before {
+    content: url('images/ext_icons/bullet_toggle_plus.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-white:before {
+    content: url('images/ext_icons/bullet_white.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-wrench:before {
+    content: url('images/ext_icons/bullet_wrench.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bullet-yellow:before {
+    content: url('images/ext_icons/bullet_yellow.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cake:before {
+    content: url('images/ext_icons/cake.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cancel:before {
+    content: url('images/ext_icons/cancel.png');
+    vertical-align: middle;
+}
+
+.ext-icon-clock:before {
+    content: url('images/ext_icons/clock.png');
+    vertical-align: middle;
+}
+
+.ext-icon-clock-add:before {
+    content: url('images/ext_icons/clock_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-clock-delete:before {
+    content: url('images/ext_icons/clock_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-clock-edit:before {
+    content: url('images/ext_icons/clock_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-clock-error:before {
+    content: url('images/ext_icons/clock_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-clock-go:before {
+    content: url('images/ext_icons/clock_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-clock-link:before {
+    content: url('images/ext_icons/clock_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-clock-pause:before {
+    content: url('images/ext_icons/clock_pause.png');
+    vertical-align: middle;
+}
+
+.ext-icon-clock-play:before {
+    content: url('images/ext_icons/clock_play.png');
+    vertical-align: middle;
+}
+
+.ext-icon-clock-red:before {
+    content: url('images/ext_icons/clock_red.png');
+    vertical-align: middle;
+}
+
+.ext-icon-clock-stop:before {
+    content: url('images/ext_icons/clock_stop.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cog:before {
+    content: url('images/ext_icons/cog.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cog-add:before {
+    content: url('images/ext_icons/cog_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cog-delete:before {
+    content: url('images/ext_icons/cog_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cog-edit:before {
+    content: url('images/ext_icons/cog_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cog-error:before {
+    content: url('images/ext_icons/cog_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cog-go:before {
+    content: url('images/ext_icons/cog_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-coins:before {
+    content: url('images/ext_icons/coins.png');
+    vertical-align: middle;
+}
+
+.ext-icon-coins-add:before {
+    content: url('images/ext_icons/coins_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-coins-delete:before {
+    content: url('images/ext_icons/coins_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-color-swatch:before {
+    content: url('images/ext_icons/color_swatch.png');
+    vertical-align: middle;
+}
+
+.ext-icon-color-wheel:before {
+    content: url('images/ext_icons/color_wheel.png');
+    vertical-align: middle;
+}
+
+.ext-icon-comment:before {
+    content: url('images/ext_icons/comment.png');
+    vertical-align: middle;
+}
+
+.ext-icon-comments:before {
+    content: url('images/ext_icons/comments.png');
+    vertical-align: middle;
+}
+
+.ext-icon-comments-add:before {
+    content: url('images/ext_icons/comments_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-comments-delete:before {
+    content: url('images/ext_icons/comments_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-comment-add:before {
+    content: url('images/ext_icons/comment_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-comment-delete:before {
+    content: url('images/ext_icons/comment_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-comment-edit:before {
+    content: url('images/ext_icons/comment_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-compress:before {
+    content: url('images/ext_icons/compress.png');
+    vertical-align: middle;
+}
+
+.ext-icon-computer:before {
+    content: url('images/ext_icons/computer.png');
+    vertical-align: middle;
+}
+
+.ext-icon-computer-add:before {
+    content: url('images/ext_icons/computer_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-computer-delete:before {
+    content: url('images/ext_icons/computer_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-computer-edit:before {
+    content: url('images/ext_icons/computer_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-computer-error:before {
+    content: url('images/ext_icons/computer_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-computer-go:before {
+    content: url('images/ext_icons/computer_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-computer-key:before {
+    content: url('images/ext_icons/computer_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-computer-link:before {
+    content: url('images/ext_icons/computer_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-connect:before {
+    content: url('images/ext_icons/connect.png');
+    vertical-align: middle;
+}
+
+.ext-icon-contrast:before {
+    content: url('images/ext_icons/contrast.png');
+    vertical-align: middle;
+}
+
+.ext-icon-contrast-decrease:before {
+    content: url('images/ext_icons/contrast_decrease.png');
+    vertical-align: middle;
+}
+
+.ext-icon-contrast-high:before {
+    content: url('images/ext_icons/contrast_high.png');
+    vertical-align: middle;
+}
+
+.ext-icon-contrast-increase:before {
+    content: url('images/ext_icons/contrast_increase.png');
+    vertical-align: middle;
+}
+
+.ext-icon-contrast-low:before {
+    content: url('images/ext_icons/contrast_low.png');
+    vertical-align: middle;
+}
+
+.ext-icon-controller:before {
+    content: url('images/ext_icons/controller.png');
+    vertical-align: middle;
+}
+
+.ext-icon-controller-add:before {
+    content: url('images/ext_icons/controller_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-controller-delete:before {
+    content: url('images/ext_icons/controller_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-controller-error:before {
+    content: url('images/ext_icons/controller_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-creditcards:before {
+    content: url('images/ext_icons/creditcards.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cup:before {
+    content: url('images/ext_icons/cup.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cup-add:before {
+    content: url('images/ext_icons/cup_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cup-delete:before {
+    content: url('images/ext_icons/cup_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cup-edit:before {
+    content: url('images/ext_icons/cup_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cup-error:before {
+    content: url('images/ext_icons/cup_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cup-go:before {
+    content: url('images/ext_icons/cup_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cup-key:before {
+    content: url('images/ext_icons/cup_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cup-link:before {
+    content: url('images/ext_icons/cup_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cursor:before {
+    content: url('images/ext_icons/cursor.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cut:before {
+    content: url('images/ext_icons/cut.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cut-red:before {
+    content: url('images/ext_icons/cut_red.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database:before {
+    content: url('images/ext_icons/database.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-add:before {
+    content: url('images/ext_icons/database_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-connect:before {
+    content: url('images/ext_icons/database_connect.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-delete:before {
+    content: url('images/ext_icons/database_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-edit:before {
+    content: url('images/ext_icons/database_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-error:before {
+    content: url('images/ext_icons/database_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-gear:before {
+    content: url('images/ext_icons/database_gear.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-go:before {
+    content: url('images/ext_icons/database_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-key:before {
+    content: url('images/ext_icons/database_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-lightning:before {
+    content: url('images/ext_icons/database_lightning.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-link:before {
+    content: url('images/ext_icons/database_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-refresh:before {
+    content: url('images/ext_icons/database_refresh.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-save:before {
+    content: url('images/ext_icons/database_save.png');
+    vertical-align: middle;
+}
+
+.ext-icon-database-table:before {
+    content: url('images/ext_icons/database_table.png');
+    vertical-align: middle;
+}
+
+.ext-icon-delete:before {
+    content: url('images/ext_icons/delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-disconnect:before {
+    content: url('images/ext_icons/disconnect.png');
+    vertical-align: middle;
+}
+
+.ext-icon-disk:before {
+    content: url('images/ext_icons/disk.png');
+    vertical-align: middle;
+}
+
+.ext-icon-disk-multiple:before {
+    content: url('images/ext_icons/disk_multiple.png');
+    vertical-align: middle;
+}
+
+.ext-icon-door:before {
+    content: url('images/ext_icons/door.png');
+    vertical-align: middle;
+}
+
+.ext-icon-door-in:before {
+    content: url('images/ext_icons/door_in.png');
+    vertical-align: middle;
+}
+
+.ext-icon-door-open:before {
+    content: url('images/ext_icons/door_open.png');
+    vertical-align: middle;
+}
+
+.ext-icon-door-out:before {
+    content: url('images/ext_icons/door_out.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drink:before {
+    content: url('images/ext_icons/drink.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drink-empty:before {
+    content: url('images/ext_icons/drink_empty.png');
+    vertical-align: middle;
+}
+
+.ext-icon-dvd:before {
+    content: url('images/ext_icons/dvd.png');
+    vertical-align: middle;
+}
+
+.ext-icon-dvd-add:before {
+    content: url('images/ext_icons/dvd_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-dvd-delete:before {
+    content: url('images/ext_icons/dvd_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-dvd-edit:before {
+    content: url('images/ext_icons/dvd_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-dvd-error:before {
+    content: url('images/ext_icons/dvd_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-dvd-go:before {
+    content: url('images/ext_icons/dvd_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-dvd-key:before {
+    content: url('images/ext_icons/dvd_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-dvd-link:before {
+    content: url('images/ext_icons/dvd_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-emoticon-evilgrin:before {
+    content: url('images/ext_icons/emoticon_evilgrin.png');
+    vertical-align: middle;
+}
+
+.ext-icon-emoticon-grin:before {
+    content: url('images/ext_icons/emoticon_grin.png');
+    vertical-align: middle;
+}
+
+.ext-icon-emoticon-happy:before {
+    content: url('images/ext_icons/emoticon_happy.png');
+    vertical-align: middle;
+}
+
+.ext-icon-emoticon-smile:before {
+    content: url('images/ext_icons/emoticon_smile.png');
+    vertical-align: middle;
+}
+
+.ext-icon-emoticon-surprised:before {
+    content: url('images/ext_icons/emoticon_surprised.png');
+    vertical-align: middle;
+}
+
+.ext-icon-emoticon-tongue:before {
+    content: url('images/ext_icons/emoticon_tongue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-emoticon-unhappy:before {
+    content: url('images/ext_icons/emoticon_unhappy.png');
+    vertical-align: middle;
+}
+
+.ext-icon-emoticon-waii:before {
+    content: url('images/ext_icons/emoticon_waii.png');
+    vertical-align: middle;
+}
+
+.ext-icon-emoticon-wink:before {
+    content: url('images/ext_icons/emoticon_wink.png');
+    vertical-align: middle;
+}
+
+.ext-icon-error:before {
+    content: url('images/ext_icons/error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-error-add:before {
+    content: url('images/ext_icons/error_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-error-delete:before {
+    content: url('images/ext_icons/error_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-error-go:before {
+    content: url('images/ext_icons/error_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-exclamation:before {
+    content: url('images/ext_icons/exclamation.png');
+    vertical-align: middle;
+}
+
+.ext-icon-eye:before {
+    content: url('images/ext_icons/eye.png');
+    vertical-align: middle;
+}
+
+.ext-icon-female:before {
+    content: url('images/ext_icons/female.png');
+    vertical-align: middle;
+}
+
+.ext-icon-find:before {
+    content: url('images/ext_icons/find.png');
+    vertical-align: middle;
+}
+
+.ext-icon-font:before {
+    content: url('images/ext_icons/font.png');
+    vertical-align: middle;
+}
+
+.ext-icon-font-add:before {
+    content: url('images/ext_icons/font_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-font-delete:before {
+    content: url('images/ext_icons/font_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-font-go:before {
+    content: url('images/ext_icons/font_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-heart:before {
+    content: url('images/ext_icons/heart.png');
+    vertical-align: middle;
+}
+
+.ext-icon-heart-add:before {
+    content: url('images/ext_icons/heart_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-heart-delete:before {
+    content: url('images/ext_icons/heart_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-help:before {
+    content: url('images/ext_icons/help.png');
+    vertical-align: middle;
+}
+
+.ext-icon-hourglass:before {
+    content: url('images/ext_icons/hourglass.png');
+    vertical-align: middle;
+}
+
+.ext-icon-hourglass-add:before {
+    content: url('images/ext_icons/hourglass_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-hourglass-delete:before {
+    content: url('images/ext_icons/hourglass_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-hourglass-go:before {
+    content: url('images/ext_icons/hourglass_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-hourglass-link:before {
+    content: url('images/ext_icons/hourglass_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-house:before {
+    content: url('images/ext_icons/house.png');
+    vertical-align: middle;
+}
+
+.ext-icon-house-go:before {
+    content: url('images/ext_icons/house_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-house-link:before {
+    content: url('images/ext_icons/house_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-html:before {
+    content: url('images/ext_icons/html.png');
+    vertical-align: middle;
+}
+
+.ext-icon-html-add:before {
+    content: url('images/ext_icons/html_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-html-delete:before {
+    content: url('images/ext_icons/html_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-html-go:before {
+    content: url('images/ext_icons/html_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-html-valid:before {
+    content: url('images/ext_icons/html_valid.png');
+    vertical-align: middle;
+}
+
+.ext-icon-image:before {
+    content: url('images/ext_icons/image.png');
+    vertical-align: middle;
+}
+
+.ext-icon-images:before {
+    content: url('images/ext_icons/images.png');
+    vertical-align: middle;
+}
+
+.ext-icon-images-send:before {
+    content: url('images/ext_icons/images_send.png');
+    vertical-align: middle;
+}
+
+.ext-icon-image-add:before {
+    content: url('images/ext_icons/image_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-image-delete:before {
+    content: url('images/ext_icons/image_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-image-edit:before {
+    content: url('images/ext_icons/image_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-image-link:before {
+    content: url('images/ext_icons/image_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-information:before {
+    content: url('images/ext_icons/information.png');
+    vertical-align: middle;
+}
+
+.ext-icon-joystick:before {
+    content: url('images/ext_icons/joystick.png');
+    vertical-align: middle;
+}
+
+.ext-icon-joystick-add:before {
+    content: url('images/ext_icons/joystick_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-joystick-delete:before {
+    content: url('images/ext_icons/joystick_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-joystick-error:before {
+    content: url('images/ext_icons/joystick_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-key:before {
+    content: url('images/ext_icons/key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-key-add:before {
+    content: url('images/ext_icons/key_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-key-delete:before {
+    content: url('images/ext_icons/key_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-key-go:before {
+    content: url('images/ext_icons/key_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-layers:before {
+    content: url('images/ext_icons/layers.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lightbulb:before {
+    content: url('images/ext_icons/lightbulb.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lightbulb-add:before {
+    content: url('images/ext_icons/lightbulb_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lightbulb-delete:before {
+    content: url('images/ext_icons/lightbulb_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lightbulb-off:before {
+    content: url('images/ext_icons/lightbulb_off.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lightning:before {
+    content: url('images/ext_icons/lightning.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lightning-add:before {
+    content: url('images/ext_icons/lightning_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lightning-delete:before {
+    content: url('images/ext_icons/lightning_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lightning-go:before {
+    content: url('images/ext_icons/lightning_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-link:before {
+    content: url('images/ext_icons/link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-link-add:before {
+    content: url('images/ext_icons/link_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-link-break:before {
+    content: url('images/ext_icons/link_break.png');
+    vertical-align: middle;
+}
+
+.ext-icon-link-delete:before {
+    content: url('images/ext_icons/link_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-link-edit:before {
+    content: url('images/ext_icons/link_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-link-error:before {
+    content: url('images/ext_icons/link_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-link-go:before {
+    content: url('images/ext_icons/link_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lorry:before {
+    content: url('images/ext_icons/lorry.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lorry-add:before {
+    content: url('images/ext_icons/lorry_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lorry-delete:before {
+    content: url('images/ext_icons/lorry_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lorry-error:before {
+    content: url('images/ext_icons/lorry_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lorry-flatbed:before {
+    content: url('images/ext_icons/lorry_flatbed.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lorry-go:before {
+    content: url('images/ext_icons/lorry_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lorry-link:before {
+    content: url('images/ext_icons/lorry_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-male:before {
+    content: url('images/ext_icons/male.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-bronze-1:before {
+    content: url('images/ext_icons/medal_bronze_1.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-bronze-2:before {
+    content: url('images/ext_icons/medal_bronze_2.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-bronze-3:before {
+    content: url('images/ext_icons/medal_bronze_3.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-bronze-add:before {
+    content: url('images/ext_icons/medal_bronze_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-bronze-delete:before {
+    content: url('images/ext_icons/medal_bronze_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-gold-1:before {
+    content: url('images/ext_icons/medal_gold_1.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-gold-2:before {
+    content: url('images/ext_icons/medal_gold_2.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-gold-3:before {
+    content: url('images/ext_icons/medal_gold_3.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-gold-add:before {
+    content: url('images/ext_icons/medal_gold_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-gold-delete:before {
+    content: url('images/ext_icons/medal_gold_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-silver-1:before {
+    content: url('images/ext_icons/medal_silver_1.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-silver-2:before {
+    content: url('images/ext_icons/medal_silver_2.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-silver-3:before {
+    content: url('images/ext_icons/medal_silver_3.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-silver-add:before {
+    content: url('images/ext_icons/medal_silver_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-medal-silver-delete:before {
+    content: url('images/ext_icons/medal_silver_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-money:before {
+    content: url('images/ext_icons/money.png');
+    vertical-align: middle;
+}
+
+.ext-icon-money-add:before {
+    content: url('images/ext_icons/money_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-money-delete:before {
+    content: url('images/ext_icons/money_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-money-dollar:before {
+    content: url('images/ext_icons/money_dollar.png');
+    vertical-align: middle;
+}
+
+.ext-icon-money-euro:before {
+    content: url('images/ext_icons/money_euro.png');
+    vertical-align: middle;
+}
+
+.ext-icon-money-pound:before {
+    content: url('images/ext_icons/money_pound.png');
+    vertical-align: middle;
+}
+
+.ext-icon-money-yen:before {
+    content: url('images/ext_icons/money_yen.png');
+    vertical-align: middle;
+}
+
+.ext-icon-mouse:before {
+    content: url('images/ext_icons/mouse.png');
+    vertical-align: middle;
+}
+
+.ext-icon-mouse-add:before {
+    content: url('images/ext_icons/mouse_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-mouse-delete:before {
+    content: url('images/ext_icons/mouse_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-mouse-error:before {
+    content: url('images/ext_icons/mouse_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-music:before {
+    content: url('images/ext_icons/music.png');
+    vertical-align: middle;
+}
+
+.ext-icon-new:before {
+    content: url('images/ext_icons/new.png');
+    vertical-align: middle;
+}
+
+.ext-icon-package:before {
+    content: url('images/ext_icons/package.png');
+    vertical-align: middle;
+}
+
+.ext-icon-package-add:before {
+    content: url('images/ext_icons/package_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-package-delete:before {
+    content: url('images/ext_icons/package_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-package-go:before {
+    content: url('images/ext_icons/package_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-package-green:before {
+    content: url('images/ext_icons/package_green.png');
+    vertical-align: middle;
+}
+
+.ext-icon-package-link:before {
+    content: url('images/ext_icons/package_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-paintbrush:before {
+    content: url('images/ext_icons/paintbrush.png');
+    vertical-align: middle;
+}
+
+.ext-icon-paintcan:before {
+    content: url('images/ext_icons/paintcan.png');
+    vertical-align: middle;
+}
+
+.ext-icon-palette:before {
+    content: url('images/ext_icons/palette.png');
+    vertical-align: middle;
+}
+
+.ext-icon-pencil:before {
+    content: url('images/ext_icons/pencil.png');
+    vertical-align: middle;
+}
+
+.ext-icon-pencil-add:before {
+    content: url('images/ext_icons/pencil_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-pencil-delete:before {
+    content: url('images/ext_icons/pencil_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-pencil-go:before {
+    content: url('images/ext_icons/pencil_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-phone:before {
+    content: url('images/ext_icons/phone.png');
+    vertical-align: middle;
+}
+
+.ext-icon-phone-add:before {
+    content: url('images/ext_icons/phone_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-phone-delete:before {
+    content: url('images/ext_icons/phone_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-phone-sound:before {
+    content: url('images/ext_icons/phone_sound.png');
+    vertical-align: middle;
+}
+
+.ext-icon-pilcrow:before {
+    content: url('images/ext_icons/pilcrow.png');
+    vertical-align: middle;
+}
+
+.ext-icon-pill:before {
+    content: url('images/ext_icons/pill.png');
+    vertical-align: middle;
+}
+
+.ext-icon-pill-add:before {
+    content: url('images/ext_icons/pill_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-pill-delete:before {
+    content: url('images/ext_icons/pill_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-pill-go:before {
+    content: url('images/ext_icons/pill_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-plugin:before {
+    content: url('images/ext_icons/plugin.png');
+    vertical-align: middle;
+}
+
+.ext-icon-plugin-add:before {
+    content: url('images/ext_icons/plugin_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-plugin-delete:before {
+    content: url('images/ext_icons/plugin_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-plugin-disabled:before {
+    content: url('images/ext_icons/plugin_disabled.png');
+    vertical-align: middle;
+}
+
+.ext-icon-plugin-edit:before {
+    content: url('images/ext_icons/plugin_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-plugin-error:before {
+    content: url('images/ext_icons/plugin_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-plugin-go:before {
+    content: url('images/ext_icons/plugin_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-plugin-link:before {
+    content: url('images/ext_icons/plugin_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-rainbow:before {
+    content: url('images/ext_icons/rainbow.png');
+    vertical-align: middle;
+}
+
+.ext-icon-resultset-first:before {
+    content: url('images/ext_icons/resultset_first.png');
+    vertical-align: middle;
+}
+
+.ext-icon-resultset-last:before {
+    content: url('images/ext_icons/resultset_last.png');
+    vertical-align: middle;
+}
+
+.ext-icon-resultset-next:before {
+    content: url('images/ext_icons/resultset_next.png');
+    vertical-align: middle;
+}
+
+.ext-icon-resultset-previous:before {
+    content: url('images/ext_icons/resultset_previous.png');
+    vertical-align: middle;
+}
+
+.ext-icon-rosette:before {
+    content: url('images/ext_icons/rosette.png');
+    vertical-align: middle;
+}
+
+.ext-icon-rss:before {
+    content: url('images/ext_icons/rss.png');
+    vertical-align: middle;
+}
+
+.ext-icon-rss-add:before {
+    content: url('images/ext_icons/rss_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-rss-delete:before {
+    content: url('images/ext_icons/rss_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-rss-go:before {
+    content: url('images/ext_icons/rss_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-rss-valid:before {
+    content: url('images/ext_icons/rss_valid.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ruby:before {
+    content: url('images/ext_icons/ruby.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ruby-add:before {
+    content: url('images/ext_icons/ruby_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ruby-delete:before {
+    content: url('images/ext_icons/ruby_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ruby-gear:before {
+    content: url('images/ext_icons/ruby_gear.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ruby-get:before {
+    content: url('images/ext_icons/ruby_get.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ruby-go:before {
+    content: url('images/ext_icons/ruby_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ruby-key:before {
+    content: url('images/ext_icons/ruby_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ruby-link:before {
+    content: url('images/ext_icons/ruby_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ruby-put:before {
+    content: url('images/ext_icons/ruby_put.png');
+    vertical-align: middle;
+}
+
+.ext-icon-search:before {
+    content: url('images/ext_icons/search.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server:before {
+    content: url('images/ext_icons/server.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-add:before {
+    content: url('images/ext_icons/server_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-chart:before {
+    content: url('images/ext_icons/server_chart.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-compressed:before {
+    content: url('images/ext_icons/server_compressed.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-connect:before {
+    content: url('images/ext_icons/server_connect.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-database:before {
+    content: url('images/ext_icons/server_database.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-delete:before {
+    content: url('images/ext_icons/server_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-edit:before {
+    content: url('images/ext_icons/server_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-error:before {
+    content: url('images/ext_icons/server_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-go:before {
+    content: url('images/ext_icons/server_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-key:before {
+    content: url('images/ext_icons/server_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-lightning:before {
+    content: url('images/ext_icons/server_lightning.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-link:before {
+    content: url('images/ext_icons/server_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-server-uncompressed:before {
+    content: url('images/ext_icons/server_uncompressed.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shading:before {
+    content: url('images/ext_icons/shading.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-align-bottom:before {
+    content: url('images/ext_icons/shape_align_bottom.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-align-center:before {
+    content: url('images/ext_icons/shape_align_center.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-align-left:before {
+    content: url('images/ext_icons/shape_align_left.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-align-middle:before {
+    content: url('images/ext_icons/shape_align_middle.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-align-right:before {
+    content: url('images/ext_icons/shape_align_right.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-align-top:before {
+    content: url('images/ext_icons/shape_align_top.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-flip-horizontal:before {
+    content: url('images/ext_icons/shape_flip_horizontal.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-flip-vertical:before {
+    content: url('images/ext_icons/shape_flip_vertical.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-group:before {
+    content: url('images/ext_icons/shape_group.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-handles:before {
+    content: url('images/ext_icons/shape_handles.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-move-back:before {
+    content: url('images/ext_icons/shape_move_back.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-move-backwards:before {
+    content: url('images/ext_icons/shape_move_backwards.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-move-forwards:before {
+    content: url('images/ext_icons/shape_move_forwards.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-move-front:before {
+    content: url('images/ext_icons/shape_move_front.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-rotate-anticlockwise:before {
+    content: url('images/ext_icons/shape_rotate_anticlockwise.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-rotate-clockwise:before {
+    content: url('images/ext_icons/shape_rotate_clockwise.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-square:before {
+    content: url('images/ext_icons/shape_square.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-square-add:before {
+    content: url('images/ext_icons/shape_square_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-square-delete:before {
+    content: url('images/ext_icons/shape_square_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-square-edit:before {
+    content: url('images/ext_icons/shape_square_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-square-error:before {
+    content: url('images/ext_icons/shape_square_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-square-go:before {
+    content: url('images/ext_icons/shape_square_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-square-key:before {
+    content: url('images/ext_icons/shape_square_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-square-link:before {
+    content: url('images/ext_icons/shape_square_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shape-ungroup:before {
+    content: url('images/ext_icons/shape_ungroup.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shield:before {
+    content: url('images/ext_icons/shield.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shield-add:before {
+    content: url('images/ext_icons/shield_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shield-delete:before {
+    content: url('images/ext_icons/shield_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-shield-go:before {
+    content: url('images/ext_icons/shield_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sitemap:before {
+    content: url('images/ext_icons/sitemap.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sitemap-color:before {
+    content: url('images/ext_icons/sitemap_color.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sound:before {
+    content: url('images/ext_icons/sound.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sound-add:before {
+    content: url('images/ext_icons/sound_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sound-delete:before {
+    content: url('images/ext_icons/sound_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sound-low:before {
+    content: url('images/ext_icons/sound_low.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sound-mute:before {
+    content: url('images/ext_icons/sound_mute.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sound-none:before {
+    content: url('images/ext_icons/sound_none.png');
+    vertical-align: middle;
+}
+
+.ext-icon-spellcheck:before {
+    content: url('images/ext_icons/spellcheck.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sport-8ball:before {
+    content: url('images/ext_icons/sport_8ball.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sport-basketball:before {
+    content: url('images/ext_icons/sport_basketball.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sport-football:before {
+    content: url('images/ext_icons/sport_football.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sport-golf:before {
+    content: url('images/ext_icons/sport_golf.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sport-raquet:before {
+    content: url('images/ext_icons/sport_raquet.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sport-shuttlecock:before {
+    content: url('images/ext_icons/sport_shuttlecock.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sport-soccer:before {
+    content: url('images/ext_icons/sport_soccer.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sport-tennis:before {
+    content: url('images/ext_icons/sport_tennis.png');
+    vertical-align: middle;
+}
+
+.ext-icon-star:before {
+    content: url('images/ext_icons/star.png');
+    vertical-align: middle;
+}
+
+.ext-icon-status-away:before {
+    content: url('images/ext_icons/status_away.png');
+    vertical-align: middle;
+}
+
+.ext-icon-status-busy:before {
+    content: url('images/ext_icons/status_busy.png');
+    vertical-align: middle;
+}
+
+.ext-icon-status-offline:before {
+    content: url('images/ext_icons/status_offline.png');
+    vertical-align: middle;
+}
+
+.ext-icon-status-online:before {
+    content: url('images/ext_icons/status_online.png');
+    vertical-align: middle;
+}
+
+.ext-icon-stop:before {
+    content: url('images/ext_icons/stop.png');
+    vertical-align: middle;
+}
+
+.ext-icon-style:before {
+    content: url('images/ext_icons/style.png');
+    vertical-align: middle;
+}
+
+.ext-icon-style-add:before {
+    content: url('images/ext_icons/style_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-style-delete:before {
+    content: url('images/ext_icons/style_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-style-edit:before {
+    content: url('images/ext_icons/style_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-style-go:before {
+    content: url('images/ext_icons/style_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-sum:before {
+    content: url('images/ext_icons/sum.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tab:before {
+    content: url('images/ext_icons/tab.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tab-add:before {
+    content: url('images/ext_icons/tab_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tab-delete:before {
+    content: url('images/ext_icons/tab_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tab-edit:before {
+    content: url('images/ext_icons/tab_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tab-go:before {
+    content: url('images/ext_icons/tab_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tag:before {
+    content: url('images/ext_icons/tag.png');
+    vertical-align: middle;
+}
+
+.ext-icon-telephone:before {
+    content: url('images/ext_icons/telephone.png');
+    vertical-align: middle;
+}
+
+.ext-icon-telephone-add:before {
+    content: url('images/ext_icons/telephone_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-telephone-delete:before {
+    content: url('images/ext_icons/telephone_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-telephone-edit:before {
+    content: url('images/ext_icons/telephone_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-telephone-error:before {
+    content: url('images/ext_icons/telephone_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-telephone-go:before {
+    content: url('images/ext_icons/telephone_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-telephone-key:before {
+    content: url('images/ext_icons/telephone_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-telephone-link:before {
+    content: url('images/ext_icons/telephone_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-textfield:before {
+    content: url('images/ext_icons/textfield.png');
+    vertical-align: middle;
+}
+
+.ext-icon-textfield-add:before {
+    content: url('images/ext_icons/textfield_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-textfield-delete:before {
+    content: url('images/ext_icons/textfield_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-textfield-key:before {
+    content: url('images/ext_icons/textfield_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-textfield-rename:before {
+    content: url('images/ext_icons/textfield_rename.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-align-center:before {
+    content: url('images/ext_icons/text_align_center.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-align-justify:before {
+    content: url('images/ext_icons/text_align_justify.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-align-left:before {
+    content: url('images/ext_icons/text_align_left.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-align-right:before {
+    content: url('images/ext_icons/text_align_right.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-allcaps:before {
+    content: url('images/ext_icons/text_allcaps.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-bold:before {
+    content: url('images/ext_icons/text_bold.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-columns:before {
+    content: url('images/ext_icons/text_columns.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-dropcaps:before {
+    content: url('images/ext_icons/text_dropcaps.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-heading-1:before {
+    content: url('images/ext_icons/text_heading_1.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-heading-2:before {
+    content: url('images/ext_icons/text_heading_2.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-heading-3:before {
+    content: url('images/ext_icons/text_heading_3.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-heading-4:before {
+    content: url('images/ext_icons/text_heading_4.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-heading-5:before {
+    content: url('images/ext_icons/text_heading_5.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-heading-6:before {
+    content: url('images/ext_icons/text_heading_6.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-horizontalrule:before {
+    content: url('images/ext_icons/text_horizontalrule.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-indent:before {
+    content: url('images/ext_icons/text_indent.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-indent-remove:before {
+    content: url('images/ext_icons/text_indent_remove.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-italic:before {
+    content: url('images/ext_icons/text_italic.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-kerning:before {
+    content: url('images/ext_icons/text_kerning.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-letterspacing:before {
+    content: url('images/ext_icons/text_letterspacing.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-letter-omega:before {
+    content: url('images/ext_icons/text_letter_omega.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-linespacing:before {
+    content: url('images/ext_icons/text_linespacing.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-list-bullets:before {
+    content: url('images/ext_icons/text_list_bullets.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-list-numbers:before {
+    content: url('images/ext_icons/text_list_numbers.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-lowercase:before {
+    content: url('images/ext_icons/text_lowercase.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-padding-bottom:before {
+    content: url('images/ext_icons/text_padding_bottom.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-padding-left:before {
+    content: url('images/ext_icons/text_padding_left.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-padding-right:before {
+    content: url('images/ext_icons/text_padding_right.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-padding-top:before {
+    content: url('images/ext_icons/text_padding_top.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-replace:before {
+    content: url('images/ext_icons/text_replace.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-signature:before {
+    content: url('images/ext_icons/text_signature.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-smallcaps:before {
+    content: url('images/ext_icons/text_smallcaps.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-strikethrough:before {
+    content: url('images/ext_icons/text_strikethrough.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-subscript:before {
+    content: url('images/ext_icons/text_subscript.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-superscript:before {
+    content: url('images/ext_icons/text_superscript.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-underline:before {
+    content: url('images/ext_icons/text_underline.png');
+    vertical-align: middle;
+}
+
+.ext-icon-text-uppercase:before {
+    content: url('images/ext_icons/text_uppercase.png');
+    vertical-align: middle;
+}
+
+.ext-icon-thumb-down:before {
+    content: url('images/ext_icons/thumb_down.png');
+    vertical-align: middle;
+}
+
+.ext-icon-thumb-up:before {
+    content: url('images/ext_icons/thumb_up.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tick:before {
+    content: url('images/ext_icons/tick.png');
+    vertical-align: middle;
+}
+
+.ext-icon-time:before {
+    content: url('images/ext_icons/time.png');
+    vertical-align: middle;
+}
+
+.ext-icon-timeline-marker:before {
+    content: url('images/ext_icons/timeline_marker.png');
+    vertical-align: middle;
+}
+
+.ext-icon-time-add:before {
+    content: url('images/ext_icons/time_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-time-delete:before {
+    content: url('images/ext_icons/time_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-time-go:before {
+    content: url('images/ext_icons/time_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-transmit:before {
+    content: url('images/ext_icons/transmit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-transmit-add:before {
+    content: url('images/ext_icons/transmit_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-transmit-blue:before {
+    content: url('images/ext_icons/transmit_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-transmit-delete:before {
+    content: url('images/ext_icons/transmit_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-transmit-edit:before {
+    content: url('images/ext_icons/transmit_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-transmit-error:before {
+    content: url('images/ext_icons/transmit_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-transmit-go:before {
+    content: url('images/ext_icons/transmit_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tux:before {
+    content: url('images/ext_icons/tux.png');
+    vertical-align: middle;
+}
+
+.ext-icon-vector:before {
+    content: url('images/ext_icons/vector.png');
+    vertical-align: middle;
+}
+
+.ext-icon-vector-add:before {
+    content: url('images/ext_icons/vector_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-vector-delete:before {
+    content: url('images/ext_icons/vector_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-wand:before {
+    content: url('images/ext_icons/wand.png');
+    vertical-align: middle;
+}
+
+.ext-icon-weather-clouds:before {
+    content: url('images/ext_icons/weather_clouds.png');
+    vertical-align: middle;
+}
+
+.ext-icon-weather-cloudy:before {
+    content: url('images/ext_icons/weather_cloudy.png');
+    vertical-align: middle;
+}
+
+.ext-icon-weather-lightning:before {
+    content: url('images/ext_icons/weather_lightning.png');
+    vertical-align: middle;
+}
+
+.ext-icon-weather-rain:before {
+    content: url('images/ext_icons/weather_rain.png');
+    vertical-align: middle;
+}
+
+.ext-icon-weather-snow:before {
+    content: url('images/ext_icons/weather_snow.png');
+    vertical-align: middle;
+}
+
+.ext-icon-weather-sun:before {
+    content: url('images/ext_icons/weather_sun.png');
+    vertical-align: middle;
+}
+
+.ext-icon-webcam:before {
+    content: url('images/ext_icons/webcam.png');
+    vertical-align: middle;
+}
+
+.ext-icon-webcam-add:before {
+    content: url('images/ext_icons/webcam_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-webcam-delete:before {
+    content: url('images/ext_icons/webcam_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-webcam-error:before {
+    content: url('images/ext_icons/webcam_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-wrench:before {
+    content: url('images/ext_icons/wrench.png');
+    vertical-align: middle;
+}
+
+.ext-icon-wrench-orange:before {
+    content: url('images/ext_icons/wrench_orange.png');
+    vertical-align: middle;
+}
+
+.ext-icon-xhtml:before {
+    content: url('images/ext_icons/xhtml.png');
+    vertical-align: middle;
+}
+
+.ext-icon-xhtml-add:before {
+    content: url('images/ext_icons/xhtml_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-xhtml-delete:before {
+    content: url('images/ext_icons/xhtml_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-xhtml-go:before {
+    content: url('images/ext_icons/xhtml_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-xhtml-valid:before {
+    content: url('images/ext_icons/xhtml_valid.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application:before {
+    content: url('images/ext_icons/application/application.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-add:before {
+    content: url('images/ext_icons/application/application_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-cascade:before {
+    content: url('images/ext_icons/application/application_cascade.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-delete:before {
+    content: url('images/ext_icons/application/application_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-double:before {
+    content: url('images/ext_icons/application/application_double.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-edit:before {
+    content: url('images/ext_icons/application/application_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-error:before {
+    content: url('images/ext_icons/application/application_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-form:before {
+    content: url('images/ext_icons/application/application_form.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-form-add:before {
+    content: url('images/ext_icons/application/application_form_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-form-delete:before {
+    content: url('images/ext_icons/application/application_form_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-form-edit:before {
+    content: url('images/ext_icons/application/application_form_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-form-magnify:before {
+    content: url('images/ext_icons/application/application_form_magnify.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-get:before {
+    content: url('images/ext_icons/application/application_get.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-go:before {
+    content: url('images/ext_icons/application/application_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-home:before {
+    content: url('images/ext_icons/application/application_home.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-key:before {
+    content: url('images/ext_icons/application/application_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-lightning:before {
+    content: url('images/ext_icons/application/application_lightning.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-link:before {
+    content: url('images/ext_icons/application/application_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-osx:before {
+    content: url('images/ext_icons/application/application_osx.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-osx-terminal:before {
+    content: url('images/ext_icons/application/application_osx_terminal.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-put:before {
+    content: url('images/ext_icons/application/application_put.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-side-boxes:before {
+    content: url('images/ext_icons/application/application_side_boxes.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-side-contract:before {
+    content: url('images/ext_icons/application/application_side_contract.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-side-expand:before {
+    content: url('images/ext_icons/application/application_side_expand.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-side-list:before {
+    content: url('images/ext_icons/application/application_side_list.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-side-tree:before {
+    content: url('images/ext_icons/application/application_side_tree.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-split:before {
+    content: url('images/ext_icons/application/application_split.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-tile-horizontal:before {
+    content: url('images/ext_icons/application/application_tile_horizontal.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-tile-vertical:before {
+    content: url('images/ext_icons/application/application_tile_vertical.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-view-columns:before {
+    content: url('images/ext_icons/application/application_view_columns.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-view-detail:before {
+    content: url('images/ext_icons/application/application_view_detail.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-view-gallery:before {
+    content: url('images/ext_icons/application/application_view_gallery.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-view-icons:before {
+    content: url('images/ext_icons/application/application_view_icons.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-view-list:before {
+    content: url('images/ext_icons/application/application_view_list.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-view-tile:before {
+    content: url('images/ext_icons/application/application_view_tile.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-xp:before {
+    content: url('images/ext_icons/application/application_xp.png');
+    vertical-align: middle;
+}
+
+.ext-icon-application-xp-terminal:before {
+    content: url('images/ext_icons/application/application_xp_terminal.png');
+    vertical-align: middle;
+}
+
+.ext-icon-accept:before {
+    content: url('images/ext_icons/arrow/accept.png');
+    vertical-align: middle;
+}
+
+.ext-icon-add:before {
+    content: url('images/ext_icons/arrow/add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-branch:before {
+    content: url('images/ext_icons/arrow/arrow_branch.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-divide:before {
+    content: url('images/ext_icons/arrow/arrow_divide.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-down:before {
+    content: url('images/ext_icons/arrow/arrow_down.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-in:before {
+    content: url('images/ext_icons/arrow/arrow_in.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-inout:before {
+    content: url('images/ext_icons/arrow/arrow_inout.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-join:before {
+    content: url('images/ext_icons/arrow/arrow_join.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-left:before {
+    content: url('images/ext_icons/arrow/arrow_left.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-right:before {
+    content: url('images/ext_icons/arrow/arrow_right.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-merge:before {
+    content: url('images/ext_icons/arrow/arrow_merge.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-out:before {
+    content: url('images/ext_icons/arrow/arrow_out.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-redo:before {
+    content: url('images/ext_icons/arrow/arrow_redo.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-refresh:before {
+    content: url('images/ext_icons/arrow/arrow_refresh.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-refresh-small:before {
+    content: url('images/ext_icons/arrow/arrow_refresh_small.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-rotate-anticlockwise:before {
+    content: url('images/ext_icons/arrow/arrow_rotate_anticlockwise.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-rotate-clockwise:before {
+    content: url('images/ext_icons/arrow/arrow_rotate_clockwise.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-switch:before {
+    content: url('images/ext_icons/arrow/arrow_switch.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-turn-left:before {
+    content: url('images/ext_icons/arrow/arrow_turn_left.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-turn-right:before {
+    content: url('images/ext_icons/arrow/arrow_turn_right.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-undo:before {
+    content: url('images/ext_icons/arrow/arrow_undo.png');
+    vertical-align: middle;
+}
+
+.ext-icon-arrow-up:before {
+    content: url('images/ext_icons/arrow/arrow_up.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cross:before {
+    content: url('images/ext_icons/arrow/cross.png');
+    vertical-align: middle;
+}
+
+.ext-icon-award-star-add:before {
+    content: url('images/ext_icons/award-start/award_star_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-award-star-bronze-1:before {
+    content: url('images/ext_icons/award-start/award_star_bronze_1.png');
+    vertical-align: middle;
+}
+
+.ext-icon-award-star-bronze-2:before {
+    content: url('images/ext_icons/award-start/award_star_bronze_2.png');
+    vertical-align: middle;
+}
+
+.ext-icon-award-star-bronze-3:before {
+    content: url('images/ext_icons/award-start/award_star_bronze_3.png');
+    vertical-align: middle;
+}
+
+.ext-icon-award-star-delete:before {
+    content: url('images/ext_icons/award-start/award_star_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-award-star-gold-1:before {
+    content: url('images/ext_icons/award-start/award_star_gold_1.png');
+    vertical-align: middle;
+}
+
+.ext-icon-award-star-gold-2:before {
+    content: url('images/ext_icons/award-start/award_star_gold_2.png');
+    vertical-align: middle;
+}
+
+.ext-icon-award-star-gold-3:before {
+    content: url('images/ext_icons/award-start/award_star_gold_3.png');
+    vertical-align: middle;
+}
+
+.ext-icon-award-star-silver-1:before {
+    content: url('images/ext_icons/award-start/award_star_silver_1.png');
+    vertical-align: middle;
+}
+
+.ext-icon-award-star-silver-2:before {
+    content: url('images/ext_icons/award-start/award_star_silver_2.png');
+    vertical-align: middle;
+}
+
+.ext-icon-award-star-silver-3:before {
+    content: url('images/ext_icons/award-start/award_star_silver_3.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bug:before {
+    content: url('images/ext_icons/bug/bug.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bug-add:before {
+    content: url('images/ext_icons/bug/bug_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bug-delete:before {
+    content: url('images/ext_icons/bug/bug_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bug-edit:before {
+    content: url('images/ext_icons/bug/bug_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bug-error:before {
+    content: url('images/ext_icons/bug/bug_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bug-go:before {
+    content: url('images/ext_icons/bug/bug_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-bug-link:before {
+    content: url('images/ext_icons/bug/bug_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calculator:before {
+    content: url('images/ext_icons/calendar/calculator.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calculator-add:before {
+    content: url('images/ext_icons/calendar/calculator_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calculator-delete:before {
+    content: url('images/ext_icons/calendar/calculator_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calculator-edit:before {
+    content: url('images/ext_icons/calendar/calculator_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calculator-error:before {
+    content: url('images/ext_icons/calendar/calculator_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calculator-link:before {
+    content: url('images/ext_icons/calendar/calculator_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calendar:before {
+    content: url('images/ext_icons/calendar/calendar.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calendar-add:before {
+    content: url('images/ext_icons/calendar/calendar_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calendar-delete:before {
+    content: url('images/ext_icons/calendar/calendar_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calendar-edit:before {
+    content: url('images/ext_icons/calendar/calendar_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calendar-link:before {
+    content: url('images/ext_icons/calendar/calendar_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calendar-view-day:before {
+    content: url('images/ext_icons/calendar/calendar_view_day.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calendar-view-month:before {
+    content: url('images/ext_icons/calendar/calendar_view_month.png');
+    vertical-align: middle;
+}
+
+.ext-icon-calendar-view-week:before {
+    content: url('images/ext_icons/calendar/calendar_view_week.png');
+    vertical-align: middle;
+}
+
+.ext-icon-camera:before {
+    content: url('images/ext_icons/camera/camera.png');
+    vertical-align: middle;
+}
+
+.ext-icon-camera-add:before {
+    content: url('images/ext_icons/camera/camera_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-camera-delete:before {
+    content: url('images/ext_icons/camera/camera_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-camera-edit:before {
+    content: url('images/ext_icons/camera/camera_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-camera-error:before {
+    content: url('images/ext_icons/camera/camera_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-camera-go:before {
+    content: url('images/ext_icons/camera/camera_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-camera-link:before {
+    content: url('images/ext_icons/camera/camera_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-camera-small:before {
+    content: url('images/ext_icons/camera/camera_small.png');
+    vertical-align: middle;
+}
+
+.ext-icon-basket:before {
+    content: url('images/ext_icons/carAndCartAndBasket/basket.png');
+    vertical-align: middle;
+}
+
+.ext-icon-basket-add:before {
+    content: url('images/ext_icons/carAndCartAndBasket/basket_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-basket-delete:before {
+    content: url('images/ext_icons/carAndCartAndBasket/basket_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-basket-edit:before {
+    content: url('images/ext_icons/carAndCartAndBasket/basket_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-basket-error:before {
+    content: url('images/ext_icons/carAndCartAndBasket/basket_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-basket-go:before {
+    content: url('images/ext_icons/carAndCartAndBasket/basket_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-basket-put:before {
+    content: url('images/ext_icons/carAndCartAndBasket/basket_put.png');
+    vertical-align: middle;
+}
+
+.ext-icon-basket-remove:before {
+    content: url('images/ext_icons/carAndCartAndBasket/basket_remove.png');
+    vertical-align: middle;
+}
+
+.ext-icon-car:before {
+    content: url('images/ext_icons/carAndCartAndBasket/car.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cart:before {
+    content: url('images/ext_icons/carAndCartAndBasket/cart.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cart-add:before {
+    content: url('images/ext_icons/carAndCartAndBasket/cart_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cart-delete:before {
+    content: url('images/ext_icons/carAndCartAndBasket/cart_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cart-edit:before {
+    content: url('images/ext_icons/carAndCartAndBasket/cart_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cart-error:before {
+    content: url('images/ext_icons/carAndCartAndBasket/cart_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cart-go:before {
+    content: url('images/ext_icons/carAndCartAndBasket/cart_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cart-put:before {
+    content: url('images/ext_icons/carAndCartAndBasket/cart_put.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cart-remove:before {
+    content: url('images/ext_icons/carAndCartAndBasket/cart_remove.png');
+    vertical-align: middle;
+}
+
+.ext-icon-car-add:before {
+    content: url('images/ext_icons/carAndCartAndBasket/car_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-car-delete:before {
+    content: url('images/ext_icons/carAndCartAndBasket/car_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cd:before {
+    content: url('images/ext_icons/cd/cd.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cd-add:before {
+    content: url('images/ext_icons/cd/cd_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cd-burn:before {
+    content: url('images/ext_icons/cd/cd_burn.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cd-delete:before {
+    content: url('images/ext_icons/cd/cd_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cd-edit:before {
+    content: url('images/ext_icons/cd/cd_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cd-eject:before {
+    content: url('images/ext_icons/cd/cd_eject.png');
+    vertical-align: middle;
+}
+
+.ext-icon-cd-go:before {
+    content: url('images/ext_icons/cd/cd_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-bar:before {
+    content: url('images/ext_icons/chart/chart_bar.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-bar-add:before {
+    content: url('images/ext_icons/chart/chart_bar_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-bar-delete:before {
+    content: url('images/ext_icons/chart/chart_bar_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-bar-edit:before {
+    content: url('images/ext_icons/chart/chart_bar_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-bar-error:before {
+    content: url('images/ext_icons/chart/chart_bar_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-bar-link:before {
+    content: url('images/ext_icons/chart/chart_bar_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-curve:before {
+    content: url('images/ext_icons/chart/chart_curve.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-curve-add:before {
+    content: url('images/ext_icons/chart/chart_curve_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-curve-delete:before {
+    content: url('images/ext_icons/chart/chart_curve_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-curve-edit:before {
+    content: url('images/ext_icons/chart/chart_curve_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-curve-error:before {
+    content: url('images/ext_icons/chart/chart_curve_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-curve-go:before {
+    content: url('images/ext_icons/chart/chart_curve_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-curve-link:before {
+    content: url('images/ext_icons/chart/chart_curve_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-line:before {
+    content: url('images/ext_icons/chart/chart_line.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-line-add:before {
+    content: url('images/ext_icons/chart/chart_line_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-line-delete:before {
+    content: url('images/ext_icons/chart/chart_line_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-line-edit:before {
+    content: url('images/ext_icons/chart/chart_line_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-line-error:before {
+    content: url('images/ext_icons/chart/chart_line_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-line-link:before {
+    content: url('images/ext_icons/chart/chart_line_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-organisation:before {
+    content: url('images/ext_icons/chart/chart_organisation.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-organisation-add:before {
+    content: url('images/ext_icons/chart/chart_organisation_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-organisation-delete:before {
+    content: url('images/ext_icons/chart/chart_organisation_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-pie:before {
+    content: url('images/ext_icons/chart/chart_pie.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-pie-add:before {
+    content: url('images/ext_icons/chart/chart_pie_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-pie-delete:before {
+    content: url('images/ext_icons/chart/chart_pie_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-pie-edit:before {
+    content: url('images/ext_icons/chart/chart_pie_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-pie-error:before {
+    content: url('images/ext_icons/chart/chart_pie_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-chart-pie-link:before {
+    content: url('images/ext_icons/chart/chart_pie_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-eject:before {
+    content: url('images/ext_icons/control/control_eject.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-eject-blue:before {
+    content: url('images/ext_icons/control/control_eject_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-end:before {
+    content: url('images/ext_icons/control/control_end.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-end-blue:before {
+    content: url('images/ext_icons/control/control_end_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-equalizer:before {
+    content: url('images/ext_icons/control/control_equalizer.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-equalizer-blue:before {
+    content: url('images/ext_icons/control/control_equalizer_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-fastforward:before {
+    content: url('images/ext_icons/control/control_fastforward.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-fastforward-blue:before {
+    content: url('images/ext_icons/control/control_fastforward_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-pause:before {
+    content: url('images/ext_icons/control/control_pause.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-pause-blue:before {
+    content: url('images/ext_icons/control/control_pause_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-play:before {
+    content: url('images/ext_icons/control/control_play.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-play-blue:before {
+    content: url('images/ext_icons/control/control_play_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-repeat:before {
+    content: url('images/ext_icons/control/control_repeat.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-repeat-blue:before {
+    content: url('images/ext_icons/control/control_repeat_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-rewind:before {
+    content: url('images/ext_icons/control/control_rewind.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-rewind-blue:before {
+    content: url('images/ext_icons/control/control_rewind_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-start:before {
+    content: url('images/ext_icons/control/control_start.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-start-blue:before {
+    content: url('images/ext_icons/control/control_start_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-stop:before {
+    content: url('images/ext_icons/control/control_stop.png');
+    vertical-align: middle;
+}
+
+.ext-icon-control-stop-blue:before {
+    content: url('images/ext_icons/control/control_stop_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-css:before {
+    content: url('images/ext_icons/css/css.png');
+    vertical-align: middle;
+}
+
+.ext-icon-css-add:before {
+    content: url('images/ext_icons/css/css_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-css-delete:before {
+    content: url('images/ext_icons/css/css_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-css-go:before {
+    content: url('images/ext_icons/css/css_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-css-valid:before {
+    content: url('images/ext_icons/css/css_valid.png');
+    vertical-align: middle;
+}
+
+.ext-icon-date:before {
+    content: url('images/ext_icons/Date/date.png');
+    vertical-align: middle;
+}
+
+.ext-icon-date-add:before {
+    content: url('images/ext_icons/Date/date_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-date-delete:before {
+    content: url('images/ext_icons/Date/date_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-date-edit:before {
+    content: url('images/ext_icons/Date/date_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-date-error:before {
+    content: url('images/ext_icons/Date/date_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-date-go:before {
+    content: url('images/ext_icons/Date/date_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-date-link:before {
+    content: url('images/ext_icons/Date/date_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-date-magnify:before {
+    content: url('images/ext_icons/Date/date_magnify.png');
+    vertical-align: middle;
+}
+
+.ext-icon-date-next:before {
+    content: url('images/ext_icons/Date/date_next.png');
+    vertical-align: middle;
+}
+
+.ext-icon-date-previous:before {
+    content: url('images/ext_icons/Date/date_previous.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive:before {
+    content: url('images/ext_icons/driver/drive.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-add:before {
+    content: url('images/ext_icons/driver/drive_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-burn:before {
+    content: url('images/ext_icons/driver/drive_burn.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-cd:before {
+    content: url('images/ext_icons/driver/drive_cd.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-cd-empty:before {
+    content: url('images/ext_icons/driver/drive_cd_empty.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-delete:before {
+    content: url('images/ext_icons/driver/drive_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-disk:before {
+    content: url('images/ext_icons/driver/drive_disk.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-edit:before {
+    content: url('images/ext_icons/driver/drive_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-error:before {
+    content: url('images/ext_icons/driver/drive_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-go:before {
+    content: url('images/ext_icons/driver/drive_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-key:before {
+    content: url('images/ext_icons/driver/drive_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-link:before {
+    content: url('images/ext_icons/driver/drive_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-magnify:before {
+    content: url('images/ext_icons/driver/drive_magnify.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-network:before {
+    content: url('images/ext_icons/driver/drive_network.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-rename:before {
+    content: url('images/ext_icons/driver/drive_rename.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-user:before {
+    content: url('images/ext_icons/driver/drive_user.png');
+    vertical-align: middle;
+}
+
+.ext-icon-drive-web:before {
+    content: url('images/ext_icons/driver/drive_web.png');
+    vertical-align: middle;
+}
+
+.ext-icon-email:before {
+    content: url('images/ext_icons/email/email.png');
+    vertical-align: middle;
+}
+
+.ext-icon-email-add:before {
+    content: url('images/ext_icons/email/email_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-email-attach:before {
+    content: url('images/ext_icons/email/email_attach.png');
+    vertical-align: middle;
+}
+
+.ext-icon-email-delete:before {
+    content: url('images/ext_icons/email/email_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-email-edit:before {
+    content: url('images/ext_icons/email/email_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-email-error:before {
+    content: url('images/ext_icons/email/email_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-email-go:before {
+    content: url('images/ext_icons/email/email_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-email-link:before {
+    content: url('images/ext_icons/email/email_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-email-open:before {
+    content: url('images/ext_icons/email/email_open.png');
+    vertical-align: middle;
+}
+
+.ext-icon-email-open-image:before {
+    content: url('images/ext_icons/email/email_open_image.png');
+    vertical-align: middle;
+}
+
+.ext-icon-feed:before {
+    content: url('images/ext_icons/feed/feed.png');
+    vertical-align: middle;
+}
+
+.ext-icon-feed-add:before {
+    content: url('images/ext_icons/feed/feed_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-feed-delete:before {
+    content: url('images/ext_icons/feed/feed_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-feed-disk:before {
+    content: url('images/ext_icons/feed/feed_disk.png');
+    vertical-align: middle;
+}
+
+.ext-icon-feed-edit:before {
+    content: url('images/ext_icons/feed/feed_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-feed-error:before {
+    content: url('images/ext_icons/feed/feed_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-feed-go:before {
+    content: url('images/ext_icons/feed/feed_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-feed-key:before {
+    content: url('images/ext_icons/feed/feed_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-feed-link:before {
+    content: url('images/ext_icons/feed/feed_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-feed-magnify:before {
+    content: url('images/ext_icons/feed/feed_magnify.png');
+    vertical-align: middle;
+}
+
+.ext-icon-film:before {
+    content: url('images/ext_icons/film/film.png');
+    vertical-align: middle;
+}
+
+.ext-icon-film-add:before {
+    content: url('images/ext_icons/film/film_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-film-delete:before {
+    content: url('images/ext_icons/film/film_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-film-edit:before {
+    content: url('images/ext_icons/film/film_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-film-error:before {
+    content: url('images/ext_icons/film/film_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-film-go:before {
+    content: url('images/ext_icons/film/film_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-film-key:before {
+    content: url('images/ext_icons/film/film_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-film-link:before {
+    content: url('images/ext_icons/film/film_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-film-save:before {
+    content: url('images/ext_icons/film/film_save.png');
+    vertical-align: middle;
+}
+
+.ext-icon-flag-blue:before {
+    content: url('images/ext_icons/flag/flag_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-flag-green:before {
+    content: url('images/ext_icons/flag/flag_green.png');
+    vertical-align: middle;
+}
+
+.ext-icon-flag-orange:before {
+    content: url('images/ext_icons/flag/flag_orange.png');
+    vertical-align: middle;
+}
+
+.ext-icon-flag-pink:before {
+    content: url('images/ext_icons/flag/flag_pink.png');
+    vertical-align: middle;
+}
+
+.ext-icon-flag-purple:before {
+    content: url('images/ext_icons/flag/flag_purple.png');
+    vertical-align: middle;
+}
+
+.ext-icon-flag-red:before {
+    content: url('images/ext_icons/flag/flag_red.png');
+    vertical-align: middle;
+}
+
+.ext-icon-flag-yellow:before {
+    content: url('images/ext_icons/flag/flag_yellow.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder:before {
+    content: url('images/ext_icons/folder/folder.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-add:before {
+    content: url('images/ext_icons/folder/folder_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-bell:before {
+    content: url('images/ext_icons/folder/folder_bell.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-brick:before {
+    content: url('images/ext_icons/folder/folder_brick.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-bug:before {
+    content: url('images/ext_icons/folder/folder_bug.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-camera:before {
+    content: url('images/ext_icons/folder/folder_camera.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-database:before {
+    content: url('images/ext_icons/folder/folder_database.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-delete:before {
+    content: url('images/ext_icons/folder/folder_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-edit:before {
+    content: url('images/ext_icons/folder/folder_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-error:before {
+    content: url('images/ext_icons/folder/folder_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-explore:before {
+    content: url('images/ext_icons/folder/folder_explore.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-feed:before {
+    content: url('images/ext_icons/folder/folder_feed.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-find:before {
+    content: url('images/ext_icons/folder/folder_find.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-go:before {
+    content: url('images/ext_icons/folder/folder_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-heart:before {
+    content: url('images/ext_icons/folder/folder_heart.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-image:before {
+    content: url('images/ext_icons/folder/folder_image.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-key:before {
+    content: url('images/ext_icons/folder/folder_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-lightbulb:before {
+    content: url('images/ext_icons/folder/folder_lightbulb.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-link:before {
+    content: url('images/ext_icons/folder/folder_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-magnify:before {
+    content: url('images/ext_icons/folder/folder_magnify.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-page:before {
+    content: url('images/ext_icons/folder/folder_page.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-page-white:before {
+    content: url('images/ext_icons/folder/folder_page_white.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-palette:before {
+    content: url('images/ext_icons/folder/folder_palette.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-picture:before {
+    content: url('images/ext_icons/folder/folder_picture.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-star:before {
+    content: url('images/ext_icons/folder/folder_star.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-table:before {
+    content: url('images/ext_icons/folder/folder_table.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-user:before {
+    content: url('images/ext_icons/folder/folder_user.png');
+    vertical-align: middle;
+}
+
+.ext-icon-folder-wrench:before {
+    content: url('images/ext_icons/folder/folder_wrench.png');
+    vertical-align: middle;
+}
+
+.ext-icon-group:before {
+    content: url('images/ext_icons/group/group.png');
+    vertical-align: middle;
+}
+
+.ext-icon-group-add:before {
+    content: url('images/ext_icons/group/group_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-group-delete:before {
+    content: url('images/ext_icons/group/group_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-group-edit:before {
+    content: url('images/ext_icons/group/group_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-group-error:before {
+    content: url('images/ext_icons/group/group_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-group-gear:before {
+    content: url('images/ext_icons/group/group_gear.png');
+    vertical-align: middle;
+}
+
+.ext-icon-group-go:before {
+    content: url('images/ext_icons/group/group_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-group-key:before {
+    content: url('images/ext_icons/group/group_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-group-link:before {
+    content: url('images/ext_icons/group/group_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ipod:before {
+    content: url('images/ext_icons/ipod/ipod.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ipod-cast:before {
+    content: url('images/ext_icons/ipod/ipod_cast.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ipod-cast-add:before {
+    content: url('images/ext_icons/ipod/ipod_cast_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ipod-cast-delete:before {
+    content: url('images/ext_icons/ipod/ipod_cast_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-ipod-sound:before {
+    content: url('images/ext_icons/ipod/ipod_sound.png');
+    vertical-align: middle;
+}
+
+.ext-icon-keyboard:before {
+    content: url('images/ext_icons/keyboard/keyboard.png');
+    vertical-align: middle;
+}
+
+.ext-icon-keyboard-add:before {
+    content: url('images/ext_icons/keyboard/keyboard_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-keyboard-delete:before {
+    content: url('images/ext_icons/keyboard/keyboard_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-keyboard-magnify:before {
+    content: url('images/ext_icons/keyboard/keyboard_magnify.png');
+    vertical-align: middle;
+}
+
+.ext-icon-layout:before {
+    content: url('images/ext_icons/layout/layout.png');
+    vertical-align: middle;
+}
+
+.ext-icon-layout-add:before {
+    content: url('images/ext_icons/layout/layout_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-layout-content:before {
+    content: url('images/ext_icons/layout/layout_content.png');
+    vertical-align: middle;
+}
+
+.ext-icon-layout-delete:before {
+    content: url('images/ext_icons/layout/layout_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-layout-edit:before {
+    content: url('images/ext_icons/layout/layout_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-layout-error:before {
+    content: url('images/ext_icons/layout/layout_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-layout-header:before {
+    content: url('images/ext_icons/layout/layout_header.png');
+    vertical-align: middle;
+}
+
+.ext-icon-layout-link:before {
+    content: url('images/ext_icons/layout/layout_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-layout-sidebar:before {
+    content: url('images/ext_icons/layout/layout_sidebar.png');
+    vertical-align: middle;
+}
+
+.ext-icon-overlays:before {
+    content: url('images/ext_icons/layout/overlays.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lock:before {
+    content: url('images/ext_icons/lock/lock.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lock-add:before {
+    content: url('images/ext_icons/lock/lock_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lock-break:before {
+    content: url('images/ext_icons/lock/lock_break.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lock-delete:before {
+    content: url('images/ext_icons/lock/lock_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lock-edit:before {
+    content: url('images/ext_icons/lock/lock_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lock-go:before {
+    content: url('images/ext_icons/lock/lock_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-lock-open:before {
+    content: url('images/ext_icons/lock/lock_open.png');
+    vertical-align: middle;
+}
+
+.ext-icon-magifier-zoom-out:before {
+    content: url('images/ext_icons/map/magifier_zoom_out.png');
+    vertical-align: middle;
+}
+
+.ext-icon-magnifier:before {
+    content: url('images/ext_icons/map/magnifier.png');
+    vertical-align: middle;
+}
+
+.ext-icon-magnifier-zoom-in:before {
+    content: url('images/ext_icons/map/magnifier_zoom_in.png');
+    vertical-align: middle;
+}
+
+.ext-icon-map:before {
+    content: url('images/ext_icons/map/map.png');
+    vertical-align: middle;
+}
+
+.ext-icon-map-add:before {
+    content: url('images/ext_icons/map/map_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-map-delete:before {
+    content: url('images/ext_icons/map/map_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-map-edit:before {
+    content: url('images/ext_icons/map/map_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-map-go:before {
+    content: url('images/ext_icons/map/map_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-map-magnify:before {
+    content: url('images/ext_icons/map/map_magnify.png');
+    vertical-align: middle;
+}
+
+.ext-icon-monitor:before {
+    content: url('images/ext_icons/monitor/monitor.png');
+    vertical-align: middle;
+}
+
+.ext-icon-monitor-add:before {
+    content: url('images/ext_icons/monitor/monitor_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-monitor-delete:before {
+    content: url('images/ext_icons/monitor/monitor_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-monitor-edit:before {
+    content: url('images/ext_icons/monitor/monitor_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-monitor-error:before {
+    content: url('images/ext_icons/monitor/monitor_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-monitor-go:before {
+    content: url('images/ext_icons/monitor/monitor_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-monitor-lightning:before {
+    content: url('images/ext_icons/monitor/monitor_lightning.png');
+    vertical-align: middle;
+}
+
+.ext-icon-monitor-link:before {
+    content: url('images/ext_icons/monitor/monitor_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-newspaper:before {
+    content: url('images/ext_icons/newspaper/newspaper.png');
+    vertical-align: middle;
+}
+
+.ext-icon-newspaper-add:before {
+    content: url('images/ext_icons/newspaper/newspaper_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-newspaper-delete:before {
+    content: url('images/ext_icons/newspaper/newspaper_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-newspaper-go:before {
+    content: url('images/ext_icons/newspaper/newspaper_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-newspaper-link:before {
+    content: url('images/ext_icons/newspaper/newspaper_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-note:before {
+    content: url('images/ext_icons/notes/note.png');
+    vertical-align: middle;
+}
+
+.ext-icon-note-add:before {
+    content: url('images/ext_icons/notes/note_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-note-delete:before {
+    content: url('images/ext_icons/notes/note_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-note-edit:before {
+    content: url('images/ext_icons/notes/note_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-note-error:before {
+    content: url('images/ext_icons/notes/note_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-note-go:before {
+    content: url('images/ext_icons/notes/note_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page:before {
+    content: url('images/ext_icons/page/page.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-add:before {
+    content: url('images/ext_icons/page/page_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-attach:before {
+    content: url('images/ext_icons/page/page_attach.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-code:before {
+    content: url('images/ext_icons/page/page_code.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-copy:before {
+    content: url('images/ext_icons/page/page_copy.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-delete:before {
+    content: url('images/ext_icons/page/page_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-edit:before {
+    content: url('images/ext_icons/page/page_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-error:before {
+    content: url('images/ext_icons/page/page_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-excel:before {
+    content: url('images/ext_icons/page/page_excel.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-find:before {
+    content: url('images/ext_icons/page/page_find.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-gear:before {
+    content: url('images/ext_icons/page/page_gear.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-go:before {
+    content: url('images/ext_icons/page/page_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-green:before {
+    content: url('images/ext_icons/page/page_green.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-key:before {
+    content: url('images/ext_icons/page/page_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-lightning:before {
+    content: url('images/ext_icons/page/page_lightning.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-link:before {
+    content: url('images/ext_icons/page/page_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-paintbrush:before {
+    content: url('images/ext_icons/page/page_paintbrush.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-paste:before {
+    content: url('images/ext_icons/page/page_paste.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-red:before {
+    content: url('images/ext_icons/page/page_red.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-refresh:before {
+    content: url('images/ext_icons/page/page_refresh.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-save:before {
+    content: url('images/ext_icons/page/page_save.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white:before {
+    content: url('images/ext_icons/page/page_white.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-acrobat:before {
+    content: url('images/ext_icons/page/page_white_acrobat.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-actionscript:before {
+    content: url('images/ext_icons/page/page_white_actionscript.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-add:before {
+    content: url('images/ext_icons/page/page_white_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-c:before {
+    content: url('images/ext_icons/page/page_white_c.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-camera:before {
+    content: url('images/ext_icons/page/page_white_camera.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-cd:before {
+    content: url('images/ext_icons/page/page_white_cd.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-code:before {
+    content: url('images/ext_icons/page/page_white_code.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-code-red:before {
+    content: url('images/ext_icons/page/page_white_code_red.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-coldfusion:before {
+    content: url('images/ext_icons/page/page_white_coldfusion.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-compressed:before {
+    content: url('images/ext_icons/page/page_white_compressed.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-copy:before {
+    content: url('images/ext_icons/page/page_white_copy.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-cplusplus:before {
+    content: url('images/ext_icons/page/page_white_cplusplus.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-csharp:before {
+    content: url('images/ext_icons/page/page_white_csharp.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-cup:before {
+    content: url('images/ext_icons/page/page_white_cup.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-database:before {
+    content: url('images/ext_icons/page/page_white_database.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-delete:before {
+    content: url('images/ext_icons/page/page_white_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-dvd:before {
+    content: url('images/ext_icons/page/page_white_dvd.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-edit:before {
+    content: url('images/ext_icons/page/page_white_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-error:before {
+    content: url('images/ext_icons/page/page_white_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-excel:before {
+    content: url('images/ext_icons/page/page_white_excel.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-find:before {
+    content: url('images/ext_icons/page/page_white_find.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-flash:before {
+    content: url('images/ext_icons/page/page_white_flash.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-freehand:before {
+    content: url('images/ext_icons/page/page_white_freehand.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-gear:before {
+    content: url('images/ext_icons/page/page_white_gear.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-get:before {
+    content: url('images/ext_icons/page/page_white_get.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-go:before {
+    content: url('images/ext_icons/page/page_white_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-h:before {
+    content: url('images/ext_icons/page/page_white_h.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-horizontal:before {
+    content: url('images/ext_icons/page/page_white_horizontal.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-key:before {
+    content: url('images/ext_icons/page/page_white_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-lightning:before {
+    content: url('images/ext_icons/page/page_white_lightning.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-link:before {
+    content: url('images/ext_icons/page/page_white_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-magnify:before {
+    content: url('images/ext_icons/page/page_white_magnify.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-medal:before {
+    content: url('images/ext_icons/page/page_white_medal.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-office:before {
+    content: url('images/ext_icons/page/page_white_office.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-paint:before {
+    content: url('images/ext_icons/page/page_white_paint.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-paintbrush:before {
+    content: url('images/ext_icons/page/page_white_paintbrush.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-paste:before {
+    content: url('images/ext_icons/page/page_white_paste.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-php:before {
+    content: url('images/ext_icons/page/page_white_php.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-picture:before {
+    content: url('images/ext_icons/page/page_white_picture.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-powerpoint:before {
+    content: url('images/ext_icons/page/page_white_powerpoint.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-put:before {
+    content: url('images/ext_icons/page/page_white_put.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-ruby:before {
+    content: url('images/ext_icons/page/page_white_ruby.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-stack:before {
+    content: url('images/ext_icons/page/page_white_stack.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-star:before {
+    content: url('images/ext_icons/page/page_white_star.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-swoosh:before {
+    content: url('images/ext_icons/page/page_white_swoosh.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-text:before {
+    content: url('images/ext_icons/page/page_white_text.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-text-width:before {
+    content: url('images/ext_icons/page/page_white_text_width.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-tux:before {
+    content: url('images/ext_icons/page/page_white_tux.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-vector:before {
+    content: url('images/ext_icons/page/page_white_vector.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-visualstudio:before {
+    content: url('images/ext_icons/page/page_white_visualstudio.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-width:before {
+    content: url('images/ext_icons/page/page_white_width.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-word:before {
+    content: url('images/ext_icons/page/page_white_word.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-world:before {
+    content: url('images/ext_icons/page/page_white_world.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-wrench:before {
+    content: url('images/ext_icons/page/page_white_wrench.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-white-zip:before {
+    content: url('images/ext_icons/page/page_white_zip.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-word:before {
+    content: url('images/ext_icons/page/page_word.png');
+    vertical-align: middle;
+}
+
+.ext-icon-page-world:before {
+    content: url('images/ext_icons/page/page_world.png');
+    vertical-align: middle;
+}
+
+.ext-icon-paste-plain:before {
+    content: url('images/ext_icons/page/paste_plain.png');
+    vertical-align: middle;
+}
+
+.ext-icon-paste-word:before {
+    content: url('images/ext_icons/page/paste_word.png');
+    vertical-align: middle;
+}
+
+.ext-icon-report:before {
+    content: url('images/ext_icons/page/report.png');
+    vertical-align: middle;
+}
+
+.ext-icon-report-add:before {
+    content: url('images/ext_icons/page/report_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-report-delete:before {
+    content: url('images/ext_icons/page/report_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-report-disk:before {
+    content: url('images/ext_icons/page/report_disk.png');
+    vertical-align: middle;
+}
+
+.ext-icon-report-edit:before {
+    content: url('images/ext_icons/page/report_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-report-go:before {
+    content: url('images/ext_icons/page/report_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-report-key:before {
+    content: url('images/ext_icons/page/report_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-report-link:before {
+    content: url('images/ext_icons/page/report_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-report-magnify:before {
+    content: url('images/ext_icons/page/report_magnify.png');
+    vertical-align: middle;
+}
+
+.ext-icon-report-picture:before {
+    content: url('images/ext_icons/page/report_picture.png');
+    vertical-align: middle;
+}
+
+.ext-icon-report-user:before {
+    content: url('images/ext_icons/page/report_user.png');
+    vertical-align: middle;
+}
+
+.ext-icon-report-word:before {
+    content: url('images/ext_icons/page/report_word.png');
+    vertical-align: middle;
+}
+
+.ext-icon-photo:before {
+    content: url('images/ext_icons/photoAndPic/photo.png');
+    vertical-align: middle;
+}
+
+.ext-icon-photos:before {
+    content: url('images/ext_icons/photoAndPic/photos.png');
+    vertical-align: middle;
+}
+
+.ext-icon-photo-add:before {
+    content: url('images/ext_icons/photoAndPic/photo_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-photo-delete:before {
+    content: url('images/ext_icons/photoAndPic/photo_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-photo-link:before {
+    content: url('images/ext_icons/photoAndPic/photo_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-picture:before {
+    content: url('images/ext_icons/photoAndPic/picture.png');
+    vertical-align: middle;
+}
+
+.ext-icon-pictures:before {
+    content: url('images/ext_icons/photoAndPic/pictures.png');
+    vertical-align: middle;
+}
+
+.ext-icon-picture-add:before {
+    content: url('images/ext_icons/photoAndPic/picture_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-picture-delete:before {
+    content: url('images/ext_icons/photoAndPic/picture_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-picture-edit:before {
+    content: url('images/ext_icons/photoAndPic/picture_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-picture-empty:before {
+    content: url('images/ext_icons/photoAndPic/picture_empty.png');
+    vertical-align: middle;
+}
+
+.ext-icon-picture-error:before {
+    content: url('images/ext_icons/photoAndPic/picture_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-picture-go:before {
+    content: url('images/ext_icons/photoAndPic/picture_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-picture-key:before {
+    content: url('images/ext_icons/photoAndPic/picture_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-picture-link:before {
+    content: url('images/ext_icons/photoAndPic/picture_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-picture-save:before {
+    content: url('images/ext_icons/photoAndPic/picture_save.png');
+    vertical-align: middle;
+}
+
+.ext-icon-printer:before {
+    content: url('images/ext_icons/printer/printer.png');
+    vertical-align: middle;
+}
+
+.ext-icon-printer-add:before {
+    content: url('images/ext_icons/printer/printer_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-printer-delete:before {
+    content: url('images/ext_icons/printer/printer_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-printer-empty:before {
+    content: url('images/ext_icons/printer/printer_empty.png');
+    vertical-align: middle;
+}
+
+.ext-icon-printer-error:before {
+    content: url('images/ext_icons/printer/printer_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script:before {
+    content: url('images/ext_icons/script/script.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-add:before {
+    content: url('images/ext_icons/script/script_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-code:before {
+    content: url('images/ext_icons/script/script_code.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-code-red:before {
+    content: url('images/ext_icons/script/script_code_red.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-delete:before {
+    content: url('images/ext_icons/script/script_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-edit:before {
+    content: url('images/ext_icons/script/script_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-error:before {
+    content: url('images/ext_icons/script/script_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-gear:before {
+    content: url('images/ext_icons/script/script_gear.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-go:before {
+    content: url('images/ext_icons/script/script_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-key:before {
+    content: url('images/ext_icons/script/script_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-lightning:before {
+    content: url('images/ext_icons/script/script_lightning.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-link:before {
+    content: url('images/ext_icons/script/script_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-palette:before {
+    content: url('images/ext_icons/script/script_palette.png');
+    vertical-align: middle;
+}
+
+.ext-icon-script-save:before {
+    content: url('images/ext_icons/script/script_save.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table:before {
+    content: url('images/ext_icons/table/table.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-add:before {
+    content: url('images/ext_icons/table/table_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-delete:before {
+    content: url('images/ext_icons/table/table_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-edit:before {
+    content: url('images/ext_icons/table/table_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-error:before {
+    content: url('images/ext_icons/table/table_error.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-gear:before {
+    content: url('images/ext_icons/table/table_gear.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-go:before {
+    content: url('images/ext_icons/table/table_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-key:before {
+    content: url('images/ext_icons/table/table_key.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-lightning:before {
+    content: url('images/ext_icons/table/table_lightning.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-link:before {
+    content: url('images/ext_icons/table/table_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-multiple:before {
+    content: url('images/ext_icons/table/table_multiple.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-refresh:before {
+    content: url('images/ext_icons/table/table_refresh.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-relationship:before {
+    content: url('images/ext_icons/table/table_relationship.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-row-delete:before {
+    content: url('images/ext_icons/table/table_row_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-row-insert:before {
+    content: url('images/ext_icons/table/table_row_insert.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-save:before {
+    content: url('images/ext_icons/table/table_save.png');
+    vertical-align: middle;
+}
+
+.ext-icon-table-sort:before {
+    content: url('images/ext_icons/table/table_sort.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tag-blue:before {
+    content: url('images/ext_icons/tag/tag_blue.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tag-blue-add:before {
+    content: url('images/ext_icons/tag/tag_blue_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tag-blue-delete:before {
+    content: url('images/ext_icons/tag/tag_blue_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tag-blue-edit:before {
+    content: url('images/ext_icons/tag/tag_blue_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tag-green:before {
+    content: url('images/ext_icons/tag/tag_green.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tag-orange:before {
+    content: url('images/ext_icons/tag/tag_orange.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tag-pink:before {
+    content: url('images/ext_icons/tag/tag_pink.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tag-purple:before {
+    content: url('images/ext_icons/tag/tag_purple.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tag-red:before {
+    content: url('images/ext_icons/tag/tag_red.png');
+    vertical-align: middle;
+}
+
+.ext-icon-tag-yellow:before {
+    content: url('images/ext_icons/tag/tag_yellow.png');
+    vertical-align: middle;
+}
+
+.ext-icon-television:before {
+    content: url('images/ext_icons/television/television.png');
+    vertical-align: middle;
+}
+
+.ext-icon-television-add:before {
+    content: url('images/ext_icons/television/television_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-television-delete:before {
+    content: url('images/ext_icons/television/television_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-user:before {
+    content: url('images/ext_icons/user/user.png');
+    vertical-align: middle;
+}
+
+.ext-icon-user-add:before {
+    content: url('images/ext_icons/user/user_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-user-comment:before {
+    content: url('images/ext_icons/user/user_comment.png');
+    vertical-align: middle;
+}
+
+.ext-icon-user-delete:before {
+    content: url('images/ext_icons/user/user_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-user-edit:before {
+    content: url('images/ext_icons/user/user_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-user-female:before {
+    content: url('images/ext_icons/user/user_female.png');
+    vertical-align: middle;
+}
+
+.ext-icon-user-go:before {
+    content: url('images/ext_icons/user/user_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-user-gray:before {
+    content: url('images/ext_icons/user/user_gray.png');
+    vertical-align: middle;
+}
+
+.ext-icon-user-green:before {
+    content: url('images/ext_icons/user/user_green.png');
+    vertical-align: middle;
+}
+
+.ext-icon-user-orange:before {
+    content: url('images/ext_icons/user/user_orange.png');
+    vertical-align: middle;
+}
+
+.ext-icon-user-red:before {
+    content: url('images/ext_icons/user/user_red.png');
+    vertical-align: middle;
+}
+
+.ext-icon-user-suit:before {
+    content: url('images/ext_icons/user/user_suit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-vcard:before {
+    content: url('images/ext_icons/vcard/vcard.png');
+    vertical-align: middle;
+}
+
+.ext-icon-vcard-add:before {
+    content: url('images/ext_icons/vcard/vcard_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-vcard-delete:before {
+    content: url('images/ext_icons/vcard/vcard_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-vcard-edit:before {
+    content: url('images/ext_icons/vcard/vcard_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-world:before {
+    content: url('images/ext_icons/world/world.png');
+    vertical-align: middle;
+}
+
+.ext-icon-world-add:before {
+    content: url('images/ext_icons/world/world_add.png');
+    vertical-align: middle;
+}
+
+.ext-icon-world-delete:before {
+    content: url('images/ext_icons/world/world_delete.png');
+    vertical-align: middle;
+}
+
+.ext-icon-world-edit:before {
+    content: url('images/ext_icons/world/world_edit.png');
+    vertical-align: middle;
+}
+
+.ext-icon-world-go:before {
+    content: url('images/ext_icons/world/world_go.png');
+    vertical-align: middle;
+}
+
+.ext-icon-world-link:before {
+    content: url('images/ext_icons/world/world_link.png');
+    vertical-align: middle;
+}
+
+.ext-icon-zoom:before {
+    content: url('images/ext_icons/zoom/zoom.png');
+    vertical-align: middle;
+}
+
+.ext-icon-zoom-in:before {
+    content: url('images/ext_icons/zoom/zoom_in.png');
+    vertical-align: middle;
+}
+
+.ext-icon-zoom-out:before {
+    content: url('images/ext_icons/zoom/zoom_out.png');
+    vertical-align: middle;
+}

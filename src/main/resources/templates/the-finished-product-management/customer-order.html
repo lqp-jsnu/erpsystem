@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>客户订单</title>
+    <!-- Bootstrap CSS-->
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <!-- select2 CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/select2.min.css" th:href="@{/css/lib/select2.min.css}">
+    <link rel="stylesheet" href="../../static/css/lib/select2-bootstrap.min.css" th:href="@{/css/lib/select2-bootstrap.min.css}">
+    <!-- fileinput CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/fileinput.min.css" th:href="@{/css/lib/fileinput.min.css}">
+    <link href="../../static/css/file.css" rel="stylesheet" th:href="@{/css/file.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+
+<body onload="init();">
+<div class="panel-body" style="padding-bottom:0;">
+    <div class="panel panel-default">
+        <div class="panel-heading">查询条件</div>
+        <div class="panel-body">
+            <div class="form-group" style="margin-top:15px">
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_order_number" title="订购单号">订购单号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_order_number">
+                    </div>
+
+                    <label class="control-label col-sm-2 label-font" for="txt_search_code" title="客户代号">客户代号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_code">
+                    </div>
+                </div>
+
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_item_name" title="品名">品名</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_item_name">
+                    </div>
+
+                    <label class="control-label col-sm-2 label-font" for="txt_search_spec" title="规格">规格</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_spec">
+                    </div>
+                </div>
+
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_material_item_name" title="品名／磁棒／尺寸(材质)">品名／磁棒／尺寸(材质)</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_material_item_name">
+                    </div>
+
+                    <label class="control-label col-sm-2 label-font" for="txt_search_material_spec" title="规格/初值/电阻线(线径)">规格/初值/电阻线(线径)</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_material_spec">
+                    </div>
+                </div>
+
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_product_number" title="客户料号">客户料号</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_product_number">
+                    </div>
+                </div>
+
+                <div class="row row-gap">
+                    <div class="col-sm-offset-4" style="text-align:left;">
+                        <button type="button" style="margin-left:50px" id="btn_filter" class="btn btn-primary" onclick="filter();">过滤</button>
+                        <button type="button" style="margin-left:50px" id="btn_reset_filter" class="btn btn-primary" onclick="init();">重置过滤</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toolbar" class="btn-group">
+        <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增客户订单
+        </button>
+        <button id="btn_export" type="button" class="btn btn-default" onclick="exportExcel();">
+            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>批量导出
+        </button>
+        <button id="btn_import" type="button" class="btn btn-default" data-toggle="modal" data-target="#excelModal">
+            <span class="glyphicon glyphicon-import" aria-hidden="true"></span>批量导入
+        </button>
+    </div>
+    <table id="table"></table>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="viewModalLabel">
+                        查看客户订单信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <caption>客户订单信息</caption>
+                        <tbody>
+                        <tr>
+                            <td>订购单号</td>
+                            <td id="td_order_number">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>客户</td>
+                            <td id="td_code">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>原始成品</td>
+                            <td id="td_item_name">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>订单数量</td>
+                            <td id="td_order_amount">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>投产数量</td>
+                            <td id="td_product_amount">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>每单数量</td>
+                            <td id="td_every_product_amount">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>每单投产数量</td>
+                            <td id="td_every_order_amount">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>采购日期</td>
+                            <td id="td_order_date">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>交货日期</td>
+                            <td id="td_delivery_date">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>计划到账日期</td>
+                            <td id="td_plan_arrival_date">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>实际到账日期</td>
+                            <td id="td_actual_arrival_date">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>是否到账</td>
+                            <td id="td_is_arrival">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>备注</td>
+                            <td id="td_remark">xxx</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 审核 -->
+    <div class="modal fade" id="auditModal" tabindex="-1" role="dialog" aria-labelledby="auditModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="auditModalLabel">
+                        审核客户订单信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="audit_check_flag">审核</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" data-style="btn-success" id="audit_check_flag">
+                                    <option value="未审核">未审核</option>
+                                    <option value="未通过">未通过</option>
+                                    <option value="已通过">已通过</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="audit_remark">备注</label>
+                            <div class="col-sm-10">
+                                <textarea disabled class="form-control" rows="6" id="audit_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="audit();">审核</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 编辑 -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="editModalLabel">
+                        编辑客户订单信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group has-success">
+                            <label class="col-sm-4 control-label label-font" for="edit_order_number">客户订单号</label>
+                            <div class="col-sm-8">
+                                <input disabled class="form-control" type="text" id="edit_order_number">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-4 control-label label-font"  for="edit_order_amount">订单数量</label>
+                            <div class="col-sm-8">
+                                <input disabled class="form-control" type="text" id="edit_order_amount" onchange="numberInputChange('edit_order_amount', '订单数量需为正数');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-4 control-label label-font" for="edit_order_date">采购日期</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="date" id="edit_order_date" onchange="checkInputChange('edit_order_date');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-4 control-label label-font" for="edit_delivery_date">交货日期</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="date" id="edit_delivery_date" onchange="checkInputChange('edit_delivery_date');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-4 control-label label-font"  for="edit_plan_arrival_date">计划到账日期</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="date" id="edit_plan_arrival_date" onchange="checkInputChange('edit_plan_arrival_date');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-4 control-label label-font"  for="edit_actual_arrival_date">实际到账日期</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="date" id="edit_actual_arrival_date" onchange="checkInputChange('edit_actual_arrival_date');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-4 control-label label-font "  for="edit_is_arrival">是否到账</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="edit_is_arrival">
+                                    <option value="是">是</option>
+                                    <option value="否">否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-4 control-label label-font"  for="edit_remark">备注</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" rows="6" id="edit_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="edit();">修改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 新增 -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-center" id="addModalLabel">
+                        客户订单信息
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" onsubmit="return false;">
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="input_order_number">客户订单号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input_order_number" onchange="addOrderNumberInputChange();" >
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="code_select">客户</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control" id="code_select" onchange="codeSelectChange();">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="material_select">原始成品</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control" id="material_select" onchange="materialSelectChange();">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="input_order_amount">订单数量</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="input_order_amount" onchange="addOrderAmountInputChange();">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_order_date">采购日期</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="input_order_date" >
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_delivery_date">交货日期</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="input_delivery_date">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_plan_arrival_date">计划到账日期</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="input_plan_arrival_date">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_actual_arrival_date">实际到账日期</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="input_actual_arrival_date">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_is_arrival">是否到账</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="input_is_arrival">
+                                    <option value="否">否</option>
+                                    <option value="是">是</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_remark">备注</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" id="input_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="add();">添加</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） excel上传 -->
+    <div class="modal fade" id="excelModal" tabindex="-1" role="dialog" aria-labelledby="excelModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="excelModalLabel">
+                        excel上传
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input id="upload" type="file" class="file" name="file">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- fileinput.js -->
+<script src="../../static/js/lib/fileinput.min.js" th:src="@{/js/lib/fileinput.min.js}"></script>
+<script src="../../static/js/lib/fileinput_locale_zh.js" th:src="@{/js/lib/fileinput_locale_zh.js}"></script>
+<!-- select2.js -->
+<script src="../../static/js/lib/select2.min.js" th:src="@{/js/lib/select2.min.js}"></script>
+<script src="../../static/js/lib/Select2-zh-CN.js" th:src="@{/js/lib/Select2-zh-CN.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+    let $codeSelect = $("#code_select");
+    let $materialSelect = $("#material_select");
+
+    // 服务器分页获取数据
+    function getServerPaging(node, url, queryParams) {
+        initTable(node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'orderNumber',
+            title: '订单号',
+            width: '120px',
+            formatter: stringFormatter
+        }, {
+            field: 'code',
+            title: '客户代码',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'itemName',
+            title: '品名',
+            width: '120px',
+            formatter: stringFormatter
+        }, {
+            field: 'spec',
+            title: '规格',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'unit',
+            title: '单位',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'productNumber',
+            title: '客户料号',
+            width: '140px',
+            formatter: stringFormatter
+        }, {
+            field: 'orderAmount',
+            title: '订单数量',
+            width: '120px',
+            formatter: stringFormatter
+        }, {
+            field: 'orderDate',
+            title: '采购日期',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'deliveryDate',
+            title: '交货日期',
+            width: '170px',
+            formatter: dateFormatter
+        },{
+            field: 'name',
+            title: '录入者',
+            width: '100px',
+            formatter: stringFormatter
+        },{
+            field: 'checkFlag',
+            title: '状态',
+            width: '100px',
+            formatter: stringFormatter
+        },{
+            field: 'createTime',
+            title: '录入日期',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'operation',
+            title: '操作',
+            width: '340px',
+            formatter: operateFormatter // 自定义方法，添加操作按钮
+        }]);
+    }
+
+    function operateFormatter(value, row, index) {  // 赋予的参数
+        return [
+            '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>&nbsp;&nbsp;' +
+            '<button class="btn btn-primary view" data-toggle="modal" data-target="#editModal" onclick="initEdit('+ index +');">编辑</button>&nbsp;&nbsp;' +
+            '<button class="btn btn-danger view" onclick="deleteOne('+ index +');">删除</button>&nbsp;&nbsp;' +
+            '<button class="btn btn-warning view" data-toggle="modal" data-target="#auditModal" onclick="initAudit('+ index +');">审核</button>'
+        ].join('');
+    }
+
+    // 修改提示框样式
+    changeToolTip();
+
+    // 模态框初始化
+    dragTheModalDialog();
+
+    // 初始化新增下拉框
+    initSelect($codeSelect, "请输入供应商代号", codeFormatter, "/customer-management/getCustomer", 1000, params => {
+        return { code: params.term, offset: params.page ? 10 * (params.page - 1) : 0, limit: 10 };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.code, name: item.name};
+    }), 10);
+    function codeFormatter(result) {
+        return '<span title="'+ result.name +'">' + result.text +'</span>';
+    }
+
+    initSelect($materialSelect, "请输入规格", materialFormatter, "/original-information-of-finished-product/getOriginalProductBySearchCustomerId", 1000, params => {
+        return { customerId: $codeSelect.select2('data')[0].id, spec: params.term, offset: params.page ? 10 * (params.page - 1) : 0, limit: 10 };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.spec, itemName: item.itemName, masterItemName: item.masterItemName, masterSpec: item.masterSpec, remark: item.remark};
+    }), 10);
+    function materialFormatter(result) {
+        return '<span title="'+ "规格/初R值/电阻线(线径)：" + result.masterSpec + " | " +
+            "品名／磁棒／尺寸(材质)：" + result.masterItemName + " | " + "品名：" + result.itemName+ " | " +
+            "特殊要求：" + result.remark +'">' + result.text +'</span>';
+    }
+    $materialSelect.prop("disabled", true);
+
+    // 初始化表格数据
+    function init() {
+        getServerPaging($table, "/customer-order/getCustomerOrder", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC", checkFlag:"未审核" };
+        });
+    }
+
+    // excel上传
+    $("#upload").fileinput({
+        language: 'zh',     // 设置语言
+        dropZoneTitle: '可以将excel拖放到这里...',
+        uploadUrl: '/file/upload',
+        allowedFileExtensions : ['xlsx'],
+        overwriteInitial: false,
+        maxFileSize: 1024,      // 单位为kb，如果为0表示不限制文件大小
+        minFileCount: 1,        // 每次上传允许的最少文件数。如果设置为0，则表示文件数是可选的。默认为0
+        maxFileCount: 1,        // 每次上传允许的最大文件数。如果设置为0，则表示允许的文件数是无限制的。默认为0
+        maxFilesNum: 1,
+        uploadExtraData: function() {
+            return { fileType: "excel", fileName: "customerOrder.xlsx" };
+        }
+    }).on("fileuploaded", function(e, data) { // 文件上传成功的回调函数
+        if (data.response === null) {
+            swal("错误", "不支持该文件类型", "success");
+            return;
+        }
+
+        if (data.response.success === false) {
+            switch (data.response.code) {
+                case 9002: swal("错误", "参数错误", "error");     break;
+                case 9006: swal("错误", "文件创建错误", "error"); break;
+            }
+        } else {
+            noParameterPostRequest("/customer-order/importExcel", () => {
+                $('#excelModal').modal('hide');
+                swal("成功", "excel上传成功", "success");
+                init();
+            });
+        }
+    });
+
+</script>
+<script>
+    /** 页面逻辑 */
+    // 供应商新增下拉框改变(初始化原材料下拉框)
+    function codeSelectChange() {
+        setInputSuccess($codeSelect);
+        $materialSelect.prop("disabled", false);
+        $materialSelect.val(null).trigger("change");
+    }
+
+    // 材料新增下拉框改变
+    function materialSelectChange() {
+        if (1 === $materialSelect.select2('data').length) {
+            setInputSuccess($materialSelect);
+        } else {
+            setInputError($materialSelect);
+        }
+
+    }
+
+    // add订单号输入框改变
+    function addOrderNumberInputChange() {
+        let input_order_number = $("#input_order_number");
+        if (input_order_number.val() != null) {
+            setInputSuccess(input_order_number);
+        }else {
+            swal("操作提示", "订单号未输入", "info");
+        }
+    }
+
+    // add订单数量输入框改变
+    function addOrderAmountInputChange() {
+        let input_order_amount = $("#input_order_amount");
+        if (input_order_amount.val() <= 0) {
+            swal("操作提示", "订单数量需为正数", "info");
+            setInputError(input_order_amount);
+            return;
+        }
+        setInputSuccess(input_order_amount);
+    }
+</script>
+<script>
+    /** 功能 */
+    // 过滤
+    function filter() {
+        let data = { itemName: $("#txt_search_item_name").val(), orderNumber: $("#txt_search_order_number").val(), code: $("#txt_search_code").val(),
+            productNumber: $("#txt_search_product_number").val(), masterItemName: $("#txt_search_material_item_name").val(),
+            masterSpec: $("#txt_search_material_spec").val(), spec: $("#txt_search_spec").val() };
+
+        if ("" === data["orderNumber"] && "" === data["code"] && "" === data["productNumber"] && "" === data["spec"]
+            && "" === data["masterSpec"] && "" === data["masterItemName"] && "" === data["itemName"]) {
+            swal("操作提示", "请填写过滤参数", "info");
+            return;
+        }
+
+        getServerPaging($table, "/customer-order/getCustomerOrderByConditions", params => {
+            let result = { limit: params.limit, offset: params.offset, sort: "create_time", checkFlag:"未审核", order: "DESC", orderNumber: data["orderNumber"],
+                itemName: data["itemName"], code: data["code"], productNumber: data["productNumber"], masterItemName: data["masterItemName"], masterSpec: data["masterSpec"], spec: data["spec"]};
+
+            removeEmptyField(result);
+            return result;
+        });
+    }
+
+    // 导出excel
+    function exportExcel() {
+        let selections = $table.bootstrapTable('getSelections');
+        if (selections.length === 0) {
+            swal("操作提示", "请选择记录", "info");
+        } else {
+            parameterPostRequest("/customer-order/exportExcel", selections, () => loadFile("客户订单信息.xlsx"));
+        }
+    }
+
+    // 添加客户订单记录
+    function add() {
+        if (0 !== $codeSelect.select2('data').length && 0 !== $materialSelect.select2('data').length) {
+            let data = {
+                orderNumber: $("#input_order_number").val(),
+                customerId: $codeSelect.select2('data')[0].id,
+                originalProductId: $materialSelect.select2('data')[0].id,
+                orderAmount: $("#input_order_amount").val(),
+                orderDate: $("#input_order_date").val(),
+                deliveryDate: $("#input_delivery_date").val(),
+                planArrivalDate: $("#input_plan_arrival_date").val(),
+                actualArrivalDate: $("#input_actual_arrival_date").val(),
+                isArrival: $("#input_is_arrival").val(),
+                remark: $("#input_remark").val()
+            };
+            if (data.orderAmount <= 0 || "" === data.orderNumber || "" === data.code|| "" === data.orderAmount) {
+                swal("操作提示", "请输入必输入项", "info");
+            } else {
+                parameterPostRequest("/customer-order/insert", data, () => {
+                    $('#addModal').modal('hide');
+                    swal("正确", "添加成功", "success");
+                    init();
+                });
+            }
+        }
+    }
+
+    // 查看
+    function view(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#td_order_number").text(rows[index].orderNumber);
+        $("#td_code").text(rows[index].code);
+        $("#td_item_name").text(rows[index].itemName);
+        $("#td_order_amount").text(rows[index].orderAmount);
+        $("#td_product_amount").text(rows[index].productAmount);
+        $("#td_every_product_amount").text(rows[index].everyProductAmount);
+        $("#td_every_order_amount").text(rows[index].everyOrderAmount);
+        if (rows[index].orderDate != null) {
+            $("#td_order_date").text(formatDateTime(rows[index].orderDate));
+        } else {
+            $("#td_order_date").text("");
+        }
+        if (rows[index].deliveryDate != null) {
+            $("#td_delivery_date").text(formatDateTime(rows[index].deliveryDate));
+        } else {
+            $("#td_delivery_date").text("");
+        }
+        if (rows[index].planArrivalDate != null) {
+            $("#td_plan_arrival_date").text(formatDateTime(rows[index].planArrivalDate));
+        } else {
+            $("#td_plan_arrival_date").text("");
+        }
+        if (rows[index].actualArrivalDate != null) {
+            $("#td_actual_arrival_date").text(formatDateTime(rows[index].actualArrivalDate));
+        } else {
+            $("#td_actual_arrival_date").text("");
+        }
+        $("#td_is_arrival").text(rows[index].isArrival);
+        $("#td_remark").text(rows[index].remark);
+    }
+
+    // 编辑
+    // edit记录id
+    let editId;
+    function initEdit(index) {
+        let rows = $("#table").bootstrapTable('getData');
+        editId = rows[index].id;
+        $("#edit_order_number").val(rows[index].orderNumber);
+        $("#edit_order_amount").val(rows[index].orderAmount);
+        if (rows[index].orderDate != null){
+            $("#edit_order_date").val(dateInputFormat(rows[index].orderDate)).trigger("change");
+        }
+        if (rows[index].deliveryDate != null){
+            $("#edit_delivery_date").val(dateInputFormat(rows[index].deliveryDate)).trigger("change");
+        }
+        if (rows[index].planArrivalDate != null){
+            $("#edit_plan_arrival_date").val(dateInputFormat(rows[index].planArrivalDate)).trigger("change");
+        }
+        if (rows[index].actualArrivalDate != null) {
+            $("#edit_actual_arrival_date").val(dateInputFormat(rows[index].actualArrivalDate)).trigger("change");
+        }
+        $("#edit_is_arrival").val(rows[index].isArrival);
+        $("#edit_remark").val(rows[index].remark);
+    }
+    function edit() {
+        let data = {
+            id: editId,
+            orderAmount: $("#edit_order_amount").val(),
+            orderDate: $("#edit_order_date").val(),
+            deliveryDate: $("#edit_delivery_date").val(),
+            planArrivalDate: $("#edit_plan_arrival_date").val(),
+            actualArrivalDate: $("#edit_actual_arrival_date").val(),
+            isArrival: $("#edit_is_arrival").val(),
+            remark: $("#edit_remark").val()
+        };
+        parameterPostRequest("/customer-order/updateCustomerOrder", data, () => {
+            $('#editModal').modal('hide');
+            swal("正确", "编辑成功", "success");
+            init();
+        });
+    }
+
+    // 删除
+    function deleteOne(index) {
+        dialog("确定删除吗？", () => {
+            let data = { "id": $table.bootstrapTable('getData')[index].id };
+            parameterPostRequest("/customer-order/delete", data, () => {
+                swal("正确", "删除成功", "success");
+                init();
+            });
+        });
+    }
+
+    // 审核
+    // audit记录id
+    let auditId;
+    function initAudit(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#audit_check_flag").val(rows[index].checkFlag);
+        $("#audit_remark").val(rows[index].remark);
+        auditId = rows[index].id;
+    }
+    function audit() {
+        let data = { id: auditId, checkFlag: $("#audit_check_flag").val() };
+        parameterPostRequest("/customer-order/updateCheckerById", data, () => {
+            $('#auditModal').modal('hide');
+            swal("正确", "审核成功", "success");
+            init();
+        });
+    }
+</script>
+
+</body>
+
+</html>

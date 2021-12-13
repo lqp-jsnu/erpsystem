@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>成品盘点</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <!-- select2 CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/select2.min.css" th:href="@{/css/lib/select2.min.css}">
+    <link rel="stylesheet" href="../../static/css/lib/select2-bootstrap.min.css" th:href="@{/css/lib/select2-bootstrap.min.css}">
+    <link href="../../static/css/file.css" rel="stylesheet" th:href="@{/css/file.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+
+<body onload="init();">
+
+    <div class="panel-body" style="padding-bottom:0;">
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <div class="form-group" style="margin-top:15px">
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_product_number">客户料号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_product_number">
+                        </div>
+    
+                        <label class="control-label col-sm-2 label-font" for="txt_search_code">客户代号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_code">
+                        </div>
+                    </div>
+    
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_item_name">品名</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_item_name">
+                        </div>
+    
+                        <label class="control-label col-sm-2 label-font" for="txt_search_spec">规格</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_spec">
+                        </div>
+                    </div>
+    
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_start_time" >开始时间</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_start_time">
+                        </div>
+    
+                        <label class="control-label col-sm-2 label-font" for="txt_search_end_time">结束时间</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_end_time">
+                        </div>
+                    </div>
+    
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_house_name">存放仓库</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_search_house_name">
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="row row-gap">
+                        <div class="col-sm-offset-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_filter" class="btn btn-primary" onclick="filter();">过滤</button>
+                            <button type="button" style="margin-left:50px" id="btn_reset_filter" class="btn btn-primary" onclick="init();">重置过滤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div id="toolbar" class="btn-group">
+    
+            <button id="btn_export" type="button" class="btn btn-default" onclick="exportExcel();">
+                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>生成盘点表
+            </button>
+        </div>
+        <table id="table"></table>
+    </div>
+    
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="viewModalLabel">
+                        查看成品信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <caption>成品信息</caption>
+                        <tbody>
+                        <tr>
+                            <td>客户代号</td>
+                            <td id="view_code">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>规格</td>
+                            <td id="view_spec">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>库存数量</td>
+                            <td id="view_storageAmount">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>存放仓库</td>
+                            <td id="view_houseName">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>客户料号</td>
+                            <td id="view_productNumber">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>单位</td>
+                            <td id="view_unit">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>单价</td>
+                            <td id="view_unitPrice">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>入库时间</td>
+                            <td id="view_storageDate">xxx</td>
+                        </tr>
+    
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- select2.js -->
+<script src="../../static/js/lib/select2.min.js" th:src="@{/js/lib/select2.min.js}"></script>
+<script src="../../static/js/lib/Select2-zh-CN.js" th:src="@{/js/lib/Select2-zh-CN.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+
+    // 服务器分页获取数据
+    function getServerPaging(node, url, queryParams) {
+        initTable(node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+                checkbox: true
+            }, {
+                field: 'code',
+                title: '客户代码',
+                width: '90px',
+                formatter: stringFormatter
+            }, {
+                field: 'productNumber',
+                title: '客户料号',
+                width: '170px',
+                formatter: stringFormatter
+            }, {
+                field: 'itemName',
+                title: '品名',
+                width: '90px',
+                formatter: stringFormatter
+            }, {
+                field: 'spec',
+                title: '规格',
+                width: '250px',
+                formatter: stringFormatter
+            }, {
+                field: 'storageAmount',
+                title: '库存数量',
+                width: '120px',
+                formatter: stringFormatter
+            }, {
+                field: 'unit',
+                title: '单位',
+                width: '90px',
+                formatter: stringFormatter
+            }, {
+                field: 'unitPrice',
+                title: '单价',
+                width: '90px',
+                formatter: stringFormatter
+            }, {
+                field: 'money',
+                title: '金额',
+                width: '90px',
+                formatter: stringFormatter
+            }, {
+                field: 'houseName',
+                title: '存放仓库',
+                width: '120px',
+                formatter: stringFormatter
+            }, {
+                field: 'storageDate',
+                title: '入库日期',
+                width: '170px',
+                formatter: dateFormatter
+            }, {
+                field: 'operate',
+                title: '操作',
+                width: '82px',
+                formatter: operateFormatter // 自定义方法，添加操作按钮
+            }]);
+
+    }
+    function operateFormatter(value, row, index) {  // 赋予的参数
+        return '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>';
+    }
+
+    changeToolTip();
+
+    dragTheModalDialog();
+
+    // 增加下拉框初始化
+    let $searchWarehouseSelect = $("#txt_search_house_name");
+    function initWareHouseSelect() {
+        noParameterPostRequest("/warehouse-management/getWarehouse?limit=100&offset=0&sort=create_time&order=DESC&type=成品仓库&isZero=否", result => {
+            $searchWarehouseSelect.empty();
+            $searchWarehouseSelect.append("<option value='--请选择--'>--请选择--</option>");
+            result.module.rows.forEach(item => $searchWarehouseSelect.append("<option value="+ item.name +">" + item.name + "</option>"));
+        }, "GET");
+    }
+
+    // 初始化表格数据
+    function init() {
+        getServerPaging($table, "/finished-goods-inventory/getFinishedGoodsInventory", params => {
+            return { limit: params.limit, offset: params.offset, sort: "`t_product_storage`.`storage_date`", order: "DESC" };
+        });
+        initWareHouseSelect();
+    }
+</script>
+<script>
+    /** 功能 */
+    // 过滤
+    function filter(){
+        let time = [$("#txt_search_start_time"), $("#txt_search_end_time")];
+        if ("" !== time[0][0].validationMessage || "" !== time[1][0].validationMessage) {
+            swal("操作提示", "请填写完整的时间", "info");
+            return;
+        }
+
+        let data = {  code: $("#txt_search_code").val(), productNumber: $("#txt_search_product_number").val(), itemName: $("#txt_search_item_name").val(),
+            spec: $("#txt_search_spec").val(), houseName: $("#txt_search_house_name").val(), startTime: time[0].val(), endTime: time[1].val() };
+
+        if ("" === data["code"] && "" === data["jobTicketNumber"] && "" === data["itemName"] && "" === data["spec"] && "" === data["houseName"] && "" === data["startTime"] && "" === data["endTime"]) {
+            swal("操作提示", "请填写过滤参数", "info");
+            return;
+        }
+        getServerPaging($table, "/finished-goods-inventory/getFinishedGoodsInventoryByConditions", params => {
+            let result = { limit: params.limit, offset: params.offset, sort: "`t_product_storage`.`storage_date`", order: "DESC", code: data["code"], productNumber: data["productNumber"],
+                itemName: data["itemName"], spec: data["spec"], startTime: data["startTime"], endTime: data["endTime"], houseName: data["houseName"]};
+
+            removeEmptyField(result);
+            if ("--请选择--" === result["houseName"]) {
+                delete result["houseName"];
+            }
+
+            return result;
+        });
+    }
+
+    // 导出excel
+    function exportExcel() {
+        let selections = $table.bootstrapTable('getSelections');
+        if (selections.length === 0) {
+            swal("操作提示", "请选择记录", "info");
+        } else {
+            parameterPostRequest("/finished-goods-inventory/exportExcel", selections, () => loadFile("成品库存汇总单.xlsx"));
+        }
+    }
+
+    // 查看
+    function view(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#view_code").text(rows[index].code);
+        $("#view_spec").text(rows[index].spec);
+        $("#view_storageAmount").text(rows[index].storageAmount);
+        $("#view_houseName").text(rows[index].houseName);
+        $("#view_productNumber").text(rows[index].productNumber);
+        $("#view_unit").text(rows[index].unit);
+        $("#view_unitPrice").text(rows[index].unitPrice);
+        $("#view_storageDate").text(formatDateTime(rows[index].storageDate));
+    }
+</script>
+
+</body>
+
+</html>

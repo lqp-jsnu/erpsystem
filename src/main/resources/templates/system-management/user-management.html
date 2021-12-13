@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>用户管理</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <!-- fileinput CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/fileinput.min.css" th:href="@{/css/lib/fileinput.min.css}">
+    <link href="../../static/css/file.css" rel="stylesheet" th:href="@{/css/file.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+    <!-- Bootstrap-treeTable CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery.treegrid.min.css" th:href="@{/css/lib/jquery.treegrid.min.css}">
+</head>
+
+<body onload="init();">
+<div class="panel-body" style="padding-bottom:0;">
+    <div class="panel panel-default">
+        <div class="panel-heading">查询条件</div>
+        <div class="panel-body">
+            <div class="form-group" style="margin-top:15px">
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_login_name" title="登录名">登录名</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_login_name">
+                    </div>
+
+                    <label class="control-label col-sm-2 label-font" for="txt_search_name" title="姓名">姓名</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="txt_search_name">
+                    </div>
+                </div>
+
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_sex" title="审核状态">审核状态</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="txt_search_sex">
+                            <option value="请选择">请选择</option>
+                            <option value="1">男</option>
+                            <option value="0">女</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row row-gap">
+                    <label class="control-label col-sm-2 label-font" for="txt_search_start_time" title="开始时间">开始时间</label>
+                    <div class="col-sm-4">
+                        <input type="datetime-local" class="form-control" id="txt_search_start_time">
+                    </div>
+
+                    <label class="control-label col-sm-2 label-font" for="txt_search_end_time" title="结束时间">结束时间</label>
+                    <div class="col-sm-4">
+                        <input type="datetime-local" class="form-control" id="txt_search_end_time">
+                    </div>
+                </div>
+
+                <div class="row row-gap">
+                    <div class="col-sm-offset-4" style="text-align:left;">
+                        <button type="button" style="margin-left:50px" id="btn_filter" class="btn btn-primary" onclick="filter();">过滤</button>
+                        <button type="button" style="margin-left:50px" id="btn_reset_filter" class="btn btn-primary" onclick="init();">重置过滤</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toolbar" class="btn-group">
+        <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </button>
+    </div>
+    <table id="table"></table>
+
+    <!-- 模态框（Modal） 查看 -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="viewModalLabel">
+                        查看用户信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <caption>用户基本信息</caption>
+                        <tbody>
+                        <tr>
+                            <td>编号</td>
+                            <td id="view_id">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>登录名称</td>
+                            <td id="view_login_name">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>姓名</td>
+                            <td id="view_name">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>性别</td>
+                            <td id="view_sex">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>照片</td>
+                            <td>
+                                <img id="view_photo" alt="图片未加载" style="width: 48px; height: 48px; line-height: 48px;">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 编辑 -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="editModalLabel">
+                        编辑用户信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_id">编号</label>
+                            <div class="col-sm-10">
+                                <input disabled class="form-control" type="text" id="edit_id">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_login_name">登录名称</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" id="edit_login_name" onchange="checkInputChange('edit_login_name')">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_name">姓名</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" id="edit_name">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="edit_sex">性别</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="edit_sex">
+                                    <option value="1">男</option>
+                                    <option value="0">女</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#imgModal">图片上传</button>
+                    <button type="button" class="btn btn-success" onclick="edit();">修改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 新增 -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-center" id="addModalLabel">
+                        添加用户信息
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="login_name">登录名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="login_name" onchange="checkInputChange('login_name');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="name">姓名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="sex">性别</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="sex">
+                                    <option value="1">男</option>
+                                    <option value="0">女</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="add();">添加</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 图片上传 -->
+    <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="imgModalLabel">
+                        图片上传
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input id="upload" type="file" class="file" name="file">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 用户角色 -->
+    <div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="roleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="roleModalLabel">
+                        所属角色
+                    </h4>
+                </div>
+                <div class="modal-body"  style="height:500px; overflow:scroll;">
+                    <table id="treeview-role"></table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="authorizeRole();">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框（Modal） 用户部门 -->
+    <div class="modal fade" id="departmentModal" tabindex="-1" role="dialog" aria-labelledby="departmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="departmentModalLabel">
+                        所属部门
+                    </h4>
+                </div>
+                <div class="modal-body"  style="height:500px; overflow:scroll;">
+                    <table id="treeview-department"></table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="authorizeDepartment();">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- fileinput.js -->
+<script src="../../static/js/lib/fileinput.min.js" th:src="@{/js/lib/fileinput.min.js}"></script>
+<script src="../../static/js/lib/fileinput_locale_zh.js" th:src="@{/js/lib/fileinput_locale_zh.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+<!-- Bootstrap-treeTable js-->
+<script src="../../static/js/lib/bootstrap-table-treegrid.js" th:src="@{/js/lib/bootstrap-table-treegrid.js}"></script>
+<script src="../../static/js/lib/jquery.treegrid.min.js" th:src="@{/js/lib/jquery.treegrid.min.js}"></script>
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+    let $role = $('#treeview-role');
+    let $department = $('#treeview-department');
+    // 服务器分页获取数据
+    function getServerPaging(node, url, queryParams) {
+        initTable(node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'loginName',
+            title: '登录名称',
+            width: '150px',
+            formatter: stringFormatter
+        }, {
+            field: 'name',
+            title: '姓名',
+            width: '110px',
+            formatter: stringFormatter
+        }, {
+            field: 'createTime',
+            title: '创建日期',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'updateTime',
+            title: '录入时间',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'sex',
+            title: '性别',
+            width: '46px',
+            align: "center",
+            formatter: value => null === value ? "" : "1" === value ? '<span title="男" class="label label-success">男</span>' : '<span title="女" class="label label-danger">女</span>'
+        }, {
+            field: 'photo',
+            title: '照片',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'operation',
+            title: '操作',
+            width: '400px',
+            formatter: operateFormatter // 自定义方法，添加操作按钮
+        }]);
+    }
+
+    $role.bootstrapTable({
+        striped: true,
+        cache: true,
+        showColumns: true,
+        minimumCountColumns: 2,
+        clickToSelect: true,
+        searchOnEnterKey: true,
+        strictSearch: false,
+        idField: 'id',
+        columns: [{
+            field: 'check',
+            checkbox: true,
+        }, {
+            field: 'name',
+            title: '名称' ,
+            formatter:iconFormatter
+        }]
+    });
+
+    $department.bootstrapTable({
+        striped: true,
+        cache: true,
+        showColumns: true,
+        minimumCountColumns: 2,
+        clickToSelect: true,
+        searchOnEnterKey: true,
+        strictSearch: false,
+        idField: 'id',
+        columns: [{
+            field: 'check',
+            checkbox: true,
+        }, {
+            field: 'name',
+            title: '名称' ,
+            formatter:iconFormatter
+        }],
+        // bootstrap-table-treegrid.js 插件配置 -- start
+        treeShowField: 'name',
+        parentIdField: 'syOrganizationId',
+        onResetView: () => {
+            $department.treegrid({
+                initialState: 'expanded',
+                treeColumn: 1,
+                onChange: function() {
+                    $department.bootstrapTable('resetWidth');
+                }
+            });
+        }
+    });
+
+    function operateFormatter(value, row, index) {  // 赋予的参数
+        return [
+            '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>&nbsp;&nbsp;' +
+            '<button class="btn btn-primary view" data-toggle="modal" data-target="#editModal" onclick="initEdit('+ index +');">编辑</button>&nbsp;&nbsp;' +
+            '<button class="btn btn-danger view" onclick="deleteOne('+ index +');">删除</button>&nbsp;&nbsp;'+
+            '<button class="btn btn-info view" data-toggle="modal" data-target="#roleModal" onclick="initUserRole('+ index +');">用户角色</button>&nbsp;&nbsp;'+
+            '<button class="btn btn-warning view" data-toggle="modal" data-target="#departmentModal" onclick="initUserOrganization('+ index +');">用户部门</button>&nbsp;&nbsp;'
+        ].join('');
+
+    }
+
+    function iconFormatter(value, row) {
+        return [
+            '&nbsp;&nbsp;<i class="' + row.icons + '"></i>&nbsp;&nbsp;' + value
+        ].join('');
+    }
+
+    // 修改提示框样式
+    changeToolTip();
+
+    // 模态框初始化
+    dragTheModalDialog();
+
+    // 初始化表格数据
+    function init() {
+        getServerPaging($table, "/user/getUsers", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+        initRole();
+        initOrganization();
+    }
+
+    // 初始化表格信息
+    function initRole() {
+        noParameterPostRequest("/role-management/getAllRole", result => {
+            if (null != result.module) {
+                $role.bootstrapTable("load", result.module);
+            } else{
+                swal("提示", "系统无任何权限资源", "info");
+            }
+        });
+    }
+
+    // 初始化表格信息
+    function initOrganization() {
+        noParameterPostRequest("/department-of-management/getAllOrganization", result => {
+            if (null != result.module) {
+                $department.bootstrapTable("load", result.module);
+            } else {
+                swal("提示", "系统无任何部门", "info");
+            }
+        });
+    }
+
+    // 初始化选择
+    function initUserRole(index) {
+        let rows = $table.bootstrapTable('getData');
+        let data = { syUserId: rows[index].id };
+        authorizedId = rows[index].id;
+        parameterPostRequest("/user/getRoleIdByUserId", data, result => {
+            $role.bootstrapTable('uncheckAll');
+            $role.bootstrapTable('checkBy', {field:'id', values:result.module.map(item => item.syRoleId) });
+        });
+    }
+
+    // 初始化选择
+    function initUserOrganization(index) {
+        let rows = $table.bootstrapTable('getData');
+        let data = { syUserId: rows[index].id };
+        authorizedId = rows[index].id;
+        parameterPostRequest("/user/getOrganizationIdByUserId", data, result => {
+            $department.bootstrapTable('uncheckAll');
+            $department.bootstrapTable('checkBy', {field:'id', values:result.module.map(item => item.syOrganizationId) });
+        });
+    }
+
+    // 图片上传
+    $("#upload").fileinput({
+        language: 'zh',     // 设置语言
+        dropZoneTitle: '可以将图片拖放到这里...',
+        uploadUrl: '/file/upload',
+        allowedFileExtensions : ['jpg', 'png'],
+        overwriteInitial: false,
+        minImageWidth: 50,      // 图片的最小宽度
+        minImageHeight: 50,     // 图片的最小高度
+        maxImageWidth: 1000,    // 图片的最大宽度
+        maxImageHeight: 1000,   // 图片的最大高度
+        maxFileSize: 1024,      // 单位为kb，如果为0表示不限制文件大小
+        minFileCount: 1,        // 每次上传允许的最少文件数。如果设置为0，则表示文件数是可选的。默认为0
+        maxFileCount: 1,        // 每次上传允许的最大文件数。如果设置为0，则表示允许的文件数是无限制的。默认为0
+        maxFilesNum: 1,
+        uploadExtraData: function() {
+            return { fileType: "img", fileName: editId + ".jpg" };
+        }
+    }).on("fileuploaded", function(e, data) { // 文件上传成功的回调函数
+        if (data.response === null) {
+            swal("错误", "不支持该文件类型", "success");
+            return;
+        }
+
+        if (data.response.success === false) {
+            switch (data.response.code) {
+                case 9002: swal("错误", "参数错误", "error");     break;
+                case 9006: swal("错误", "文件创建错误", "error"); break;
+            }
+        } else {
+            let data = {
+                id: editId,
+                photo: editId + ".jpg"
+            };
+
+            parameterPostRequest("/user/updatePhotoById", data, () => {
+                $('#imgModal').modal('hide');
+                $('#editModal').modal('hide');
+                swal("成功", "图片上传成功", "success");
+                init();
+            });
+        }
+    });
+</script>
+<script>
+    /** 功能 */
+    // 过滤
+    function filter() {
+        let time = [$("#txt_search_start_time"), $("#txt_search_end_time")];
+
+        if ("" !== time[0][0].validationMessage || "" !== time[1][0].validationMessage) {
+            swal("操作提示", "请填写完整的时间", "info");
+            return;
+        }
+
+        let data = {
+            loginName: $("#txt_search_login_name").val(),
+            name: $("#txt_search_name").val(),
+            sex: $("#txt_search_sex").val(),
+            startTime: time[0].val(),
+            endTime: time[1].val()
+        };
+
+        // 检验用户是否输入过滤参数
+        if ("" === data["loginName"] && "" === data["name"] && "" === data["sex"] && "" === data["startTime"] && "" === data["endTime"]) {
+            swal("操作提示", "请填写过滤参数", "info");
+            return;
+        }
+
+        getServerPaging($table, "/user/getUsers", params => {
+            let result = { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC", loginName: data["loginName"],
+                name: data["name"], sex: data["sex"], startTime: data["startTime"], endTime: data["endTime"] };
+
+            removeEmptyField(result);
+            if ("请选择" === result["sex"]) {
+                delete result["sex"];
+            }
+
+            return result;
+        });
+    }
+
+    // 添加用户
+    function add() {
+        let data = {
+            loginName: $("#login_name").val(),
+            name: $("#name").val(),
+            sex: $("#sex").val()
+        };
+        if (null === data.name) {
+            swal("操作提示", "请输入必输入项", "info");
+        } else {
+            parameterPostRequest("/user/insert", data, () => {
+                $('#addModal').modal('hide');
+                swal("正确", "添加成功", "success");
+                init();
+            });
+        }
+    }
+
+    // 查看
+    function view(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#view_id").text(rows[index].id);
+        $("#view_login_name").text(rows[index].loginName);
+        $("#view_name").text(rows[index].name);
+        $("#view_sex").html(null === rows[index].sex ? "" : "1" === rows[index].sex ? '<span title="男" class="label label-success">男</span>' : '<span title="女" class="label label-danger">女</span>');
+        if (rows[index].photo !== null && rows[index].photo !== "") {
+            $("#view_photo").attr('src', "/file/img/" + rows[index].photo);
+        }
+    }
+
+    // 记录id
+    let authorizedId;
+    // 用户角色
+    function authorizeRole() {
+        let temp = { syUserId: authorizedId };
+        let rows = $role.bootstrapTable('getSelections');
+        if (rows.length === 0) {
+            swal("操作提示", "请选择权限", "info");
+        } else {
+            parameterPostRequest("/user/initUserRole", temp, () => {
+                let data = rows.map(item => {return {syRoleId: item.id, syUserId: authorizedId}});
+                parameterPostRequest("/user/insertUserRole", data, () => {});
+                $('#roleModal').modal('hide');
+                swal("正确", "授权成功", "success");
+            })
+        }
+    }
+
+    // 用户机构
+    function authorizeDepartment() {
+        let temp = { syUserId: authorizedId };
+        let rows = $department.bootstrapTable('getSelections');
+        if (rows.length === 0) {
+            swal("操作提示", "请选择权限", "info");
+        } else {
+            parameterPostRequest("/user/initUserOrganization", temp, () => {
+                let data = rows.map(item => {return {syOrganizationId: item.id, syUserId: authorizedId}});
+                parameterPostRequest("/user/insertUserOrganization", data, () => {});
+                $('#departmentModal').modal('hide');
+                swal("正确", "授权成功", "success");
+            })
+        }
+    }
+
+    // 编辑
+    // edit记录id
+    let editId;
+    function initEdit(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#edit_id").val(rows[index].id);
+        $("#edit_login_name").val(rows[index].loginName).trigger("change");
+        $("#edit_name").val(rows[index].name);
+        $("#edit_sex").val(rows[index].sex);
+        editId = rows[index].id;
+    }
+    function edit() {
+        let data = {
+            id: editId,
+            loginName: $("#edit_login_name").val(),
+            name: $("#edit_name").val(),
+            sex: $("#edit_sex").val()
+        };
+        if (null === data.id || null === data.loginName) {
+            swal("操作提示", "请输入必输入项", "info");
+        } else {
+            parameterPostRequest("/user/updateUserInfo", data, () => {
+                $('#editModal').modal('hide');
+                swal("正确", "编辑成功", "success");
+                init();
+            });
+        }
+    }
+
+    // 删除
+    function deleteOne(index) {
+        dialog("确定删除吗？", () => {
+            parameterPostRequest("/user/delete", { id: $table.bootstrapTable('getData')[index].id }, result => {
+                if (9004 === result.code) {
+                    swal("提示", "该用户在其他地方还有职务", "info");
+                } else {
+                    swal("正确", "删除成功", "success");
+                    init();
+                }
+            });
+        });
+    }
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.OriginalProductDAO">
+    <resultMap id="OriginalProductDO" type="edu.yctc.erpsystem.entity.OriginalProductDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="material_info_master_id" property="materialInfoMasterId"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="checker" property="checker"/>
+        <result column="item_name" property="itemName"/>
+        <result column="spec" property="spec"/>
+        <result column="unit" property="unit"/>
+        <result column="unit_price" property="unitPrice"/>
+        <result column="product_number" property="productNumber"/>
+        <result column="label" property="label"/>
+        <result column="color_code" property="colorCode"/>
+        <result column="drawing_url" property="drawingUrl"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_original_product`
+        <where>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+            <if test="spec != null"> AND `spec` LIKE CONCAT('%', #{spec ,jdbcType=VARCHAR}, '%') </if>
+            <if test="itemName != null"> AND `item_name` LIKE CONCAT('%', #{itemName ,jdbcType=VARCHAR}, '%') </if>
+            <if test="label != null"> AND `label` LIKE CONCAT('%', #{label ,jdbcType=VARCHAR}, '%') </if>
+            <if test="productNumber != null"> AND `product_number` LIKE CONCAT('%', #{productNumber ,jdbcType=VARCHAR}, '%') </if>
+            <if test="customerId != null"> AND `customer_id` LIKE CONCAT('%', #{customerId ,jdbcType=VARCHAR}, '%') </if>
+            AND `delete_flag` = 0
+        </where>
+    </select>
+
+    <select id="getOriginalProduct" resultMap="OriginalProductDO">
+        SELECT *
+        FROM `t_original_product`
+        <where>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+            <if test="spec != null"> AND `spec` LIKE CONCAT('%', #{spec ,jdbcType=VARCHAR}, '%') </if>
+            <if test="itemName != null"> AND `item_name` LIKE CONCAT('%', #{itemName ,jdbcType=VARCHAR}, '%') </if>
+            <if test="label != null"> AND `label` LIKE CONCAT('%', #{label ,jdbcType=VARCHAR}, '%') </if>
+            <if test="productNumber != null"> AND `product_number` LIKE CONCAT('%', #{productNumber ,jdbcType=VARCHAR}, '%') </if>
+            <if test="customerId != null"> AND `customer_id` LIKE CONCAT('%', #{customerId ,jdbcType=VARCHAR}, '%') </if>
+            AND `delete_flag` = 0
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.OriginalProductDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_original_product` (`id`, `customer_id`, `item_name`, `spec`, `unit`, `unit_price`, `product_number`, `label`,
+        `color_code`, `remark`, `drawing_url`, `delete_flag`, `create_time`, `check_flag`, `checker`, `material_info_master_id`)
+        VALUES (#{id}, #{customerId}, #{itemName}, #{spec}, #{unit}, #{unitPrice}, #{productNumber}, #{label},
+        #{colorCode}, #{remark}, #{drawingUrl}, "0", now(), "未审核", #{checker}, #{materialInfoMasterId})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `t_original_product`
+        WHERE `id` = #{id};
+    </delete>
+
+    <update id="updateOriginalProduct" parameterType="edu.yctc.erpsystem.entity.OriginalProductDO">
+        UPDATE `t_original_product`
+        SET `item_name` = #{itemName}, `spec` = #{spec}, `unit` = #{unit}, `unit_price` = #{unitPrice},
+            `product_number` = #{productNumber}, `label` = #{label}, `color_code` = #{colorCode}, `remark` = #{remark}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateDrawById" parameterType="edu.yctc.erpsystem.entity.OriginalProductDO">
+        UPDATE `t_original_product`
+        SET `drawing_url` = #{drawingUrl}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateCheckerById" parameterType="edu.yctc.erpsystem.entity.OriginalProductDO">
+        UPDATE `t_original_product`
+        SET `checker` = #{checker},
+            `check_flag` = #{checkFlag},
+            `remark` = #{remark}
+        WHERE `id` = #{id};
+    </update>
+
+    <select id="getOriginalProductById" resultMap="OriginalProductDO">
+        SELECT *
+        FROM `t_original_product`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getOriginalProductByIds" resultMap="OriginalProductDO">
+        SELECT *
+        FROM `t_original_product`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

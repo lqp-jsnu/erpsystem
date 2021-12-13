@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.ScheduleDAO">
+    <resultMap id="ScheduleDO" type="edu.yctc.erpsystem.entity.ScheduleDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="material_export_id" property="materialExportId"/>
+        <result column="is_finish" property="isFinish"/>
+        <result column="qie" property="qie"/>
+        <result column="han" property="han"/>
+        <result column="rao" property="rao"/>
+        <result column="tu" property="tu"/>
+        <result column="chai" property="chai"/>
+        <result column="delivery_date" property="deliveryDate"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_schedule`
+        <where>
+            <if test='isFinish != null'> AND `is_finish` = #{isFinish} </if>
+            <if test="qie != null"> AND `qie` LIKE CONCAT('%', #{qie, jdbcType=VARCHAR}, '%') </if>
+            <if test="han != null"> AND `han` LIKE CONCAT('%', #{han, jdbcType=VARCHAR}, '%') </if>
+            <if test="rao != null"> AND `rao` LIKE CONCAT('%', #{rao, jdbcType=VARCHAR}, '%') </if>
+            <if test="tu != null"> AND `tu` LIKE CONCAT('%', #{tu, jdbcType=VARCHAR}, '%') </if>
+            <if test="chai != null"> AND `chai` LIKE CONCAT('%', #{chai, jdbcType=VARCHAR}, '%') </if>
+            <if test="startTime != null"> AND `delivery_date` > #{startTime} </if>
+            <if test="endTime != null"> AND `delivery_date` &lt; #{endTime} </if>
+        </where>
+    </select>
+
+    <select id="getSchedule" resultMap="ScheduleDO">
+        SELECT *
+        FROM `t_schedule`
+        <where>
+            <if test='isFinish != null'> AND `is_finish` = #{isFinish} </if>
+            <if test="qie != null"> AND `qie` LIKE CONCAT('%', #{qie, jdbcType=VARCHAR}, '%') </if>
+            <if test="han != null"> AND `han` LIKE CONCAT('%', #{han, jdbcType=VARCHAR}, '%') </if>
+            <if test="rao != null"> AND `rao` LIKE CONCAT('%', #{rao, jdbcType=VARCHAR}, '%') </if>
+            <if test="tu != null"> AND `tu` LIKE CONCAT('%', #{tu, jdbcType=VARCHAR}, '%') </if>
+            <if test="chai != null"> AND `chai` LIKE CONCAT('%', #{chai, jdbcType=VARCHAR}, '%') </if>
+            <if test="startTime != null"> AND `delivery_date` > #{startTime} </if>
+            <if test="endTime != null"> AND `delivery_date` &lt; #{endTime} </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.ScheduleDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_schedule` (`id`, `material_export_id`, `is_finish`, `qie`, `han`, `rao`, `tu`, `chai`, `create_time`, `delivery_date`)
+        VALUES (#{id}, #{materialExportId}, "否", "否", "否", "否", "否", "否", now(), #{deliveryDate})
+    </insert>
+
+    <update id="updateSchedule" parameterType="edu.yctc.erpsystem.entity.ScheduleDO">
+        UPDATE `t_schedule`
+        SET `qie` = #{qie},
+            `han` = #{han},
+            `rao` = #{rao},
+            `tu` = #{tu},
+            `chai` = #{chai}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateIsFinish" parameterType="edu.yctc.erpsystem.entity.ScheduleDO">
+        UPDATE `t_schedule`
+        SET `is_finish` = '是'
+        WHERE `id` = #{id};
+    </update>
+
+    <select id="getScheduleById" resultMap="ScheduleDO">
+        SELECT *
+        FROM `t_schedule`
+        WHERE id = #{id}
+    </select>
+
+    <select id="getScheduleByIds" resultMap="ScheduleDO">
+        SELECT *
+        FROM `t_schedule`
+        WHERE id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

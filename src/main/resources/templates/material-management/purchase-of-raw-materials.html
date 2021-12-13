@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>原材料采购</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <!-- select2 CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/select2.min.css" th:href="@{/css/lib/select2.min.css}">
+    <link rel="stylesheet" href="../../static/css/lib/select2-bootstrap.min.css" th:href="@{/css/lib/select2-bootstrap.min.css}">
+    <!-- fileinput CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/fileinput.min.css" th:href="@{/css/lib/fileinput.min.css}">
+    <link href="../../static/css/file.css" rel="stylesheet" th:href="@{/css/file.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+
+<body onload="init();">
+    <div class="panel-body" style="padding-bottom:0;">
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <div class="form-group" style="margin-top:15px">
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_code" title="供应商代号">供应商代号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_code">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_spec" title="规格/初R值/电阻线(线径)">规格/初R值/电阻线(线径)</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_spec">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_check_flag" title="审核状态">审核状态</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_search_check_flag">
+                                <option value="--请选择--">--请选择--</option>
+                                <option value="未审核">未审核</option>
+                                <option value="未通过">未通过</option>
+                                <option value="已通过">已通过</option>
+                            </select>
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_item_name" title="品名／磁棒／尺寸(材质)">品名／磁棒／尺寸(材质)</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_item_name">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_start_time" title="开始时间">开始时间</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_start_time">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_end_time" title="结束时间">结束时间</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_end_time">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_start" title="希望交期开始">交期开始</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_start">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_end" title="希望交期结束">交期结束</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_end">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <div class="col-sm-offset-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_filter" class="btn btn-primary" onclick="filter();">过滤</button>
+                            <button type="button" style="margin-left:50px" id="btn_reset_filter" class="btn btn-primary" onclick="init();">重置过滤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="font-size: 18px; color: red;">先按照供应商代号进行查询，选择，然后导出。只能导出已经审核通过的采购单信息，并且导出后，只能在待入库窗口中查询到</h2>
+        <div id="toolbar" class="btn-group">
+            <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增采购单
+            </button>
+            <button id="btn_addM" type="button" class="btn btn-default" onclick="ModalMClick();">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>导出至待入库
+            </button>
+            <button id="btn_import" type="button" class="btn btn-default" data-toggle="modal" data-target="#excelModal">
+                <span class="glyphicon glyphicon-import" aria-hidden="true"></span>批量导入
+            </button>
+        </div>
+        <table id="table"></table>
+    </div>
+
+    <!-- 模态框（Modal） 查看-->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="viewModalLabel">
+                        查看原材料采购信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <caption>原材料待入库信息</caption>
+                        <tbody>
+                        <tr>
+                            <td>供应商编号</td>
+                            <td id="td_code">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>原材料</td>
+                            <td id="td_item_name">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>采购数量</td>
+                            <td id="td_amount">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>希望交期</td>
+                            <td id="td_hope_delivery_date">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>备注</td>
+                            <td id="td_remark">xxx</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 审核 -->
+    <div class="modal fade" id="auditModal" tabindex="-1" role="dialog" aria-labelledby="auditModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="auditModalLabel">
+                        审核原材料采购信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="audit_check_flag">审核</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" data-style="btn-success" id="audit_check_flag">
+                                    <option value="未审核">未审核</option>
+                                    <option value="未通过">未通过</option>
+                                    <option value="已通过">已通过</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="audit_remark">备注</label>
+                            <div class="col-sm-10">
+                                <textarea disabled class="form-control" rows="6" id="audit_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="audit();">审核</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 编辑 -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="editModalLabel">
+                        编辑原材料采购信息
+                    </h4>
+                    <h5 style="color: red">注意：修改采购信息，将不允许修改采购的原材料，如果要修改采购的原材料，您需要删除，重新进行新增</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group has-success">
+                            <label class="col-sm-4 control-label label-font" for="edit_code">供应商编号</label>
+                            <div class="col-sm-8">
+                                <input disabled class="form-control" type="text" id="edit_code">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-4 control-label label-font" for="edit_item_name">品名／磁棒／尺寸(材质)</label>
+                            <div class="col-sm-8">
+                                <input disabled class="form-control" type="text" id="edit_item_name">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-4 control-label label-font" for="edit_spec">规格/初R值/电阻线(线径)</label>
+                            <div class="col-sm-8">
+                                <input disabled class="form-control" type="text" id="edit_spec">
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-4 control-label label-font"  for="edit_amount">采购数量</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="number" id="edit_amount" title="采购数量需为正数" onchange="numberInputChange('edit_amount', '采购数量不能为负数');">
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-4 control-label label-font" for="edit_hope_delivery_date">希望交期</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="date" id="edit_hope_delivery_date" onchange="checkInputChange('edit_hope_delivery_date');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-4 control-label label-font" for="edit_remark">备注</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" rows="6" id="edit_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="edit();">修改</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 导出至原材料待入库页面 -->
+    <div class="modal fade" id="addModalM" tabindex="-1" role="dialog" aria-labelledby="addModalMLabel" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-center" id="addModalMLabel">
+                        原材料采购信息
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" onsubmit="return false;">
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="invoice_title_select">发票抬头</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control"  id="invoice_title_select" onchange="setInputSuccess($('#invoice_title_select'));">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="input_order_number">采购单号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="input_order_number" title="该项不能为空" onchange="checkInputChange('input_order_number');">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="addM();">添加</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 新增 -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-center" id="addModalLabel">
+                        原材料采购信息
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" onsubmit="return false;">
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="code_select">供应商</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control"  id="code_select" onchange="supCodeSelectChange();">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font">原材料</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control"  id="material_select" title="该输入项不能为空" onchange="materialSelectChange();">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="input_amount">采购数量</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="input_amount" title="采购数量需为正数" onchange="numberInputChange('input_amount', '采购数量不能为负数');">
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label label-font" for="input_hope_delivery_date">希望交期</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="input_hope_delivery_date" onchange="checkInputChange('input_hope_delivery_date');">
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="input_remark">备注</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" id="input_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="add();">添加</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 图片上传 -->
+    <div class="modal fade" id="excelModal" tabindex="-1" role="dialog" aria-labelledby="excelModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="excelModalLabel">
+                        excel上传
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input id="upload" type="file" class="file" name="file">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- select2.js -->
+<script src="../../static/js/lib/select2.min.js" th:src="@{/js/lib/select2.min.js}"></script>
+<script src="../../static/js/lib/Select2-zh-CN.js" th:src="@{/js/lib/Select2-zh-CN.js}"></script>
+<!-- fileinput.js -->
+<script src="../../static/js/lib/fileinput.min.js" th:src="@{/js/lib/fileinput.min.js}"></script>
+<script src="../../static/js/lib/fileinput_locale_zh.js" th:src="@{/js/lib/fileinput_locale_zh.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+    let $supCodeSelect = $("#code_select");
+    let $materialSelect = $("#material_select");
+    let $invoiceTitleSelect = $("#invoice_title_select");
+
+    // 服务器分页获取数据
+    function getServerPaging(node, url, queryParams) {
+        initTable(node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'code',
+            title: '供应商代号',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'itemName',
+            title: '品名／磁棒／尺寸(材质)',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'spec',
+            title: '规格/初R值/电阻线(线径)',
+            width: '170px',
+            formatter: stringFormatter
+        }, {
+            field: 'amount',
+            title: '采购数量',
+            width: '130px',
+            formatter: stringFormatter
+        },{
+            field: 'unit',
+            title: '单位',
+            width: '70px',
+            formatter: stringFormatter
+        }, {
+            field: 'unitPrice',
+            title: '单价',
+            width: '100px',
+            formatter: stringFormatter
+        }, {
+            field: 'totalMoney',
+            title: '金额',
+            width: '100px',
+            formatter: stringFormatter
+        },  {
+            field: 'hopeDeliveryDate',
+            title: '希望交期',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'enter',
+            title: '录入者',
+            width: '100px',
+            formatter: stringFormatter
+        }, {
+            field: 'checker',
+            title: '审核者',
+            width: '100px',
+            formatter: stringFormatter
+        }, {
+            field: 'checkFlag',
+            title: '状态',
+            width: '70px',
+            formatter: stringFormatter
+        }, {
+            field: 'createTime',
+            title: '录入时间',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'operation',
+            title: '操作',
+            width: '274px',
+            formatter: operateFormatter // 自定义方法，添加操作按钮
+        }]);
+    }
+
+    function operateFormatter(value, row, index) {  // 赋予的参数
+        if ("已通过" === row.checkFlag) {
+            return [ '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>' ].join('');
+        } else {
+            return [
+                '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-primary view" data-toggle="modal" data-target="#editModal" onclick="initEdit('+ index +');">编辑</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-danger view" onclick="deleteOne('+ index +');">删除</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-warning view" data-toggle="modal" data-target="#auditModal" onclick="initAudit('+ index +');">审核</button>'
+            ].join('');
+        }
+    }
+
+    // 修改提示框样式
+    changeToolTip();
+
+    // 模态框初始化
+    dragTheModalDialog();
+
+    // 初始化下拉框
+    initSelect($supCodeSelect, "请输入供应商代号", supCodeFormatter, "/supplier-management/getSuppliers", 1000, params => {
+        return { offset: params.page ? 10 * (params.page - 1) : 0, limit: 10, code: params.term };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.code, name: item.name};
+    }), 10);
+    function supCodeFormatter(result) {
+        return '<span title="'+ result.name +'">' + result.text +'</span>';
+    }
+
+    initSelect($materialSelect, "请输入规格/初R值/电阻线(线径)", materialFormatter, "/raw-material-information/getMaterialInfoBySearchSuppId", 1000, params => {
+        return { supplierId: $supCodeSelect.select2('data')[0].id, spec: params.term, offset: params.page ? 10 * (params.page - 1) : 0, limit: 10 };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.spec, itemName: item.itemName, unit: item.unit,
+            unitPrice: item.unitPrice };
+    }), 10);
+    function materialFormatter(result) {
+        return '<span title="' + "单价：" + result.unitPrice + " | " + "单位：" + result.unit + '">' +  '<strong>' + result.text + '</strong>' + " | " + "品名／磁棒／尺寸(材质)：" + result.itemName + '</span>';
+    }
+    $materialSelect.prop("disabled", true);
+
+    // 初始化下拉框
+    initSelect($invoiceTitleSelect, "请输入发票抬头", $invoiceTitleFormatter, "/the-invoice-looked-up/getInvoiceTitle", 1000, params => {
+        return { name: params.term, offset: params.page ? 10 * (params.page - 1) : 0, limit: 10 };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.name};
+    }), 10);
+    function $invoiceTitleFormatter(result) {
+        return '<span title="'+ result.text +'">' + result.text +'</span>';
+    }
+
+    // 初始化数据信息
+    function init() {
+        getServerPaging($table, "/purchase-of-raw-materials/getMaterialPurchase", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+    }
+
+    // excel上传
+    $("#upload").fileinput({
+        language: 'zh',     // 设置语言
+        dropZoneTitle: '可以将excel拖放到这里...',
+        uploadUrl: '/file/upload',
+        allowedFileExtensions : ['xlsx'],
+        overwriteInitial: false,
+        maxFileSize: 1024,      // 单位为kb，如果为0表示不限制文件大小
+        minFileCount: 1,        // 每次上传允许的最少文件数。如果设置为0，则表示文件数是可选的。默认为0
+        maxFileCount: 1,        // 每次上传允许的最大文件数。如果设置为0，则表示允许的文件数是无限制的。默认为0
+        maxFilesNum: 1,
+        uploadExtraData: function() {
+            return { fileType: "excel", fileName: "purchase.xlsx" };
+        }
+    }).on("fileuploaded", function(e, data) { // 文件上传成功的回调函数
+        if (data.response === null) {
+            swal("错误", "不支持该文件类型", "success");
+            return;
+        }
+
+        if (data.response.success === false) {
+            switch (data.response.code) {
+                case 9002: swal("错误", "参数错误", "error");     break;
+                case 9006: swal("错误", "文件创建错误", "error"); break;
+            }
+        } else {
+            noParameterPostRequest("/purchase-of-raw-materials/importExcel", () => {
+                $('#excelModal').modal('hide');
+                swal("成功", "excel上传成功", "success");
+                init();
+            });
+        }
+    });
+</script>
+<script>
+    /** 页面逻辑 */
+    // 供应商下拉框改变(初始化原材料下拉框)
+    function supCodeSelectChange() {
+        setInputSuccess($supCodeSelect);
+        // 材料下拉框置空
+        $materialSelect.prop("disabled", false);
+        $materialSelect.val(null).trigger("change");
+    }
+    // 材料下拉框改变
+    function materialSelectChange() {
+        1 === $materialSelect.select2('data').length ? setInputSuccess($materialSelect) : setInputError($materialSelect);
+    }
+</script>
+<script>
+    /** 功能 */
+    // 查看
+    function view(index) {
+        let rows = $('#table').bootstrapTable('getData');
+        $("#td_code").text(rows[index].code);
+        $("#td_item_name").text(rows[index].itemName);
+        $("#td_amount").text(rows[index].amount);
+        $("#td_hope_delivery_date").text(formatDateTime(rows[index].hopeDeliveryDate));
+        $("#td_remark").text(rows[index].remark);
+    }
+
+    // 编辑
+    // edit记录id
+    let editId;
+    // edit库存数量
+    let editAmount;
+    function initEdit(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#edit_code").val(rows[index].code);
+        $("#edit_item_name").val(rows[index].itemName);
+        $("#edit_spec").val(rows[index].spec);
+        $("#edit_hope_delivery_date").val(dateInputFormat(rows[index].hopeDeliveryDate)).trigger("change");
+        $("#edit_amount").val(rows[index].amount).trigger("change");
+        $("#edit_remark").val(rows[index].remark);
+        editId = rows[index].id;
+        editAmount = rows[index].amount;
+    }
+    function edit() {
+        let data = {
+            id: editId,
+            hopeDeliveryDate: $("#edit_hope_delivery_date").val(),
+            amount: parseFloat($("#edit_amount").val()).toFixed(2),
+            remark: $("#edit_remark").val()
+        };
+        if (null === data.id || "" === data.hopeDeliveryDate || data.amount <= 0) {
+            swal("操作提示", "请输入必输入项", "info");
+        } else {
+            parameterPostRequest("/purchase-of-raw-materials/updateMaterialPurchase", data, () => {
+                $('#editModal').modal('hide');
+                swal("正确", "编辑成功", "success");
+                init();
+            });
+        }
+    }
+
+    // 过滤
+    function filter() {
+        let time = [$("#txt_search_start_time"), $("#txt_search_end_time"), $("#txt_search_start"), $("#txt_search_end")];
+        if ("" !== time[0][0].validationMessage || "" !== time[1][0].validationMessage || "" !== time[2][0].validationMessage || "" !== time[3][0].validationMessage) {
+            swal("操作提示", "请填写完整的时间", "info");
+            return;
+        }
+
+        let data = { code: $("#txt_search_code").val(), itemName: $("#txt_search_item_name").val(), checkFlag: $("#txt_search_check_flag").val(),
+            spec: $("#txt_search_spec").val(), startTime: time[0].val(), endTime: time[1].val(), start: time[2].val(), end: time[3].val() };
+
+        if ("" === data["code"] && "" === data["itemName"] && "--请选择--" === data["checkFlag"] && "" === data["spec"] &&
+            "" === data["startTime"] && "" === data["endTime"] && "" === data["start"] && "" === data["end"]) {
+            swal("操作提示", "请填写过滤参数", "info");
+            return;
+        }
+
+        getServerPaging($table, "/purchase-of-raw-materials/getMaterialPurchaseByConditions", params => {
+            let result = { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC", code: data["code"],
+                itemName: data["itemName"], checkFlag: data["checkFlag"], spec: data["spec"], startTime: data["startTime"], endTime: data["endTime"], start: data["start"], end: data["end"] };
+
+            removeEmptyField(result);
+            if ("--请选择--" === result["checkFlag"]) {
+                delete result["checkFlag"];
+            }
+
+            return result;
+        });
+    }
+
+    // 添加原材料采购记录
+    function add() {
+        if (0 !== $supCodeSelect.select2('data').length && 0 !== $materialSelect.select2('data').length) {
+            let data = {
+                supplierId: $supCodeSelect.select2('data')[0].id,
+                materialInfoId: $materialSelect.select2('data')[0].id,
+                hopeDeliveryDate: $("#input_hope_delivery_date").val(),
+                amount: parseFloat($("#input_amount").val()).toFixed(2),
+                remark: $("#input_remark").val()
+            };
+            if (data.amount <= 0 || "" === data.hopeDeliveryDate) {
+                swal("操作提示", "请输入必输入项", "info");
+            } else {
+                parameterPostRequest("/purchase-of-raw-materials/insert", data, () => {
+                    $('#addModal').modal('hide');
+                    swal("正确", "添加成功", "success");
+                    init();
+                });
+            }
+        } else {
+            swal("操作提示", "请输入必输入项", "info");
+        }
+    }
+
+    // 添加原材料至原材料待入库记录
+    function ModalMClick() {
+        let selections = $table.bootstrapTable('getSelections');
+        if (selections.length === 0) {
+            swal("操作提示", "请选择记录", "info");
+        } else {
+            let supCodeArray = selections.map(item => item.code).sort();
+            for (let i = 0; i < supCodeArray.length - 1; ++i) {
+                if(supCodeArray[i] !== supCodeArray[i + 1]) {
+                    swal("操作提示", "存在多个供应商数据", "info");
+                    return;
+                }
+            }
+
+            let checkFlagArray = selections.map(item => item.checkFlag);
+            for (let i = 0; i < checkFlagArray.length; ++i) {
+                if ("已通过" !== checkFlagArray[i]) {
+                    swal("操作提示", "存在未审核通过的数据", "info");
+                    return;
+                }
+            }
+
+            $('#addModalM').modal('show');
+        }
+    }
+    function addM() {
+        if (0 !== $invoiceTitleSelect.select2('data').length) {
+            let input = {
+                invoiceTitleId: $invoiceTitleSelect.select2('data')[0].id,
+                orderNumber: $("#input_order_number").val()
+            };
+            if ("" === input.invoiceTitleId || "" === input.orderNumber) {
+                swal("操作提示", "请输入必输入项，并检查是否审核通过", "info");
+            } else {
+                let data = $table.bootstrapTable('getSelections').map(item => {
+                    return { materialPurchaseId:item.id, checkFlag:item.checkFlag, invoiceTitleId: input["invoiceTitleId"], orderNumber: input["orderNumber"]};
+                });
+
+                parameterPostRequest("/purchase-of-raw-materials/insertToStored", data, () => {
+                    $('#addModalM').modal('hide');
+                    swal("正确", "添加成功", "success");
+                    init();
+                    loadFile("原材料订购单（发，亿，永）.xlsx");
+                });
+            }
+        } else {
+            swal("操作提示", "请输入必输入项", "info");
+        }
+    }
+
+    // 删除
+    function deleteOne(index) {
+        dialog("确定删除吗？", () => {
+            let data = { "id": $table.bootstrapTable('getData')[index].id };
+            parameterPostRequest("/purchase-of-raw-materials/delete", data, () => {
+                swal("正确", "删除成功", "success");
+                init();
+            });
+        });
+    }
+
+    // 审核
+    // audit记录id
+    let auditId;
+    function initAudit(index) {
+        let rows = $table.bootstrapTable('getData');
+        let auditCheckFlag = $("#audit_check_flag");
+        auditCheckFlag.val(rows[index].checkFlag);
+        auditId = rows[index].id;
+        $("#audit_remark").val(rows[index].remark);
+    }
+    function audit() {
+        let data = { id: auditId, checkFlag: $("#audit_check_flag").val() };
+        parameterPostRequest("/purchase-of-raw-materials/updateCheckerById", data, () => {
+            $('#auditModal').modal('hide');
+            swal("正确", "审核成功", "success");
+            init();
+        });
+    }
+
+</script>
+
+</body>
+
+</html>

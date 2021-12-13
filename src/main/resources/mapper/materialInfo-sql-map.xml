@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.MaterialInfoDAO">
+    <resultMap id="MaterialInfoDO" type="edu.yctc.erpsystem.entity.MaterialInfoDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="material_info_master_id" property="materialInfoMasterId"/>
+        <result column="supplier_id" property="supplierId"/>
+        <result column="checker" property="checker"/>
+        <result column="unit_price" property="unitPrice"/>
+        <result column="special_require" property="specialRequire"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_material_info`
+        <where>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+            <if test="supplierId != null"> AND `supplier_id` = #{supplierId} </if>
+            AND `delete_flag` = '0'
+        </where>
+    </select>
+
+    <select id="getMaterialInfo" resultMap="MaterialInfoDO">
+        SELECT *
+        FROM `t_material_info`
+        <where>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+            <if test="supplierId != null"> AND `supplier_id` = #{supplierId} </if>
+            AND `delete_flag` = '0'
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.MaterialInfoDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_material_info` (`id`, `supplier_id`,`unit_price`,`special_require`,`create_time`, `remark`, `material_info_master_id`, `delete_flag`, `check_flag`)
+        VALUES (#{id}, #{supplierId}, #{unitPrice}, #{specialRequire}, now(), #{remark}, #{materialInfoMasterId}, "0", "未审核");
+    </insert>
+
+    <update id="delete" parameterType="edu.yctc.erpsystem.entity.MaterialInfoDO">
+        UPDATE `t_material_info`
+        SET `delete_flag` = "1"
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateMaterialInfo" parameterType="edu.yctc.erpsystem.entity.MaterialInfoDO">
+        UPDATE `t_material_info`
+        SET `supplier_id` = #{supplierId}, `unit_price` = #{unitPrice}, `special_require` = #{specialRequire}, `remark` = #{remark}, `material_info_master_id` = #{materialInfoMasterId}
+        where `id` = #{id};
+    </update>
+
+    <update id="updateCheckerById" parameterType="edu.yctc.erpsystem.entity.MaterialInfoDO">
+        UPDATE `t_material_info`
+        SET `checker` = #{checker}, `check_flag` = #{checkFlag}, `remark` = #{remark}
+        WHERE `id` = #{id};
+    </update>
+
+    <select id="getMaterialInfoById" resultMap="MaterialInfoDO">
+        SELECT *
+        FROM `t_material_info`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getMaterialInfoByIds" resultMap="MaterialInfoDO">
+        SELECT *
+        FROM `t_material_info`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getMaterialInfoBySome" resultType="edu.yctc.erpsystem.vo.MaterialInfoVO">
+        SELECT `t_material_info`.`id`, `t_material_info`.`unit_price` `unitPrice`, `t_material_info`.`supplier_id` `supplierId`, `t_material_info_master`.`spec` `spec`, `t_material_info_master`.`item_name` `itemName`
+        FROM `t_material_info`, `t_material_info_master`
+        WHERE `t_material_info`.`material_info_master_id` = `t_material_info_master`.`id`
+              AND `t_material_info`.`unit_price` IN
+              <foreach collection="unitPrice" item="item" open="(" separator="," close=")">
+                  #{item}
+              </foreach>
+              AND `t_material_info`.`supplier_id` IN
+              <foreach collection="supplierId" item="item" open="(" separator="," close=")">
+                  #{item}
+              </foreach>
+              AND `t_material_info_master`.`spec` IN
+              <foreach collection="spec" item="item" open="(" separator="," close=")">
+                  #{item}
+              </foreach>
+              AND `t_material_info_master`.`item_name` IN
+              <foreach collection="itemName" item="item" open="(" separator="," close=")">
+                  #{item}
+              </foreach>
+    </select>
+
+</mapper>

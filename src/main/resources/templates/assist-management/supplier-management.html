@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>供应商管理</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <link href="../../static/css/file.css" rel="stylesheet" th:href="@{/css/file.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+
+<body onload="init();">
+    <div class="panel-body" style="padding-bottom:0;">
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <div class="form-group" style="margin-top:15px">
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_code">供应商代号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_code">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_name">供应商名称</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_name">
+                        </div>
+                    </div>
+                    <div class="row row-gap">
+                        <div class="col-sm-offset-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_filter" class="btn btn-primary" onclick="filter();">过滤</button>
+                            <button type="button" style="margin-left:50px" id="btn_reset_filter" class="btn btn-primary" onclick="init();">重置过滤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toolbar" class="btn-group">
+            <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增供应商
+            </button>
+            <button id="btn_export" type="button" class="btn btn-default" onclick="exportExcel();">
+                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>批量导出
+            </button>
+        </div>
+        <table id="table"></table>
+    </div>
+
+    <!-- 查看模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        查看供应商信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <caption>供应商信息</caption>
+                        <tbody>
+                        <tr>
+                            <td>供应商代号</td>
+                            <td id="td_code">xxx</td>
+                            <td>联系人</td>
+                            <td id="td_contact">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>供应商名称</td>
+                            <td id="td_name">xxx</td>
+                            <td>供应产品类别</td>
+                            <td id="td_product_category">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>移动电话</td>
+                            <td id="td_mobile_telephone">xxx</td>
+                            <td>固定电话</td>
+                            <td id="td_fixed_telephone">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>传真</td>
+                            <td id="td_fax">xxx</td>
+                            <td>邮件地址</td>
+                            <td id="td_email">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>结款方式</td>
+                            <td id="td_payment">xxx</td>
+                            <td>材料交期</td>
+                            <td id="td_delivery_time">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>联系地址</td>
+                            <td id="td_address" colspan="3" style="text-align: center">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>备注</td>
+                            <td id="td_remark" colspan="3" style="text-align: center">xxx</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 新增 -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="min-width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-center" id="addModalLabel">
+                        新增供应商信息
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="has-error">
+                                <label class="col-sm-2 control-label label-font" for="txt_code">供应商代号</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txt_code" title="必填选项" onchange="checkInputChange('txt_code');">
+                                </div>
+                            </div>
+                            <div class="has-success">
+                                <label class="col-sm-2 control-label label-font" for="txt_contact">联系人</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txt_contact">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="has-error">
+                                <label class="col-sm-2 control-label label-font" for="txt_name">供应商名称</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txt_name" title="必填选项"  onchange="checkInputChange('txt_name');">
+                                </div>
+                            </div>
+
+                            <div class="has-success">
+                                <label class="col-sm-2 control-label label-font" for="txt_product_category">供应产品类别</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="txt_product_category" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="txt_mobile_telephone">移动电话</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="txt_mobile_telephone">
+                            </div>
+                            <label class="col-sm-2 control-label label-font" for="txt_fixed_telephone">固定电话</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="txt_fixed_telephone">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="txt_fax">传真</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="txt_fax">
+                            </div>
+                            <label class="col-sm-2 control-label label-font" for="txt_email">邮件地址</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="txt_email">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="txt_payment">结款方式</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="txt_payment">
+                            </div>
+                            <label class="col-sm-2 control-label label-font" for="txt_delivery_time">材料交期</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="txt_delivery_time">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="txt_address">联系地址</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="txt_address">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="txt_remark">备注</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="4" id="txt_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="addMsg();">添加</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!--编辑模态框（Modal）-->
+    <div class="modal fade" id="alterModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-center" id="alterModalLabel">
+                        编辑供应商信息
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <div class="has-error">
+                                <label class="col-sm-2 control-label label-font" for="alter_code">供应商代号</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="alter_code" title="必填选项" onchange="checkInputChange('alter_code');">
+                                </div>
+                            </div>
+                            <div class="has-success">
+                                <label class="col-sm-2 control-label label-font" for="alter_contact">联系人</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="alter_contact">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="has-error">
+                                <label class="col-sm-2 control-label label-font" for="alter_name">供应商名称</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="alter_name" title="必填选项"  onchange="checkInputChange('alter_name');">
+                                </div>
+                            </div>
+                            <div class="has-success">
+                                <label class="col-sm-2 control-label label-font" for="alter_product_category">供应产品类别</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="alter_product_category" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="alter_mobile_telephone">移动电话</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="alter_mobile_telephone">
+                            </div>
+                            <label class="col-sm-2 control-label label-font" for="alter_fixed_telephone">固定电话</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="alter_fixed_telephone">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="alter_fax">传真</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="alter_fax">
+                            </div>
+                            <label class="col-sm-2 control-label label-font" for="alter_email">邮件地址</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="alter_email">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="alter_payment">结款方式</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="alter_payment">
+                            </div>
+                            <label class="col-sm-2 control-label label-font" for="alter_delivery_time">材料交期</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="alter_delivery_time">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="alter_address">联系地址</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="alter_address">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label label-font" for="alter_remark">备注</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="4" id="alter_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="alter()">编辑
+                    </button>
+                </div>
+            </div> <!--/.modal-content -->
+        </div><!--/.modal-->
+    </div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+    // 服务器分页获取数据
+    function getServerPaging(node, url, queryParams) {
+        initTable(node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'code',
+            title: '供应商代号',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'name',
+            title: '供应商名称',
+            width: '250px',
+            formatter: stringFormatter
+        }, {
+            field: 'productCategory',
+            title: '供应产品类别',
+            width: '100px',
+            formatter: stringFormatter
+        }, {
+            field: 'contact',
+            title: '联系人',
+            formatter: stringFormatter
+        }, {
+            field: 'mobileTelephone',
+            title: '联系电话',
+            width: '130px',
+            formatter: stringFormatter
+        }, {
+            field: 'fixedTelephone',
+            title: '固定电话',
+            width: '130px',
+            formatter: stringFormatter
+        }, {
+            field: 'fax',
+            title: '传真',
+            width: '130px',
+            formatter: stringFormatter
+        }, {
+            field: 'email',
+            title: '邮件地址',
+            width: '250px',
+            formatter: stringFormatter
+        }, {
+            field: 'address',
+            title: '联系地址',
+            width: '270px',
+            formatter: stringFormatter
+        }, {
+            field: 'payment',
+            title: '结款方式',
+            width: '130px',
+            formatter: stringFormatter
+        }, {
+            field: 'deliveryTime',
+            title: '材料交期',
+            width: '80px',
+            formatter: stringFormatter
+        }, {
+            field: 'createTime',
+            title: '创建日期',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'remark',
+            title: '备注',
+            width: '80px',
+            formatter: stringFormatter
+        }, {
+            field: 'operation',
+            title: '操作',
+            width: '257px',
+            formatter: operateFormatter // 自定义方法，添加操作按钮
+        }]);
+    }
+
+    function operateFormatter(value, row, index) {  // 赋予的参数
+        return [
+            '<button class="btn btn-success view" data-toggle="modal" data-target="#myModal" onclick="view('+ index +');">查看</button>&nbsp;&nbsp;'+
+            '<button class="btn btn-primary view" data-toggle="modal" data-target="#alterModal" onclick="initAlter('+ index +');">编辑</button>&nbsp;&nbsp;'+
+            '<button class="btn btn-danger view"  onclick="deleteAll('+ index +');">删除</button>'
+        ].join('');
+    }
+
+    dragTheModalDialog();
+
+    changeToolTip();
+
+    // 初始化数据信息
+    function init() {
+        getServerPaging($table, "/supplier-management/getSuppliers", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+    }
+</script>
+
+<script>
+    /** 功能 */
+    // 过滤
+    function filter() {
+        let data = {
+            code: $("#txt_search_code").val(),
+            name: $("#txt_search_name").val()
+        };
+
+        if ("" === data["code"] && "" === data["name"]) {
+            swal("操作提示", "请填写过滤参数", "info");
+            return;
+        }
+        getServerPaging($table, "/supplier-management/getSuppliers", params => {
+            let result = {
+                limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC",
+                code: data["code"], name: data["name"]
+            };
+            removeEmptyField(result);
+            return result;
+        });
+    }
+
+    // 查看
+    function view(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#td_code").text(rows[index].code);
+        $("#td_contact").text(rows[index].contact);
+        $("#td_mobile_telephone").text(rows[index].mobileTelephone);
+        $("#td_product_category").text(rows[index].productCategory);
+        $("#td_fixed_telephone").text(rows[index].fixedTelephone);
+        $("#td_fax").text(rows[index].fax);
+        $("#td_email").text(rows[index].email);
+        $("#td_payment").text(rows[index].payment);
+        $("#td_delivery_time").text(rows[index].deliveryTime);
+        $("#td_address").text(rows[index].address);
+        $("#td_remark").text(rows[index].remark);
+        $("#td_name").text(rows[index].name);
+    }
+
+    // 导出excel
+    function exportExcel() {
+        let $selections = $table.bootstrapTable('getSelections');
+        if ($selections.length === 0) {
+            swal("操作提示", "请选择记录", "info");
+        } else {
+            parameterPostRequest("/supplier-management/exportExcel", $selections, () => loadFile("供应商信息.xlsx"));
+        }
+    }
+
+    // 添加信息
+    function addMsg() {
+        let temp = {
+            code: $("#txt_code").val(),
+            contact: $("#txt_contact").val(),
+            name: $("#txt_name").val(),
+            productCategory: $("#txt_product_category").val(),
+            mobileTelephone: $("#txt_mobile_telephone").val(),
+            fixedTelephone: $("#txt_fixed_telephone").val(),
+            fax: $("#txt_fax").val(),
+            email: $("#txt_email").val(),
+            payment: $("#txt_payment").val(),
+            deliveryTime: $("#txt_delivery_time").val(),
+            address: $("#txt_address").val(),
+            remark: $("#txt_remark").val()
+        };
+        if ("" === temp.code || "" === temp.name) {
+            swal("操作提示", "请输入必输入项", "info");
+        } else {
+            parameterPostRequest("/supplier-management/insert", temp, result => {
+                if (result.code === 9009) {
+                    swal("提示", "客户代号重复", "info");
+                } else {
+                    $('#addModal').modal('hide');
+                    swal("正确", "添加成功", "success");
+                    init();
+                }
+            });
+        }
+    }
+
+    // 编辑信息
+    // alter记录id
+    let alterId;
+    function initAlter(index) {
+        let rows = $table.bootstrapTable('getData');
+        $("#alter_code").val(rows[index].code).trigger("change");
+        $("#alter_contact").val(rows[index].contact);
+        $("#alter_name").val(rows[index].name).trigger("change");
+        $("#alter_product_category").val(rows[index].productCategory);
+        $("#alter_mobile_telephone").val(rows[index].mobileTelephone);
+        $("#alter_fixed_telephone").val(rows[index].fixedTelephone);
+        $("#alter_fax").val(rows[index].fax);
+        $("#alter_email").val(rows[index].email);
+        $("#alter_payment").val(rows[index].payment);
+        $("#alter_delivery_time").val(rows[index].deliveryTime);
+        $("#alter_address").val(rows[index].address);
+        $("#alter_remark").val(rows[index].remark);
+        alterId = rows[index].id;
+    }
+    function alter() {
+        let supplierDO = {
+            id: alterId,
+            code: $("#alter_code").val(),
+            contact: $("#alter_contact").val(),
+            name: $("#alter_name").val(),
+            productCategory: $("#alter_product_category").val(),
+            mobileTelephone: $("#alter_mobile_telephone").val(),
+            fixedTelephone: $("#alter_fixed_telephone").val(),
+            fax: $("#alter_fax").val(),
+            email: $("#alter_email").val(),
+            payment: $("#alter_payment").val(),
+            deliveryTime: $("#alter_delivery_time").val(),
+            address: $("#alter_address").val(),
+            remark: $("#alter_remark").val()
+        };
+        if ("" === supplierDO.code || "" === supplierDO.name) {
+            swal("操作提示", "请输入必输入项", "info");
+        } else {
+            parameterPostRequest("/supplier-management/updateSupplier", supplierDO, result => {
+                if (result.code === 9009) {
+                    swal("提示", "客户代号重复", "info");
+                } else {
+                    $('#alterModal').modal('hide');
+                    swal("正确", "编辑成功", "success");
+                    init();
+                }
+            });
+        }
+    }
+
+    // 删除
+    function deleteAll(index) {
+        dialog("确定删除吗？", () => {
+            parameterPostRequest("/supplier-management/delete", { "id": $table.bootstrapTable('getData')[index].id }, () => {
+                swal("正确", "删除成功", "success");
+                init();
+            });
+        });
+    }
+</script>
+
+</body>
+
+</html>

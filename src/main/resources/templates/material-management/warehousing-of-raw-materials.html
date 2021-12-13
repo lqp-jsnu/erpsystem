@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>原材料入库</title>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap3.4.1.min.css" th:href="@{/css/lib/bootstrap3.4.1.min.css}">
+    <!-- Bootstrap-table CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/bootstrap-table.min.css" th:href="@{/css/lib/bootstrap-table.min.css}">
+    <!-- jquery-ui CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/jquery-ui.min.css" th:href="@{/css/lib/jquery-ui.min.css}">
+    <!-- select2 CSS-->
+    <link rel="stylesheet" href="../../static/css/lib/select2.min.css" th:href="@{/css/lib/select2.min.css}">
+    <link rel="stylesheet" href="../../static/css/lib/select2-bootstrap.min.css" th:href="@{/css/lib/select2-bootstrap.min.css}">
+    <link href="../../static/css/file.css" rel="stylesheet" th:href="@{/css/file.css}">
+    <link href="../../static/css/table.css" rel="stylesheet" th:href="@{/css/table.css}">
+</head>
+
+<body onload="init();">
+
+    <div class="panel-body" style="padding-bottom:0;">
+        <div class="panel panel-default">
+            <div class="panel-heading">查询条件</div>
+            <div class="panel-body">
+                <div class="form-group" style="margin-top:15px">
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_order_number" title="采购单号">采购单号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_order_number">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_code" title="供应商代号">供应商代号</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_code">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_spec" title="规格/初R值/电阻线(线径)">规格/初R值/电阻线(线径)</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_spec">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_item_name" title="品名／磁棒／尺寸(材质)">品名／磁棒／尺寸(材质)</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="txt_search_item_name">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_check_flag" title="审核状态">审核状态</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_search_check_flag">
+                                <option value="--请选择--">--请选择--</option>
+                                <option value="未审核">未审核</option>
+                                <option value="未通过">未通过</option>
+                                <option value="已通过">已通过</option>
+                            </select>
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_dict_value" title="入库类型">入库类型</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_search_dict_value">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_start_time" title="开始时间">开始时间</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_start_time">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_end_time" title="结束时间">结束时间</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_end_time">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_in_start" title="来料开始">来料开始</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_in_start">
+                        </div>
+
+                        <label class="control-label col-sm-2 label-font" for="txt_search_in_end" title="来料结束">来料结束</label>
+                        <div class="col-sm-4">
+                            <input type="datetime-local" class="form-control" id="txt_search_in_end">
+                        </div>
+                    </div>
+
+                    <div class="row row-gap">
+                        <label class="control-label col-sm-2 label-font" for="txt_search_house_name" title="存放仓库">存放仓库</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="txt_search_house_name">
+                            </select>
+                        </div>
+
+                        <div class="col-sm-4" style="text-align:left;">
+                            <button type="button" style="margin-left:50px" id="btn_filter" class="btn btn-primary" onclick="filter();">过滤</button>
+                            <button type="button" style="margin-left:50px" id="btn_reset_filter" class="btn btn-primary" onclick="init();">重置过滤</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toolbar" class="btn-group">
+            <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>料品入库
+            </button>
+
+            <button id="btn_export" type="button" class="btn btn-default" onclick="exportExcel();">
+                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>批量导出
+            </button>
+        </div>
+        <table id="table"></table>
+    </div>
+
+    <!-- 模态框（Modal） 查看-->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="viewModalLabel">
+                        查看原材料入库信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <caption>原材料采购入库信息</caption>
+                        <tbody>
+                        <tr>
+                            <td>供应商编号</td>
+                            <td id="td_code">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>原材料</td>
+                            <td id="td_item_name">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>入库类型</td>
+                            <td id="td_dict_value">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>来料日期</td>
+                            <td id="td_in_date">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>入库日期</td>
+                            <td id="td_in_storage_date">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>入库数量</td>
+                            <td id="td_in_amount">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>存放仓库</td>
+                            <td id="td_house_name">xxx</td>
+                        </tr>
+                        <tr>
+                            <td>备注</td>
+                            <td id="td_remark">xxx</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 审核 -->
+    <div class="modal fade" id="auditModal" tabindex="-1" role="dialog" aria-labelledby="auditModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="auditModalLabel">
+                        审核入库信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label" for="audit_check_flag">审核</label>
+                            <div class="col-sm-10">
+                                <select class=" form-control" data-style="btn-success" id="audit_check_flag">
+                                    <option value="未审核">未审核</option>
+                                    <option value="未通过">未通过</option>
+                                    <option value="已通过">已通过</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label" for="audit_remark">备注</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" id="audit_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="audit();">审核</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <!-- 模态框（Modal） 新增 -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="min-width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title text-center" id="addModalLabel">
+                        原材料入库
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" onsubmit="return false;">
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label" for="code_select">供应商</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control"  id="code_select" title="该项为必输入项" onchange="supCodeSelectChange();">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label" for="material_select">入库原材料</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control" id="material_select" title="该项为必输入项" onchange="setInputSuccess($materialPurchaseToBeStorageSelect);">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label" for="dict_select">入库类型</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control"  id="dict_select" title="该项为必输入项" onchange="checkInputChange('dict_select');" >
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label" for="input_in_date">来料日期</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="input_in_date" title="该项为必输入项" onchange="checkInputChange('input_in_date');">
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label" for="input_in_storage_date">入库日期</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="input_in_storage_date" title="该项为必输入项" onchange="checkInputChange('input_in_storage_date');">
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label" for="input_in_amount">入库数量</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="input_in_amount"  title="该项为必输入项" onchange="addInAmountInputChange();">
+                            </div>
+                        </div>
+                        <div class="form-group has-error">
+                            <label class="col-sm-2 control-label" for="warehouse_select">存入仓库</label>
+                            <div class="col-sm-10">
+                                <select class="js-data-example-ajax form-control"  id="warehouse_select" title="该项为必输入项" onchange="checkInputChange('warehouse_select');" >
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="col-sm-2 control-label" for="input_remark">备注</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" id="input_remark"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" onclick="add();">添加</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+<!-- JavaScript files-->
+<!-- jquery.js -->
+<script src="../../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
+<!-- Bootstrap.js -->
+<script src="../../static/js/lib/bootstrap3.4.1.min.js" th:src="@{/js/lib/bootstrap3.4.1.min.js}"></script>
+<!-- Bootstrap-table.js -->
+<script src="../../static/js/lib/bootstrap-table.min.js" th:src="@{/js/lib/bootstrap-table.min.js}"></script>
+<script src="../../static/js/lib/bootstrap-table-zh-CN.min.js" th:src="@{/js/lib/bootstrap-table-zh-CN.min.js}"></script>
+<!-- sweetalert2.js -->
+<script src="../../static/js/lib/sweetalert.min.js" th:src="@{/js/lib/sweetalert.min.js}"></script>
+<script src="../../static/js/lib/es6-promise.auto.min.js" th:src="@{/js/lib/es6-promise.auto.min.js}"></script>
+<!-- jquery-ui.js -->
+<script src="../../static/js/lib/jquery-ui.min.js" th:src="@{/js/lib/jquery-ui.min.js}"></script>
+<!-- select2.js -->
+<script src="../../static/js/lib/select2.min.js" th:src="@{/js/lib/select2.min.js}"></script>
+<script src="../../static/js/lib/Select2-zh-CN.js" th:src="@{/js/lib/Select2-zh-CN.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/dragModel.js" th:src="@{/js/dragModel.js}"></script>
+<script>
+    /** 初始化 */
+    let $table = $('#table');
+    let $codeSelect = $("#code_select");
+    let $materialPurchaseToBeStorageSelect = $("#material_select");
+    let $dictValueSelect = $("#dict_select");
+    let $wareHouseSelect = $("#warehouse_select");
+    let $addInAmountInput = $("#input_in_amount");
+
+    // 服务器分页获取数据
+    function getServerPaging(node, url, queryParams) {
+        initTable(node, url, [10, 20, 30, 40, 50, 60, "All"], queryParams, [{
+            checkbox: true
+        }, {
+            field: 'orderNumber',
+            title: '采购单号',
+            width: '130px',
+            formatter: stringFormatter
+        }, {
+            field: 'code',
+            title: '供应商代号',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'name',
+            title: '供应商名称',
+            width: '240px',
+            formatter: stringFormatter
+        }, {
+            field: 'itemName',
+            title: '品名／磁棒／尺寸(材质)',
+            width: '200px',
+            formatter: stringFormatter
+        }, {
+            field: 'spec',
+            title: '规格/初R值/电阻线(线径)',
+            width: '200px',
+            formatter: stringFormatter
+        }, {
+            field: 'inDate',
+            title: '来料日期',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'inStorageDate',
+            title: '入库日期',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'inAmount',
+            title: '入库数量',
+            width: '100px',
+            formatter: stringFormatter
+        }, {
+            field: 'unit',
+            title: '单位',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'unitPrice',
+            title: '单价',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'totalMoney',
+            title: '金额',
+            width: '120px',
+            formatter: stringFormatter
+        }, {
+            field: 'houseName',
+            title: '存放仓库',
+            width: '150px',
+            formatter: stringFormatter
+        }, {
+            field: 'dictValue',
+            title: '入库类型',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'user',
+            title: '录入者',
+            width: '130px',
+            formatter: stringFormatter
+        }, {
+            field: 'checker',
+            title: '审核者',
+            width: '130px',
+            formatter: stringFormatter
+        }, {
+            field: 'checkFlag',
+            title: '状态',
+            width: '90px',
+            formatter: stringFormatter
+        }, {
+            field: 'createTime',
+            title: '录入时间',
+            width: '170px',
+            formatter: dateFormatter
+        }, {
+            field: 'operation',
+            title: '操作',
+            width: '257px',
+            formatter: operateFormatter // 自定义方法，添加操作按钮
+        }]);
+    }
+
+    function operateFormatter(value, row, index) {  // 赋予的参数
+        if ("已通过" === row.checkFlag) {
+            return [ '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>' ].join('');
+        } else {
+            return [
+                '<button class="btn btn-success view" data-toggle="modal" data-target="#viewModal" onclick="view('+ index +');">查看</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-danger view" onclick="deleteOne('+ index +');">删除</button>&nbsp;&nbsp;' +
+                '<button class="btn btn-warning view" data-toggle="modal" data-target="#auditModal" onclick="initAudit('+ index +');">审核</button>'
+            ].join('');
+        }
+    }
+    // 修改提示框样式
+    changeToolTip();
+
+    // 模态框初始化
+    dragTheModalDialog();
+
+    // 初始化下拉框
+    initSelect($codeSelect, "请输入供应商代号", supCodeFormatter, "/supplier-management/getSuppliers", 1000, params => {
+        return { code: params.term, offset: params.page ? 10 * (params.page - 1) : 0, limit: 10 };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.code, name: item.name};
+    }), 10);
+    function supCodeFormatter(result) {
+        return '<span title="'+ result.name +'">' + result.text +'</span>';
+    }
+
+    initSelect($materialPurchaseToBeStorageSelect, "请输入规格/初R值/电阻线(线径)", materialFormatter, "/raw-materials-to-be-stored/getMaterialPurchaseToBeStorageBySearchSuppId", 1000, params => {
+        return { supplierId: $codeSelect.select2('data')[0].id, spec: params.term, offset: params.page ? 10 * (params.page - 1) : 0, limit: 10 };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.spec, itemName: item.itemName, orderNumber: item.orderNumber, amount: item.amount, inAmount: item.inAmount};
+    }), 10);
+    function materialFormatter(result) {
+        return '<span title="' + "采购数量：" + result.amount + " | " + "采购单号：" + result.orderNumber + " | " + "入库数量：" + result.inAmount + '" >' +  '<strong>' + result.text + '</strong>' + " | " + "品名／磁棒／尺寸(材质)：" + result.itemName + '</span>';
+    }
+    $materialPurchaseToBeStorageSelect.prop("disabled", true);
+
+    initSelect($wareHouseSelect, "请输入仓库名称", wareHouseFormatter, "/warehouse-management/getWarehouse", 1000, params => {
+        return { name: params.term, offset: params.page ? 10 * (params.page - 1) : 0, limit: 10 };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.name};
+    }), 10);
+    function wareHouseFormatter(result) {
+        return '<span title="'+ result.text +'">' + result.text +'</span>';
+    }
+
+    initSelect($dictValueSelect, "请输入入库类型", dictValueFormatter, "/the-data-dictionary/getDict", 1000, params => {
+        return { value: params.term, type: "materialStorageType", offset: params.page ? 10 * (params.page - 1) : 0, limit: 10 };
+    }, result => result.module.rows.map(item => {
+        return { id: item.id, text: item.value};
+    }), 10);
+    function dictValueFormatter(result) {
+        return '<span title="'+ result.text +'">' + result.text +'</span>';
+    }
+
+    // 增加下拉框初始化
+    let $searchWarehouseSelect = $("#txt_search_house_name");
+    function initWareHouseSelect() {
+        noParameterPostRequest("/warehouse-management/getWarehouse?limit=100&offset=0&sort=create_time&order=DESC", result => {
+            $searchWarehouseSelect.empty();
+            $searchWarehouseSelect.append("<option value='--请选择--'>--请选择--</option>");
+            result.module.rows.forEach(item => $searchWarehouseSelect.append("<option value="+ item.name +">" + item.name + "</option>"));
+        }, "GET");
+    }
+
+    // 增加入库类型下拉框初始化
+    let $searchDictSelect = $("#txt_search_dict_value");
+    function initDictSelect() {
+        noParameterPostRequest("/the-data-dictionary/getDict?limit=100&offset=0&sort=create_time&order=DESC&type=materialStorageType", result => {
+            $searchDictSelect.empty();
+            $searchDictSelect.append("<option value='--请选择--'>--请选择--</option>");
+            result.module.rows.forEach(item => $searchDictSelect.append("<option value="+ item.value +">" + item.value + "</option>"));
+        }, "GET");
+    }
+
+    // 初始化表格数据
+    function init() {
+        getServerPaging($table, "/wareHousing-of-raw-materials/getMaterialStorage", params => {
+            return { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC" };
+        });
+        initWareHouseSelect();
+        initDictSelect();
+    }
+</script>
+<script>
+    /** 页面逻辑 */
+    // 供应商下拉框改变(初始化原材料下拉框)
+    function supCodeSelectChange() {
+        setInputSuccess($codeSelect);
+        // 材料下拉框置空
+        $materialPurchaseToBeStorageSelect.prop("disabled", false);
+        $materialPurchaseToBeStorageSelect.val(null).trigger("change");
+    }
+    // add入库数量输入框改变
+    function addInAmountInputChange() {
+        if (0 === $materialPurchaseToBeStorageSelect.select2('data').length) {
+            swal("操作提示", "请先输入入库原材料", "info");
+            $addInAmountInput.val("");
+            return;
+        }
+        if ($addInAmountInput.val() <= 0) {
+            swal("操作提示", "入库数量需为正数", "info");
+            setInputError($addInAmountInput);
+            return;
+        }
+        $addInAmountInput.val(parseFloat($addInAmountInput.val()).toFixed(2));
+        setInputSuccess($addInAmountInput);
+    }
+</script>
+<script>
+    /** 功能 */
+    // 过滤
+    function filter() {
+        let time = [$("#txt_search_start_time"), $("#txt_search_end_time"),$("#txt_search_in_start"),$("#txt_search_in_end")];
+        if ("" !== time[0][0].validationMessage || "" !== time[1][0].validationMessage || "" !== time[2][0].validationMessage || "" !== time[3][0].validationMessage) {
+            swal("操作提示", "请填写完整的时间", "info");
+            return;
+        }
+
+        let data = { code: $("#txt_search_code").val(), itemName: $("#txt_search_item_name").val(), checkFlag: $("#txt_search_check_flag").val(),
+            spec: $("#txt_search_spec").val(), orderNumber: $("#txt_search_order_number").val(), inStart: time[2].val(), inEnd:time[3].val(),
+            dictValue: $("#txt_search_dict_value").val(), houseName: $searchWarehouseSelect.val(), startTime: time[0].val(), endTime: time[1].val() };
+
+        if ("" === data["code"] && "" === data["itemName"] && "--请选择--" === data["checkFlag"] && "" === data["spec"]
+            && "" === data["startTime"] && "" === data["endTime"] && "" === data["orderNumber"] && "" === data["inStart"]
+            && "" === data["inEnd"] && "--请选择--" === data["dictValue"] && "--请选择--" === data["houseName"]) {
+            swal("操作提示", "请填写过滤参数", "info");
+            return;
+        }
+
+        getServerPaging($table, "/wareHousing-of-raw-materials/getMaterialStorageByConditions", params => {
+            let result = { limit: params.limit, offset: params.offset, sort: "create_time", order: "DESC", code: data["code"],
+                itemName: data["itemName"], checkFlag: data["checkFlag"], spec: data["spec"], startTime: data["startTime"], endTime: data["endTime"],
+                dictValue: data["dictValue"], houseName: data["houseName"], inStart: data["inStart"], inEnd: data["inEnd"], orderNumber: data["orderNumber"]};
+
+            removeEmptyField(result);
+            if ("--请选择--" === result["checkFlag"]) {
+                delete result["checkFlag"];
+            }
+            if ("--请选择--" === result["houseName"]) {
+                delete result["houseName"];
+            }
+            if ("--请选择--" === result["dictValue"]) {
+                delete result["dictValue"];
+            }
+            return result;
+        });
+    }
+
+    // 查看
+    function view(index) {
+        let rows = $('#table').bootstrapTable('getData');
+        $("#td_code").text(rows[index].code);
+        $("#td_item_name").text(rows[index].itemName);
+        $("#td_dict_value").text(rows[index].dictValue);
+        $("#td_in_date").text(formatDateTime(rows[index].inDate));
+        $("#td_in_storage_date").text(formatDateTime(rows[index].inStorageDate));
+        $("#td_in_amount").text(rows[index].inAmount);
+        $("#td_house_name").text(rows[index].houseName);
+        $("#td_remark").text(rows[index].remark);
+    }
+
+    // 添加原材料入库记录
+    function add() {
+        if (0 !== $materialPurchaseToBeStorageSelect.select2('data').length && 0 !== $wareHouseSelect.select2('data').length && 0 !== $dictValueSelect.select2('data').length) {
+            let data = {
+                materialPurchaseToBeStorageId: $materialPurchaseToBeStorageSelect.select2('data')[0].id,
+                wareHouseId: $wareHouseSelect.select2('data')[0].id,
+                dictId: $dictValueSelect.select2('data')[0].id,
+                inDate: $("#input_in_date").val(),
+                inStorageDate: $("#input_in_storage_date").val(),
+                inAmount: $("#input_in_amount").val(),
+                remark: $("#input_remark").val()
+            };
+            if (data.inAmount <= 0 || "" === data.inDate || "" === data.inStorageDate) {
+                swal("操作提示", "请输入必输入项", "info");
+            } else if (parseFloat(data.inAmount) > (parseFloat($materialPurchaseToBeStorageSelect.select2('data')[0].amount) - parseFloat($materialPurchaseToBeStorageSelect.select2('data')[0].inAmount))) {
+                swal("操作提示", "入库数量大于待入库数量", "info");
+            } else {
+                parameterPostRequest("/wareHousing-of-raw-materials/insert", data, () => {
+                    $('#addModal').modal('hide');
+                    swal("正确", "新建成功", "success");
+                    init();
+                });
+            }
+        } else {
+            swal("操作提示", "请输入必输入项", "info");
+        }
+    }
+
+    // 导出excel
+    function exportExcel() {
+        let selections = $table.bootstrapTable('getSelections');
+        if (selections.length === 0) {
+            swal("操作提示", "请选择记录", "info");
+        } else {
+            parameterPostRequest("/wareHousing-of-raw-materials/exportExcel", selections, () => loadFile("原材料入库表.xlsx"));
+        }
+    }
+
+    // 删除
+    function deleteOne(index) {
+        dialog("确定删除吗？", () => {
+            let data = { "id": $("#table").bootstrapTable('getData')[index].id };
+            parameterPostRequest("/wareHousing-of-raw-materials/delete", data, () => {
+                swal("正确", "删除成功", "success");
+                init();
+            });
+        });
+    }
+
+    // 审核
+    // audit记录
+    let auditId;
+    function initAudit(index) {
+        let rows = $("#table").bootstrapTable('getData');
+        $("#audit_check_flag").val(rows[index].checkFlag);
+        $("#audit_remark").val(rows[index].remark);
+        auditId = rows[index].id;
+    }
+    function audit() {
+        let data = {
+            id: auditId,
+            checkFlag: $("#audit_check_flag").val()
+        };
+        parameterPostRequest("/wareHousing-of-raw-materials/updateCheckerById", data, () => {
+            $('#auditModal').modal('hide');
+            swal("正确", "审核成功", "success");
+            init();
+        });
+    }
+</script>
+
+</body>
+
+</html>

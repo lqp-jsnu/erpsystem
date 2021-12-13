@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.ProductAllocationDAO">
+    <resultMap id="ProductAllocationDO" type="edu.yctc.erpsystem.entity.ProductAllocationDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="product_inventory_id" property="productInventoryId"/>
+        <result column="user" property="user"/>
+        <result column="checker" property="checker"/>
+        <result column="warehouse_id" property="warehouseId"/>
+        <result column="amount" property="amount"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="allocation_date" property="allocationDate"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.ProductAllocationDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO  `t_product_allocation` (`id`, `warehouse_id`, `allocation_date`, `product_inventory_id`, `amount`, `user`, `checker`, `check_flag`, `remark`, `create_time`)
+        VALUES (#{id}, #{warehouseId}, #{allocationDate}, #{productInventoryId}, #{amount}, #{user}, #{checker}, "未审核", #{remark}, now());
+    </insert>
+
+</mapper>

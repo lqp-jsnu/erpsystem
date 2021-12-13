@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.RoleResourceDAO">
+    <resultMap id="RoleResourceDO" type="edu.yctc.erpsystem.entity.RoleResourceDO">
+        <result column="sy_role_id" property="syRoleId"/>
+        <result column="sy_resource_id" property="syResourceId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="getResourceIdByRoleId" resultMap="RoleResourceDO">
+        SELECT *
+        FROM `sy_role_resource`
+        WHERE `sy_role_id` = #{syRoleId}
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.RoleResourceDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT IGNORE INTO `sy_role_resource` (`id`, `sy_role_id`, `sy_resource_id`, `create_time`, `update_time`)
+        VALUES (#{id}, #{syRoleId}, #{syResourceId}, now(), now())
+    </insert>
+
+    <delete id="deleteByRoleId" parameterType="edu.yctc.erpsystem.entity.RoleResourceDO">
+        DELETE FROM `sy_role_resource`
+        WHERE `sy_role_id` = #{syRoleId}
+    </delete>
+
+</mapper>

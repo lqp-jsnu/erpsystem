@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.ProductInventoryDAO">
+    <resultMap id="ProductInventoryDO" type="edu.yctc.erpsystem.entity.ProductInventoryDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="product_storage_id" property="productStorageId"/>
+        <result column="is_allocation" property="isAllocation"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_product_inventory`, `t_product_storage`, `t_manufacture_process_slave`, `t_manufacture_process_master`, `t_customer_order`, `t_original_product`
+        WHERE `t_product_inventory`.`product_storage_id` = `t_product_storage`.`id`
+              AND `t_product_storage`.`manufacture_process_slave_id` = `t_manufacture_process_slave`.`id`
+              AND `t_manufacture_process_slave`.`manufacture_process_master_id` = `t_manufacture_process_master`.`id`
+              AND `t_manufacture_process_master`.`customer_order_id` = `t_customer_order`.`id`
+              AND `t_customer_order`.`original_product_id` = `t_original_product`.`id`
+    </select>
+
+    <select id="getProductInventory" resultType="edu.yctc.erpsystem.vo.MainProductExpiryDateVO">
+        SELECT `t_product_inventory`.`id`, `t_customer_order`.`original_product_id` `originalProductId`, `t_original_product`.`product_number` `productNumber`, `t_original_product`.`spec`, `t_original_product`.`item_name` `itemName`, `t_product_storage`.`storage_date` `storageDate`, `t_product_inventory`.`create_time`
+        FROM `t_product_inventory`, `t_product_storage`, `t_manufacture_process_slave`, `t_manufacture_process_master`, `t_customer_order`, `t_original_product`
+        WHERE `t_product_inventory`.`product_storage_id` = `t_product_storage`.`id`
+            AND `t_product_storage`.`manufacture_process_slave_id` = `t_manufacture_process_slave`.`id`
+            AND `t_manufacture_process_slave`.`manufacture_process_master_id` = `t_manufacture_process_master`.`id`
+            AND `t_manufacture_process_master`.`customer_order_id` = `t_customer_order`.`id`
+            AND `t_customer_order`.`original_product_id` = `t_original_product`.`id`
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="summaryCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM (
+                SELECT sum(`t_product_storage`.`storage_amount`)
+                FROM `t_product_inventory`, `t_product_storage`, `t_manufacture_process_slave`, `t_manufacture_process_master`, `t_customer_order`
+                <where>
+                    AND `t_product_inventory`.`product_storage_id` = `t_product_storage`.`id`
+                    AND `t_product_storage`.`manufacture_process_slave_id` = `t_manufacture_process_slave`.`id`
+                    AND `t_manufacture_process_slave`.`manufacture_process_master_id` = `t_manufacture_process_master`.`id`
+                    AND `t_manufacture_process_master`.`customer_order_id` = `t_customer_order`.`id`
+                    <if test="startTime != null"> AND `t_product_storage`.`storage_date` >= #{startTime} </if>
+                    <if test="endTime != null"> AND `t_product_storage`.`storage_date` &lt;= #{endTime} </if>
+                </where>
+                GROUP BY `t_customer_order`.`original_product_id`, `t_product_storage`.`storage_date`
+              )
+        AS a
+    </select>
+
+    <select id="getProductInventorySummary" resultType="edu.yctc.erpsystem.vo.ProductInventorySummaryVO">
+        SELECT `t_product_inventory`.`id`, `t_customer`.`code`, `t_original_product`.`product_number` `productNumber`, `t_original_product`.`item_name` `itemName`, `t_original_product`.`spec`, `t_original_product`.`unit`, sum(`t_product_storage`.`storage_amount`) `storageAmount`, `t_product_storage`.`storage_date` `storageDate`, `t_product_inventory`.`create_time`
+        FROM `t_product_inventory`, `t_product_storage`, `t_manufacture_process_slave`, `t_manufacture_process_master`, `t_customer_order`, `t_original_product`, `t_customer`
+        <where>
+            AND `t_product_inventory`.`product_storage_id` = `t_product_storage`.`id`
+            AND `t_product_storage`.`manufacture_process_slave_id` = `t_manufacture_process_slave`.`id`
+            AND `t_manufacture_process_slave`.`manufacture_process_master_id` = `t_manufacture_process_master`.`id`
+            AND `t_manufacture_process_master`.`customer_order_id` = `t_customer_order`.`id`
+            AND `t_customer_order`.`original_product_id` = `t_original_product`.`id`
+            AND `t_customer_order`.`customer_id` = `t_customer`.`id`
+            <if test="startTime != null"> AND `t_product_storage`.`storage_date` >= #{startTime} </if>
+            <if test="endTime != null"> AND `t_product_storage`.`storage_date` &lt;= #{endTime} </if>
+        </where>
+        GROUP BY `t_customer_order`.`original_product_id`, `t_product_storage`.`storage_date`
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="mainProductNumberCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM (
+                 SELECT sum(`t_product_storage`.`storage_amount`)
+                 FROM `t_product_inventory`, `t_product_storage`, `t_manufacture_process_slave`, `t_manufacture_process_master`, `t_customer_order`
+                 WHERE `t_product_inventory`.`product_storage_id` = `t_product_storage`.`id`
+                       AND `t_product_storage`.`manufacture_process_slave_id` = `t_manufacture_process_slave`.`id`
+                       AND `t_manufacture_process_slave`.`manufacture_process_master_id` = `t_manufacture_process_master`.`id`
+                       AND `t_manufacture_process_master`.`customer_order_id` = `t_customer_order`.`id`
+                 GROUP BY `t_customer_order`.`original_product_id`
+             )
+        AS a
+    </select>
+
+    <select id="getMainProductNumber" resultType="edu.yctc.erpsystem.vo.MainProductNumberVO">
+        SELECT `t_product_inventory`.`id`, `t_customer_order`.`original_product_id` `originalProductId`, sum(`t_product_storage`.`storage_amount`) `storageAmount`, `t_original_product`.`product_number` `productNumber`, `t_original_product`.`spec`, `t_original_product`.`item_name` `itemName`, `t_product_inventory`.`create_time`
+        FROM `t_product_inventory`, `t_product_storage`, `t_manufacture_process_slave`, `t_manufacture_process_master`, `t_customer_order`, `t_original_product`
+        WHERE `t_product_inventory`.`product_storage_id` = `t_product_storage`.`id`
+            AND `t_product_storage`.`manufacture_process_slave_id` = `t_manufacture_process_slave`.`id`
+            AND `t_manufacture_process_slave`.`manufacture_process_master_id` = `t_manufacture_process_master`.`id`
+            AND `t_manufacture_process_master`.`customer_order_id` = `t_customer_order`.`id`
+            AND `t_customer_order`.`original_product_id` = `t_original_product`.`id`
+        GROUP BY `t_customer_order`.`original_product_id`
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="countRepertory" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_product_inventory`, `t_product_storage`, `t_warehouse`, `t_manufacture_process_slave`, `t_manufacture_process_master`, `t_customer_order`, `t_original_product`, `t_customer`
+        <where>
+            AND `t_product_inventory`.`product_storage_id` = `t_product_storage`.`id`
+            AND `t_product_storage`.`manufacture_process_slave_id` = `t_manufacture_process_slave`.`id`
+            AND `t_product_storage`.`warehouse_id` = `t_warehouse`.`id`
+            AND `t_manufacture_process_slave`.`manufacture_process_master_id` = `t_manufacture_process_master`.`id`
+            AND `t_manufacture_process_master`.`customer_order_id` = `t_customer_order`.`id`
+            AND `t_customer_order`.`original_product_id` = `t_original_product`.`id`
+            AND `t_customer_order`.`customer_id` = `t_customer`.`id`
+            <if test="storageDate != null"> AND `t_product_storage`.`storage_date` LIKE CONCAT('%', #{storageDate, jdbcType=VARCHAR}, '%') </if>
+            <if test="startTime != null"> AND `t_product_storage`.`storage_date` >= #{startTime} </if>
+            <if test="endTime != null"> AND `t_product_storage`.`storage_date` &lt;= #{endTime} </if>
+            <if test="itemName != null"> AND `t_original_product`.`item_name` LIKE CONCAT('%', #{itemName, jdbcType=VARCHAR}, '%') </if>
+            <if test="spec != null"> AND `t_original_product`.`spec` LIKE CONCAT('%', #{spec, jdbcType=VARCHAR}, '%') </if>
+        </where>
+    </select>
+
+    <select id="getProductInventoryRepertory" resultType="edu.yctc.erpsystem.vo.ProductInventoryRepertoryVO">
+        SELECT `t_product_inventory`.`id`, `t_product_inventory`.`product_storage_id` `productStorageId`, `t_customer_order`.`order_number` `orderNumber`, `t_customer`.`code`, `t_manufacture_process_slave`.`job_ticket_number` `jobTicketNumber`, `t_original_product`.`product_number` `productNumber`, `t_original_product`.`spec`, `t_original_product`.`item_name` `itemName`, `t_original_product`.`unit` `unit`, `t_product_storage`.`storage_amount` `storageAmount`, `t_warehouse`.`name` `houseName`, `t_product_inventory`.`is_allocation` `isAllocation`, `t_product_storage`.`storage_date` `storageDate`
+        FROM `t_product_inventory`, `t_product_storage`, `t_warehouse`, `t_manufacture_process_slave`, `t_manufacture_process_master`, `t_customer_order`, `t_original_product`, `t_customer`
+        <where>
+            AND `t_product_inventory`.`product_storage_id` = `t_product_storage`.`id`
+            AND `t_product_storage`.`manufacture_process_slave_id` = `t_manufacture_process_slave`.`id`
+            AND `t_product_storage`.`warehouse_id` = `t_warehouse`.`id`
+            AND `t_manufacture_process_slave`.`manufacture_process_master_id` = `t_manufacture_process_master`.`id`
+            AND `t_manufacture_process_master`.`customer_order_id` = `t_customer_order`.`id`
+            AND `t_customer_order`.`original_product_id` = `t_original_product`.`id`
+            AND `t_customer_order`.`customer_id` = `t_customer`.`id`
+            <if test="storageDate != null"> AND `t_product_storage`.`storage_date` LIKE CONCAT('%', #{storageDate ,jdbcType=VARCHAR}, '%') </if>
+            <if test="startTime != null"> AND `t_product_storage`.`storage_date` >= #{startTime} </if>
+            <if test="endTime != null"> AND `t_product_storage`.`storage_date` &lt;= #{endTime} </if>
+            <if test="itemName != null"> AND `t_original_product`.`item_name` LIKE CONCAT('%', #{itemName, jdbcType=VARCHAR}, '%') </if>
+            <if test="spec != null"> AND `t_original_product`.`spec` LIKE CONCAT('%', #{spec, jdbcType=VARCHAR}, '%') </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.ProductInventoryDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO  `t_product_inventory` (`id`, `product_storage_id`, `create_time`, `is_allocation`)
+        VALUES (#{id}, #{productStorageId}, now(), "否");
+    </insert>
+
+    <select id="getProductInventoryById" resultMap="ProductInventoryDO">
+        SELECT *
+        FROM `t_product_inventory`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getProductInventoryByIds" resultMap="ProductInventoryDO">
+        SELECT *
+        FROM `t_product_inventory`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

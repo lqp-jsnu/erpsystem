@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.QualitySamplingDAO">
+    <resultMap id="QualitySamplingDO" type="edu.yctc.erpsystem.entity.QualitySamplingDO">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="manufacture_process_slave_id" property="manufactureProcessSlaveId"/>
+        <result column="package_operator" property="packageOperator"/>
+        <result column="check_operator" property="checkOperator"/>
+        <result column="user" property="user"/>
+        <result column="checker" property="checker"/>
+        <result column="package_number" property="packageNumber"/>
+        <result column="sample_number" property="sampleNumber"/>
+        <result column="aql" property="aql"/>
+        <result column="pass_number" property="passNumber"/>
+        <result column="fail_number" property="failNumber"/>
+        <result column="sample_result" property="sampleResult"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_quality_sampling`
+        <where>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+        </where>
+    </select>
+
+    <select id="getQualitySampling" resultMap="QualitySamplingDO">
+        SELECT *
+        FROM `t_quality_sampling`
+        <where>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.QualitySamplingDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_quality_sampling` (`id`, `manufacture_process_slave_id`, `package_number`, `package_operator`, `sample_number`, `aql`, `pass_number`, `fail_number`, `check_operator`, `sample_result`, `user`, `check_flag`, `create_time`, `remark`)
+        VALUES (#{id}, #{manufactureProcessSlaveId}, #{packageNumber}, #{packageOperator}, #{sampleNumber}, #{aql}, #{passNumber}, #{failNumber}, #{checkOperator}, #{sampleResult}, #{user}, "未审核", now(), #{remark});
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM `t_quality_sampling`
+        WHERE `id` = #{id};
+    </delete>
+
+    <update id="updateQualitySampling" parameterType="edu.yctc.erpsystem.entity.QualitySamplingDO">
+        UPDATE `t_quality_sampling`
+        SET `manufacture_process_slave_id` = #{manufactureProcessSlaveId},
+            `package_operator` = #{packageOperator},
+            `check_operator` = #{checkOperator},
+            `pass_number` = #{passNumber},
+            `fail_number` = #{failNumber},
+            `package_number` = #{packageNumber},
+            `sample_number` = #{sampleNumber},
+            `aql` = #{aql},
+            `sample_result` = #{sampleResult},
+            `remark` = #{remark}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateCheckerById" parameterType="edu.yctc.erpsystem.entity.QualitySamplingDO">
+        UPDATE `t_quality_sampling`
+        SET `checker` = #{checker},
+            `check_flag` = #{checkFlag},
+            `remark`= #{remark}
+        WHERE `id` = #{id};
+    </update>
+
+</mapper>

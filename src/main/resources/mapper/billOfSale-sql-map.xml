@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.BillOfSaleDAO">
+    <resultMap id="BillOfSaleDO" type="edu.yctc.erpsystem.entity.BillOfSaleDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="product_export_id" property="productExportId"/>
+        <result column="export_status" property="exportStatus"/>
+        <result column="checker" property="checker"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="product_number" property="productNumber"/>
+        <result column="order_number" property="orderNumber"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_bill_of_sale`
+        <where>
+            <if test="exportStatus != null"> AND `export_status` = #{exportStatus} </if>
+            <if test="startTime != null"> AND `create_time` > #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt; #{endTime} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+        </where>
+    </select>
+
+    <select id="getBillOfSale" resultMap="BillOfSaleDO">
+        SELECT *
+        FROM `t_bill_of_sale`
+        <where>
+            <if test="exportStatus != null"> AND `export_status` = #{exportStatus} </if>
+            <if test="startTime != null"> AND `create_time` > #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt; #{endTime} </if>
+            <if test="checkFlag != null"> AND `check_flag` = #{checkFlag} </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insertAll" parameterType="edu.yctc.erpsystem.entity.BillOfSaleDO">
+        INSERT INTO `t_bill_of_sale` (`id`, `product_export_id`, `export_status`, `create_time`, `checker`, `check_flag`, `product_number`, `remark`, `order_number`)
+        VALUES
+        <foreach collection="billOfSaleDO" item="item"  separator=",">
+            ((SELECT replace(uuid(),'-','') FROM dual),
+            #{item.productExportId}, "未出库", now(), #{item.checker}, "未审核", #{item.productNumber}, #{item.remark}, #{item.orderNumber})
+        </foreach>
+    </insert>
+
+    <update id="changeExportStatusById">
+        UPDATE `t_bill_of_sale`
+        SET `export_status` ='已出库'
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateRemarkById" parameterType="edu.yctc.erpsystem.entity.BillOfSaleDO">
+        UPDATE `t_bill_of_sale`
+        SET  `remark` = #{remark}
+        WHERE `id` = #{id};
+    </update>
+
+    <select id="getBillOfSaleById" resultMap="BillOfSaleDO">
+        SELECT *
+        FROM `t_bill_of_sale`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getBillOfSaleByIds" resultMap="BillOfSaleDO">
+        SELECT *
+        FROM  `t_bill_of_sale`
+        WHERE `id` IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

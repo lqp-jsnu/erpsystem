@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.ProductExportDAO">
+    <resultMap id="ProductExportDO" type="edu.yctc.erpsystem.entity.ProductExportDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="product_inventory_id" property="productInventoryId"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="user" property="user"/>
+        <result column="checker" property="checker"/>
+        <result column="number" property="number"/>
+        <result column="date" property="date"/>
+        <result column="amount" property="amount"/>
+        <result column="check_flag" property="checkFlag"/>
+        <result column="order_number" property="orderNumber"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.ProductExportDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO  `t_product_export`(`id`, `product_inventory_id`, `customer_id`, `number`, `date`, `amount`, `user`, `checker`, `check_flag`, `remark`, `create_time`, `order_number`)
+        VALUES (#{id}, #{productInventoryId}, #{customerId}, #{number}, #{date}, #{amount}, #{user}, #{checker}, "未审核", #{remark}, now(), #{orderNumber});
+    </insert>
+
+    <select id="getProductExportById" resultMap="ProductExportDO">
+        SELECT *
+        FROM `t_product_export`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getProductExportByIds" resultMap="ProductExportDO">
+        SELECT *
+        FROM `t_product_export`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

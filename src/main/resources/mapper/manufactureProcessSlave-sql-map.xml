@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.yctc.erpsystem.dao.ManufactureProcessSlaveDAO">
+    <resultMap id="ManufactureProcessSlaveDO" type="edu.yctc.erpsystem.entity.ManufactureProcessSlaveDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="manufacture_process_master_id" property="manufactureProcessMasterId"/>
+        <result column="every_amount" property="everyAmount"/>
+        <result column="is_issue_order" property="isIssueOrder"/>
+        <result column="is_in_house" property="isInHouse"/>
+        <result column="job_ticket_number" property="jobTicketNumber"/>
+        <result column="is_into_make" property="isIntoMake"/>
+        <result column="every_order_amount" property="everyOrderAmount"/>
+        <result column="is_zero_product_in_house" property="isZeroProductInHouse"/>
+        <result column="is_generate_manufacture" property="isGenerateManufacture"/>
+        <result column="is_material_export" property="isMaterialExport"/>
+        <result column="is_export_check_pass" property="isExportCheckPass"/>
+        <result column="is_have_product_storage" property="isHaveProductStorage"/>
+        <result column="is_have_zero_product_storage" property="isHaveZeroProductStorage"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM `t_manufacture_process_slave`
+        <where>
+            <if test="jobTicketNumber != null"> AND `job_ticket_number` LIKE CONCAT('%', #{jobTicketNumber ,jdbcType=VARCHAR}, '%') </if>
+            <if test='isIssueOrder != null '> AND `is_issue_order` = #{isIssueOrder} </if>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="isInHouse != null"> AND `is_in_house` = #{isInHouse} </if>
+            <if test="isZeroProductInHouse != null"> AND `is_zero_product_in_house` = #{isZeroProductInHouse} </if>
+            <if test="isIntoMake != null"> AND `is_into_make` = #{isIntoMake} </if>
+            <if test="isGenerateManufacture != null"> AND `is_generate_manufacture` = #{isGenerateManufacture} </if>
+            <if test="isMaterialExport != null"> AND `is_material_export` = #{isMaterialExport} </if>
+            <if test="isExportCheckPass != null"> AND `is_export_check_pass` = #{isExportCheckPass} </if>
+            <if test="isHaveZeroProductStorage != null"> AND `is_have_zero_product_storage` = #{isHaveZeroProductStorage} </if>
+            <if test="manufactureProcessMasterId != null"> AND `manufacture_process_master_id` = #{manufactureProcessMasterId}</if>
+        </where>
+    </select>
+
+    <select id="getManufactureProcessSlave" resultMap="ManufactureProcessSlaveDO">
+        SELECT *
+        FROM `t_manufacture_process_slave`
+        <where>
+            <if test="jobTicketNumber != null"> AND `job_ticket_number` LIKE CONCAT('%', #{jobTicketNumber ,jdbcType=VARCHAR}, '%') </if>
+            <if test='isIssueOrder != null '> AND `is_issue_order` = #{isIssueOrder} </if>
+            <if test="startTime != null"> AND `create_time` >= #{startTime} </if>
+            <if test="endTime != null"> AND `create_time` &lt;= #{endTime} </if>
+            <if test="isInHouse != null"> AND `is_in_house` = #{isInHouse} </if>
+            <if test="isZeroProductInHouse != null"> AND `is_zero_product_in_house` = #{isZeroProductInHouse} </if>
+            <if test="isIntoMake != null"> AND `is_into_make` = #{isIntoMake} </if>
+            <if test="isGenerateManufacture != null"> AND `is_generate_manufacture` = #{isGenerateManufacture} </if>
+            <if test="isMaterialExport != null"> AND `is_material_export` = #{isMaterialExport} </if>
+            <if test="isExportCheckPass != null"> AND `is_export_check_pass` = #{isExportCheckPass} </if>
+            <if test="isHaveZeroProductStorage != null"> AND `is_have_zero_product_storage` = #{isHaveZeroProductStorage} </if>
+            <if test="manufactureProcessMasterId != null"> AND `manufacture_process_master_id` = #{manufactureProcessMasterId}</if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                ORDER BY ${sort} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="edu.yctc.erpsystem.entity.ManufactureProcessSlaveDO">
+        <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            SELECT replace(uuid(),'-','') FROM dual;
+        </selectKey>
+        INSERT INTO `t_manufacture_process_slave` (`id`, `manufacture_process_master_id`, `every_amount`, `create_time`, `is_issue_order`, `is_in_house`, `job_ticket_number`, `is_into_make`, `every_order_amount`, `is_zero_product_in_house`, `is_generate_manufacture`, `is_material_export`, `is_export_check_pass`, `is_have_product_storage`, `is_have_zero_product_storage`)
+        VALUES (#{id}, #{manufactureProcessMasterId}, #{everyAmount}, now(), #{isIssueOrder}, "否", #{jobTicketNumber}, "否", #{everyOrderAmount}, "否", "否", "否", "否", "是", "是");
+    </insert>
+
+    <insert id="insertAll" parameterType="edu.yctc.erpsystem.entity.ManufactureProcessSlaveDO">
+        INSERT INTO `t_manufacture_process_slave` (`id`, `manufacture_process_master_id`, `every_amount`, `create_time`, `is_issue_order`, `is_in_house`, `job_ticket_number`, `is_into_make`, `every_order_amount`, `is_zero_product_in_house`, `is_generate_manufacture`, `is_material_export`, `is_export_check_pass`, `is_have_product_storage`, `is_have_zero_product_storage`)
+        VALUES
+        <foreach collection="manufactureProcessSlaveDO" item="item"  separator=",">
+            ((SELECT replace(uuid(),'-','') FROM dual),
+            #{item.manufactureProcessMasterId}, #{item.everyAmount}, now(), #{item.isIssueOrder}, "否", #{item.jobTicketNumber}, "否", #{item.everyOrderAmount}, "否", "否", "否", "否", "是", "是")
+        </foreach>
+    </insert>
+
+    <update id="updateIsMaterialExport">
+        UPDATE `t_manufacture_process_slave`
+        SET `is_material_export` = #{isMaterialExport}
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateIsGeneralManufactureProcess">
+        UPDATE `t_manufacture_process_slave`
+        SET `is_generate_manufacture` = "是"
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateIsIntoMake">
+        UPDATE `t_manufacture_process_slave`
+        SET `is_into_make` = "是"
+        WHERE `id` = #{id};
+    </update>
+
+    <update id="updateIsExportCheckPass">
+        UPDATE `t_manufacture_process_slave`
+        SET `is_export_check_pass` = "是"
+        WHERE `id` = #{id};
+    </update>
+
+    <select id="getJobTicketNumberBySerialnumberString" resultMap="ManufactureProcessSlaveDO">
+        SELECT *
+        FROM `t_manufacture_process_slave`
+        WHERE `job_ticket_number` LIKE CONCAT('%', #{serialnumberString, jdbcType=VARCHAR}, '%')
+    </select>
+
+    <select id="getManufactureProcessSlaveBySome" resultMap="ManufactureProcessSlaveDO">
+        SELECT *
+        FROM `t_manufacture_process_slave`, `t_manufacture_process_master`
+        <where>
+            AND `t_manufacture_process_slave`.`manufacture_process_master_id` = `t_manufacture_process_master`.`id`
+            <if test="customerOrderId != null"> AND `t_manufacture_process_master`.`customer_order_id` = #{customerOrderId} </if>
+            <if test="isIssueOrder != null"> AND `t_manufacture_process_slave`.`is_issue_order` = #{isIssueOrder} </if>
+        </where>
+    </select>
+
+    <select id="getManufactureProcessSlaveById" resultMap="ManufactureProcessSlaveDO">
+        SELECT *
+        FROM  `t_manufacture_process_slave`
+        WHERE `id` = #{id};
+    </select>
+
+    <select id="getManufactureProcessSlaveByIds" resultMap="ManufactureProcessSlaveDO">
+        SELECT *
+        FROM  `t_manufacture_process_slave`
+        WHERE `id`
+        IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="changeIsZeroProductInHouseByIdWhenInsert" parameterType="edu.yctc.erpsystem.entity.ManufactureProcessSlaveDO">
+        UPDATE `t_manufacture_process_slave`
+        SET `is_zero_product_in_house` = "是"
+        WHERE `id`= #{id};
+    </update>
+
+    <update id="changeIsZeroProductInHouseByIdWhenDelete" parameterType="edu.yctc.erpsystem.entity.ManufactureProcessSlaveDO">
+        UPDATE `t_manufacture_process_slave`
+        SET `is_zero_product_in_house` = "否"
+        WHERE `id`= #{id};
+    </update>
+
+    <update id="changeIsInHouseByIdWhenInsert" parameterType="edu.yctc.erpsystem.entity.ManufactureProcessSlaveDO">
+        UPDATE `t_manufacture_process_slave`
+        SET `is_in_house` = "是"
+        WHERE `id`= #{id};
+    </update>
+
+    <update id="changeIsInHouseByIdWhenDelete" parameterType="edu.yctc.erpsystem.entity.ManufactureProcessSlaveDO">
+        UPDATE `t_manufacture_process_slave`
+        SET `is_in_house` = "否"
+        WHERE `id`= #{id};
+    </update>
+
+</mapper>
